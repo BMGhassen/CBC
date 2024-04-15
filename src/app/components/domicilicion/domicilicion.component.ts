@@ -12,6 +12,8 @@ import { RouterModule } from '@angular/router';
 export class DomicilicionComponent implements OnInit{
 
     constructor() {}
-    ngOnInit(): void {}
-      
+    ngOnInit(): void {
+    }
+   
+    
 }

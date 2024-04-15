@@ -1,50 +1,47 @@
 
-<div class="container">
-    <div class="row justify-content-center">
-    <form action="" method="post" id="contact_form">
-        <fieldset>
-            <div class="form-group">
-                <label class="col-md-4 control-label">Forme Juridique</label>
-                <div class="col-md-4 inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-addon icon-container"><i class="fas fa-balance-scale"></i></span> 
-                        <select class="form-control" name="forme_juridique" style="height: 40px;" required>
-                            <option value="" disabled selected hidden>Forme Juridique</option>
-                            <option value="Association">Association</option>
-                            <option value="SA">SA</option>
-                            <option value="SARL">SARL</option>
-                            <option value="SUARL">SUARL</option>
-                            <option value="Personne Physique">Personne Physique</option>
-                        </select>
-                        <span class="input-group-addon"><i class="fas fa-chevron-down"></i></span>
-                    </div>
+<section class="banner">
+    <div class="banner-overlay">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form id="contact_form" action="">
+                        <div class="row">
+                            <div class="col form-group">
+                                <label for="fj" class="col-md-4 control-label white">Forme Juridique</label>
+                                <select class="form-control form-select" id="fj" name="forme_juridique" required>
+                                    <option value="" disabled selected hidden>Forme Juridique</option>
+                                    <option value="Association">Association</option>
+                                    <option value="SA">SA</option>
+                                    <option value="SARL">SARL</option>
+                                    <option value="SUARL">SUARL</option>
+                                    <option value="Personne Physique">Personne Physique</option>
+                                </select>      
+                            </div>  
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="rs" class="col-md-4 form-label white">Raison Sociale</label>
+                                <input formControlname="Raison Sociale" placeholder="Raison Sociale" class="form-control" type="text" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="matricule_fiscale" class="col-md-4 form-label white">Matricule Fiscale</label>
+                                <input formControlname="matricule_fiscale" placeholder="Matricule Fiscale" class="form-control" type="text" required>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center button-container">
+                            <div class="col-md-4">
+                                <button class="btn-grad w-100" type="button" name="Précédent">Précédent</button>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn-grad w-100" type="button" name="Suivant">Suivant</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div >
-                <label class="col-md-4 control-label">Raison Sociale</label>
-                <div class="col-md-4 inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-addon icon-container"><i class="fas fa-building"></i></span> 
-                        <input formControlname="Raison Sociale" placeholder="Raison Sociale" class="form-control" type="text" required>
-                    </div>
-                </div>
-            </div>
-            
-            <div >
-                <label class="col-md-4 control-label">Matricule Fiscale</label>
-                <div class="col-md-4 inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-addon icon-container"><i class="fas fa-id-card"></i></span> 
-                        <input name="matricule_fiscale" placeholder="Matricule Fiscale" class="form-control" type="text" required>
-                    </div>
-                </div>
-            </div>
-                                  
-            <div class="button-container">
-                <button class="btn-grad" role="button">Previous</button>
-                <button class="btn-grad" role="button">Continue</button>
-            </div>
-        </fieldset>
-    </form>
+        </div> 
     </div>
-</div>  
+    <span class="svg-wave"> <img class="svg-hero" src="assets/images/applight-wave.svg"> </span> 
+</section>
