@@ -3,7 +3,10 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <form id="contact_form" action="">
+                    <form id="contact_form" [formGroup]="form" (ngSubmit)="onSubmit()" action="">
+                        @if (errorMessage){
+                            <div>{{ errorMessage }}</div>
+                        }
                         <div class="row">
                             <div class="col">
                                 <label for="prenom" class="col-sm-2 form-label white">Prénom</label>
@@ -11,7 +14,7 @@
                             </div>
                             <div class="col">
                                 <label for="nom" class="col-sm-2 form-label white">Nom</label>
-                                <input type="text" id="nom" class="form-input w-100" name="nom" required>
+                                <input type="text" id="nom" class="form-input w-100" formControlName="username"  required>
                             </div>
                         </div>
                         <div class="row">
@@ -38,11 +41,11 @@
                         <div class="row">
                             <div class="col">
                                 <label for="email" class="col-sm-2 form-label white">Email</label>
-                                <input type="email" id="email" class="form-input w-100" name="email" placeholder="Votre adresse e-mail" required>
+                                <input type="email" id="email" class="form-input w-100" formControlName="email"  placeholder="Votre adresse e-mail" required>
                             </div>
                             <div class="col">
                                 <label for="password" class="col-sm-2 form-label white">Password</label>
-                                <input type="password" id="password" class="form-input w-100" name="password" placeholder="Votre mot de passe" required>
+                                <input type="password" id="password" class="form-input w-100" formControlName="password"  placeholder="Votre mot de passe" required>
                             </div>
                         </div>
                         <div class="row justify-content-center">
