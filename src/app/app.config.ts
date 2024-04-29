@@ -5,7 +5,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { Firestore, getFirestore, provideFirestore } from '@angular/fire/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBqQo-r1JjNhMiGXU9TuIIhd4QlO4dbXjc",

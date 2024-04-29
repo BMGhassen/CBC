@@ -30,6 +30,9 @@ h6 {
 .black {
 	color:#000000;
 }
+ul{
+	list-style-type:none;
+}
 .navbar {
 	position: sticky;
 	top: 0;
@@ -84,6 +87,9 @@ h6 {
 }
 .nav-scroll .navbar-nav > li > a {
 	color: #333;
+}
+.nav-scroll .nav-item a:hover {
+	color: #003a4f;
 }
 .nav-scroll .navbar-brand img {
 	-webkit-transform: scale(1) !important;

@@ -7,7 +7,7 @@
                 <p class="white">Prière de remplir tous les champs pour passer à l'étape suivante</p>
                 <div class="row">
                     <div class="col-md-12 mx-0">
-                        <form id="msform">
+                        <form id="msform" #DomiForm = "ngForm">
                             <!-- progressbar -->
                             <ul id="progressbar">
                                 <li class="active white" id="pack"><strong>Pack</strong></li>
@@ -20,13 +20,13 @@
                                 <div class="form-card">
                                     <h2 class="fs-title">Configurez votre pack</h2>
                                     <div class="row">
-                                        <select class="list-dt" id="service" name="service" required>
+                                        <select class="list-dt" id="service" name="service" ngModel required>
                                             <option selected>Choisissez votre service</option>
                                             <option>Domiciliation</option>
                                         </select>
                                     </div>
                                     <div>
-                                        <select class="list-dt" name="pack"  required>
+                                        <select class="list-dt" name="pack" (change)="onPackChange($event)" ngModel required>
                                             <option value="" disabled selected hidden>Choose your Pack</option>
                                             <option value="Trimestriel">Trimestriel</option>  
                                             <option value="Semestriel">Semestriel</option>  
@@ -34,7 +34,10 @@
                                             <option value="Bi-Annuel">Bi-Annuel</option>   
                                         </select>
                                     </div>
-                                    <input type="text" name="montant" value="Montant"/>
+                                    <div>
+                                        <label for="montant">Montant:</label>
+                                        <output type="text" id="montant" name="montant"></output>
+                                    </div>
                                     
                                 </div>
                                 <button type="button" name="next" class="next action-button" value="Next Step">Suivant <i class="fa-solid fa-arrow-right"></i></button>
@@ -42,7 +45,7 @@
                             <fieldset>
                                 <div class="form-card">
                                     <h2 class="fs-title">Details D'entreprise</h2>
-                                    <select class=" list-dt" id="fj" name="forme_juridique" required>
+                                    <select class=" list-dt" id="fj" name="Forme_Juridique" ngModel required>
                                         <option value="" disabled selected hidden>Forme Juridique</option>
                                         <option value="Association">Association</option>
                                         <option value="SA">SA</option>
@@ -50,8 +53,8 @@
                                         <option value="SUARL">SUARL</option>
                                         <option value="Personne Physique">Personne Physique</option>
                                     </select> 
-                                    <input name="rs" placeholder="Raison Sociale" class="" type="text" required/>
-                                    <input name="mf" placeholder="Matricule Fiscale" class="" type="text" required/>
+                                    <input name="Raison_Sociale" placeholder="Raison Sociale" class="" type="text" ngModel required/>
+                                    <input name="Matricule_Fiscale" placeholder="Matricule Fiscale" class="" type="text" ngModel required/>
                                 </div>
                                 <button type="button" name="previous" class="previous action-button-previous" value="Previous"><i class="fa-solid fa-arrow-left"></i> Précédent</button>
                                 <button type="button" name="next" class="next action-button" value="Next Step">Suivant <i class="fa-solid fa-arrow-right"></i></button>
@@ -61,23 +64,23 @@
                                     <h2 class="fs-title">Créez votre compte</h2>
                                     <div class="row">
                                         <div class="col">
-                                            <input type="text" name="nom" placeholder="Nom"/>
+                                            <input type="text" name="Nom" placeholder="Nom" ngModel/>
                                         </div>
                                         <div class="col">
-                                            <input type="text" name="prénom" placeholder="Prénom"/>
+                                            <input type="text" name="Prénom" placeholder="Prénom" ngModel/>
                                         </div>
                                     <div class="row">
                                         <div class="col">
-                                            <input type="number" name="cin" placeholder="CIN" length="8" pattern="\d{8}" required/>
+                                            <input type="number" name="Cin" placeholder="CIN" length="8" pattern="\d{8}" ngModel required/>
                                         </div>
                                         <div class="col">
-                                            <input type="date" name="date" placeholder="Délivrée le" required/>
+                                            <input type="date" name="Date" placeholder="Délivrée le" ngModel required/>
                                         </div>
                                     </div>
-                                        <input type="text" name="adresse" placeholder="Adresse" required/>
-                                        <input type="email" name="email" placeholder="Email Id" required/>
-                                        <input type="password" name="pwd" placeholder="Mot de passe" required/>
-                                        <input type="password" name="cpwd" placeholder="Confirmez mot de passe" required/>
+                                        <input type="text" name="Adresse" placeholder="Adresse" ngModel required/>
+                                        <input type="email" name="email" placeholder="Email Id" ngModel required/>
+                                        <input type="password" name="mdp" placeholder="Mot de passe" ngModel required/>
+                                        <input type="password" name="mdp" placeholder="Confirmez mot de passe" ngModel required/>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="yes" id="terms" required>
@@ -85,7 +88,7 @@
                                     </div>
                                 </div>
                                 <button type="button" name="previous" class="previous action-button-previous" value="Previous"><i class="fa-solid fa-arrow-left"></i> Précédent</button>
-                                <button type="submit" name="next" class="next action-button" value="Next Step">Suivant <i class="fa-solid fa-arrow-right"></i></button>
+                                <button type="submit" (click)="submitForm()" class="next action-button" value="Next Step">Submit <i class="fa-solid fa-arrow-right"></i></button>
                             </fieldset>
                             <fieldset>
                                 <div class="form-card">

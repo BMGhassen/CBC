@@ -24,6 +24,18 @@
   <script src="assets/js/scrollIt.min.js"></script> 
   <script src="assets/js/wow.min.js"></script>
   <script src="https://kit.fontawesome.com/7d7ee7cd12.js" crossorigin="anonymous"></script>
+  <script src="https://www.googleapis.com/identitytoolkit/v3/recaptcha/v2.0/recaptcha.js"></script>
+  <script src="https://www.firebase.com/__/firebase/app.js"></script>
+  <script src="https://www.firebase.com/__/firebase/auth.js"></script>
+  <script src="https://www.firebase.com/__/firebase/firestore.js"></script>
+  <!-- Angular -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
+
+  <!-- AngularFire -->
+  <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
   <script>
     wow = new WOW();
     wow.init();
@@ -55,12 +67,12 @@
     var bodyScroll = $(window).scrollTop(),
     navbar = $(".navbar");
     
-    if(bodyScroll > 50){
+    if(bodyScroll > 20){
     $('.navbar-logo img').attr('src','assets/images/145.png');
     navbar.addClass("nav-scroll");
 
   }else{
-    $('.navbar-logo img').attr('src','images/logo.png');
+    $('.navbar-logo img').attr('src','assets/images/Cairus1.png');
     navbar.removeClass("nav-scroll");
   }
 
@@ -69,11 +81,11 @@
     var bodyScroll = $(window).scrollTop(),
     navbar = $(".navbar");
     
-    if(bodyScroll > 50){
-    $('.navbar-logo img').attr('src','images/logo-black.png');
+    if(bodyScroll > 20){
+    $('.navbar-logo img').attr('src','assets/images/145.png');
     navbar.addClass("nav-scroll");
     }else{
-    $('.navbar-logo img').attr('src','images/logo-white.png');
+    $('.navbar-logo img').attr('src','assets/images/Cairus1.png');
     navbar.removeClass("nav-scroll");
     }
 
