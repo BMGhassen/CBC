@@ -15,4 +15,7 @@ export class HeaderComponent implements OnInit{
   ngOnInit(): void {
     
   }
+  isAccessTokenSet(): boolean {
+    return localStorage.getItem('accessToken') !== null;
+  }
 }

@@ -11,5 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-
+      constructor(){
+        console.log('localStorage accessToken:', localStorage.getItem('accessToken'));
+      }
 }

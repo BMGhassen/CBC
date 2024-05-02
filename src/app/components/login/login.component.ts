@@ -5,6 +5,7 @@ import { FormBuilder,FormGroup, ReactiveFormsModule, Validators } from '@angular
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../auth.service';
 import { FormsModule } from '@angular/forms';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -14,11 +15,18 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './login.component.css'
 })
 export class LoginComponent { 
-
-   fb = inject(FormBuilder);
-   http = inject(HttpClient);
-  authService = inject(AuthService);
+  constructor( private location: Location) {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+      this.location.back();
+    }
+  }
   router = inject(Router);
+
+  fb = inject(FormBuilder);
+  http = inject(HttpClient);
+   authService = inject(AuthService);
+
 
   form = this.fb.nonNullable.group({
     username: ['', Validators.required], 
@@ -34,7 +42,11 @@ export class LoginComponent {
     this.authService
       .login(rawform.email, rawform.password)
       .subscribe({
-        next: () => {
+        next: (response) => {
+          const accessToken = response!.user!.accessToken;
+          const user_uid = response!.user!.uid;
+          localStorage.setItem('accessToken', accessToken);
+          localStorage.setItem('user_uid', user_uid);
           this.router.navigateByUrl('/');
         },
         
@@ -42,7 +54,8 @@ export class LoginComponent {
           this.errorMessage = err.code;
         }
       });
-      console.log(rawform.email, rawform.password);
+      
+
   }
   hasForm(): boolean {
     return this.form !== null;
