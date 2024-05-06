@@ -22,7 +22,7 @@
                 <li class="nav-item" *ngIf="!isAccessTokenSet()"> <a class="nav-link" [routerLink]="['/login']" data-scroll-nav="4">Login</a> </li>
 
                 <!-- <li class="nav-item"> <a class="nav-link" [routerLink]="['/login']" data-scroll-nav="4">Login</a> </li> -->
-                <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="6"><i class="fa-solid fa-user"></i></a> </li>
+                <li class="nav-item"> <a class="nav-link" [routerLink]="['/profile']" data-scroll-nav="6"><i class="fa-solid fa-user">    {{nompr}}</i></a> </li>
             </ul>
         </div>
     </div>

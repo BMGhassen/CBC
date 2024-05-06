@@ -9,6 +9,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { DomicilicionComponent } from './components/domicilicion/domicilicion.component';
 import { user } from '@angular/fire/auth';
 import { AuthService } from './auth.service';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,7 @@ import { AuthService } from './auth.service';
     LoginComponent, 
     FooterComponent, 
     HeaderComponent, 
-    SignupComponent,
+    ProfileComponent,
     DomicilicionComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

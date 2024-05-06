@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Firestore, FirestoreModule } from '@angular/fire/firestore';
+import { Firestore, FirestoreModule, doc, getFirestore, setDoc } from '@angular/fire/firestore';
 import {
   CollectionReference,
   DocumentData,
@@ -24,6 +24,9 @@ import { Location } from '@angular/common';
   styleUrls: ['./domicilicion.component.css'],
 })
 export class DomicilicionComponent {
+  static isAccessTokenSet() {
+    throw new Error('Method not implemented.');
+  }
   // domiciliationForm: FormGroup;
   authService = inject(AuthService);
   router = inject(Router);
@@ -98,7 +101,7 @@ export class DomicilicionComponent {
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('user_uid', userUid);
       this.user = userUid;
-      console.log("hedhy t'executi 1 " + this.user);
+      //console.log("hedhy t'executi 1 " + this.user);
       // this.authService
       //   .register(this.domiciliationForm.form.value.email,
       //     this.domiciliationForm.form.value.Nom + this.domiciliationForm.form.value.Prénom
@@ -127,7 +130,9 @@ export class DomicilicionComponent {
     // console.log("yassine " + this.authService.currentUserSig()!.uid);
     const ClientCollection = collection(this.firestore, 'Clients');
     if (this.user) {
-       addDoc(ClientCollection, {
+      
+      // addDoc(ClientCollection, {
+        setDoc (doc(getFirestore(), "Clients", this.domiciliationForm.form.value.Cin.toString()),{
         'service': this.domiciliationForm.form.value.service,
         'pack': this.domiciliationForm.form.value.pack,
         'Forme_Juridique': this.domiciliationForm.form.value.Forme_Juridique,

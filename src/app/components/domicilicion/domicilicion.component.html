@@ -95,7 +95,7 @@
                                     </div>
                                 </div>
                                 <button type="button"  (click)="prevFieldset()" class=" action-button"><i class="fa-solid fa-arrow-left"></i> Précédent</button>
-                                <button type="button"  (click)="submitForm()"  class=" action-button">Submit <i class="fa-solid fa-arrow-right"></i></button>
+                                <button type="button"  (click)="submitForm()" (click)="nextFieldset()" class=" action-button">Submit <i class="fa-solid fa-arrow-right"></i></button>
                             </fieldset>
                             <fieldset  [ngStyle]="{ 'display': FieldsetNumber === 4 ? 'block' : 'none', 
                             'opacity': FieldsetNumber === 4 ? '1' : '0' }">

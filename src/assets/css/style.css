@@ -43,7 +43,7 @@ ul{
 	padding-right: 0;
 	min-height: 50px;
 	line-height: 50px;
-	background-color: #002740;
+	background: linear-gradient(to left, #002740, #005670);
 	z-index: 1030;
 }
 .navbar .active {
