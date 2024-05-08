@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { Firestore, FirestoreModule, AngularFirestore, collection, doc, getFirestore, setDoc } from '@angular/fire/firestore';
+import { FirestoreModule, AngularFirestore } from '@angular/fire/firestore';
 import { NgForm } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 
