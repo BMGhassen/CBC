@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit{
      this.prenom = doc.data()['Prénom'] ;
      this.nom = doc.data()['Nom'];
      this.email = doc.data()['email'];
-     this.rs = doc.data()['rs'];
+     this.rs = doc.data()['Raison_Sociale'];
      this.pack = doc.data()['pack'];
      this.service = doc.data()['service'];
      this.adresse = doc.data()['Adresse']

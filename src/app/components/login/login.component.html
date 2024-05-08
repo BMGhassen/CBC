@@ -5,7 +5,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     
-                    <form id="contact_form" *ngIf="hasForm()" [formGroup]="form" (ngSubmit)="onSubmit()" action="">
+                    <form  *ngIf="hasForm()" [formGroup]="form" (ngSubmit)="onSubmit()" action="">
                         @if (errorMessage){
                             <div>{{ errorMessage }}</div>
                         }

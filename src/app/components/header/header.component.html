@@ -7,8 +7,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"> <a class="nav-link" [routerLink]="['/']" data-scroll-nav="0">Home</a> </li>
-                <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="1">About</a> </li>
+                <li class="nav-item"> <a class="nav-link" [routerLink]="['/']">Home</a> </li>
+                <li class="nav-item"> <a class="nav-link" href="#">About</a> </li>
                 <li class="nav-item dropdown">
                     <a class="btn dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">Services</a> <!-- Changed data-bs-toggle to data-toggle -->
                     <ul class="dropdown-menu" style="background-color:#003a4f">
@@ -17,12 +17,11 @@
                         <li><a class="dropdown-item" href="#">Création d'entreprise</a></li>
                     </ul>
                 </li>
-                <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="3">Our Locations</a> </li>
-                <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="6">Contact</a> </li>
-                <li class="nav-item" *ngIf="!isAccessTokenSet()"> <a class="nav-link" [routerLink]="['/login']" data-scroll-nav="4">Login</a> </li>
-
-                <!-- <li class="nav-item"> <a class="nav-link" [routerLink]="['/login']" data-scroll-nav="4">Login</a> </li> -->
-                <li class="nav-item"> <a class="nav-link" [routerLink]="['/profile']" data-scroll-nav="6"><i class="fa-solid fa-user">    {{nompr}}</i></a> </li>
+                <li class="nav-item"> <a class="nav-link" href="#">Our Locations</a> </li>
+                <li class="nav-item"> <a class="nav-link" [routerLink]="['/contact']">Contact</a> </li>
+                <li class="nav-item" *ngIf="!isAccessTokenSet()"> <a class="nav-link" [routerLink]="['/login']">Login</a> </li>
+                <li class="nav-item" *ngIf="isAccessTokenSet()"  (click)="logout()"> <a class="nav-link" [routerLink]="['/']">Logout</a> </li>
+                <li class="nav-item" *ngIf="isAccessTokenSet()"> <a class="nav-link" [routerLink]="['/profile']"><i class="fa-solid fa-user"></i> {{nompr}} </a> </li>
             </ul>
         </div>
     </div>

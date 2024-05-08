@@ -46,4 +46,11 @@ export class AuthService {
            )/*.then(() => {})*/;
            return from(promise);
     }
+
+    async logout() {
+        await this.firebaseAuth.signOut();
+        // Optionally, clear any stored user data in localStorage
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('user_uid');
+      }
 }

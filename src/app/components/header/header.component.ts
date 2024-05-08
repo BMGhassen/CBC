@@ -1,12 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { DomicilicionComponent } from '../domicilicion/domicilicion.component';
-import { doc, getDoc, collection, getFirestore } from "firebase/firestore";
-import { Firestore, documentId, query, where ,collectionGroup, getDocs} from '@angular/fire/firestore';
-import firebase from '@angular/fire';
-import { initializeApp } from "firebase/app";
-import { ProfileComponent } from '../profile/profile.component';
+import {  collection, getFirestore } from "firebase/firestore";
+import {  query, where , getDocs} from '@angular/fire/firestore';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-header',
@@ -17,9 +14,12 @@ import { ProfileComponent } from '../profile/profile.component';
 })
 
 export class HeaderComponent implements OnInit{
-  //firestore: Firestore = inject(Firestore);
- 
-  nompr = localStorage.getItem('user_uid');
+  constructor(private authService: AuthService, private router: Router) { }
+  async logout() {
+    await this.authService.logout();
+     // Redirect to login page
+  }
+  nompr=   localStorage.getItem('user_uid');
   async ngOnInit():Promise<void> {
     const db=getFirestore();
     const clientRef = collection( db, "Clients");
@@ -28,13 +28,11 @@ export class HeaderComponent implements OnInit{
     nompr1.forEach((doc) => {
      // doc.data() is never undefined for query doc snapshots
      console.log(doc.id, " => ", doc.data()['Nom']);
-     this.nompr = doc.data()['Prénom']+" "+doc.data()['Nom'] ;
+     this.nompr = doc.data()['Prénom'] +" "+ doc.data()['Nom'] ;
     });
-  
-  
-//  
+  }
 
-}
+  
 
   isAccessTokenSet(): boolean {
     return localStorage.getItem('accessToken') !== null;
