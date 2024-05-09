@@ -7,6 +7,7 @@ import { UserInterface } from "./user.interface";
     providedIn: 'root',
 })
 export class AuthService {
+    [x: string]: any;
     firebaseAuth = inject(Auth);
     user$ = user(this.firebaseAuth)
     currentUserSig = signal<UserInterface | null | undefined>(undefined)

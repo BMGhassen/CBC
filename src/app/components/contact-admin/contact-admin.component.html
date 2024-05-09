@@ -1,65 +1,96 @@
-
 <section class="banner contact section-padding">
-    <div class="banner-overlay">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-12">
-                    <div class="sectioner-header text-center">
-                      <h3 class="white">Contactez nous !</h3>
-                      <span class="line"></span>
-                    </div>
-                    <div class="section-content">
-                      <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-8">
-                          <form id="contact_form" #ContactForm = "ngForm">
-                            <div class="row">
-                              <div class="col">
-                                <input type="text" id="your_name" class="form-input w-100" name="name" placeholder="Nom Et Prénom" ngModel required>
-                              </div>
-                              <div class="col">
-                                <input type="email" id="email" class="form-input w-100" name="email" placeholder="Email" ngModel required>
-                              </div>
-                            </div>
-                            <input type="text" id="subject" class="form-input w-100" name="sujet" placeholder="Sujet" ngModel>
-                            <textarea class="form-input w-100" id="message" placeholder="Message" name="message" ngModel></textarea>
-                            <div style="text-align: center;">
-                                <button class="btn-grad text-uppercase" type="submit" name="button" (click)="onSubmit()">submit</button>
-                            </div>
-                          </form>
-                        </div>
-                        <div class="col-sm-12 col-md-12 col-lg-4">
-                          <div class="contact-info white">
-                            <div class="contact-item media"> <i class="fa fa-map-marker-alt media-left media-right-margin"></i>
-                              <div class="media-body">
-                                <p class="text-uppercase">Addresse</p>
-                                <p class="text-uppercase">08 avenue de l'université manar 1, 2092 Tunis, Tunisie</p>
-                              </div>
-                            </div>
-                            <div class="contact-item media"> <i class="fa fa-mobile media-left media-right-margin"></i>
-                              <div class="media-body">
-                                <p class="text-uppercase">Tél</p>
-                                <p class="text-uppercase"><a class="text-white" href="tel:+15173977100">(+216) 56 788 132</a> </p>
-                              </div>
-                            </div>
-                            <div class="contact-item media"> <i class="fa fa-envelope media-left media-right-margin"></i>
-                              <div class="media-body">
-                                <p class="text-uppercase">E-mail</p>
-                                <p class="text-uppercase"><a class="text-white" href="mailto:contact.cairusbusiness@gmail.com">contact.cairusbusiness&commat;gmail.com</a> </p>
-                              </div>
-                            </div>
-                            <div class="contact-item media"> <i class="fa fa-clock media-left media-right-margin"></i>
-                              <div class="media-body">
-                                <p class="text-uppercase">Horaires de travail</p>
-                                <p class="text-uppercase">Lun-Ven 9h à 16h</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+  <div class="banner-overlay">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-12">
+          <div class="sectioner-header text-center">
+            <h3 class="white">Contactez nous !</h3>
+            <span class="line"></span>
+          </div>
+          <div class="section-content">
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-8">
+                <form id="contact_form" (ngSubmit)="onSubmit($event)">
+                  <div *ngIf="submitSucc" class="alert alert-success" role="alert">
+                    Votre Message a été envoyé avec succès !!!
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <input type="text" id="your_name" class="form-input w-100" [formControl]="nameControl" placeholder="Nom Et Prénom" required>
+                      <div *ngIf="submitErr && nameControl.hasError('required')" class="alert alert-danger" role="alert">
+                        veuillez taper votre Nom et Prenom !
                       </div>
                     </div>
-                  </div> 
+                    <div class="col">
+                      <input type="email" id="email" class="form-input w-100" [formControl]="emailControl" placeholder="Email" required>
+                      <div *ngIf="submitErr && emailControl.hasError('required')" class="alert alert-danger" role="alert">
+                        <div *ngIf="emailControl.hasError('required')">
+                          veuillez saisir une adresse email valide !
+                        </div> 
+                      </div>
+                      <div *ngIf="submitErr && emailControl.hasError('email')" class="alert alert-danger" role="alert">
+                        L'adresse email saisie est invalide !
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col">
+                      <input type="text" id="subject" class="form-input w-100" [formControl]="subjectControl" placeholder="Sujet" required>
+                      <div *ngIf="submitErr && subjectControl.hasError('required')" class="alert alert-danger" role="alert">
+                        veuillez saisir un sujet !
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col">
+                      <textarea class="form-input w-100" id="message" placeholder="Message" [formControl]="messageControl" required></textarea>
+                      <div *ngIf="submitErr && messageControl.hasError('required')" class="alert alert-danger" role="alert">
+                        veuillez écrire votre message !
+                      </div>
+                    </div>
+                  </div>
+                  <div style="text-align: center;">
+                    <button class="btn-grad text-uppercase" type="button" (click)="onSubmit($event)" name="button">submit</button>
+                  </div>
+                </form>
+              </div>
+              <div class="col-sm-12 col-md-12 col-lg-4">
+                <div class="contact-info white">
+                  <div class="contact-item media"> <i class="fa fa-map-marker-alt media-left media-right-margin"></i>
+                    <div class="media-body">
+                      <p class="text-uppercase">Addresse</p>
+                      <p class="text-uppercase">08 avenue de l'université manar 1, 2092 Tunis, Tunisie</p>
+                    </div>
+                  </div>
+                  <div class="contact-item media"> <i class="fa fa-mobile media-left media-right-margin"></i>
+                    <div class="media-body">
+                      <p class="text-uppercase">Tél</p>
+                      <p class="text-uppercase"><a class="text-white" href="tel:+15173977100">(+216) 56 788 132</a> </p>
+                    </div>
+                  </div>
+                  <div class="contact-item media"> <i class="fa fa-envelope media-left media-right-margin"></i>
+                    <div class="media-body">
+                      <p class="text-uppercase">E-mail</p>
+                      <p class="text-uppercase"><a class="text-white" href="mailto:contact.cairusbusiness@gmail.com">contact.cairusbusiness&commat;gmail.com</a> </p>
+                    </div>
+                  </div>
+                  <div class="contact-item media"> <i class="fa fa-clock media-left media-right-margin"></i>
+                    <div class="media-body">
+                      <p class="text-uppercase">Horaires de travail</p>
+                      <p class="text-uppercase">Lun-Ven 9h à 16h</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div> 
+          </div>
+        </div>
+      </div>
     </div>
-    <span class="svg-wave"> <img class="svg-hero" src="assets/images/applight-wave.svg"> </span> 
+  </div>
+  <span class="svg-wave">
+    <img class="svg-hero" src="assets/images/applight-wave.svg">
+  </span>
 </section>
