@@ -30,22 +30,12 @@ export class AuthService {
         return from(promise);
     }
     login(email: string, password: string): Observable<any> {
-        // const promise = setPersistence(this.auth, browserLocalPersistence)
-        //     .then(() => {
-        //         return signInWithEmailAndPassword(this.auth, email, password);
-        //     })
-        //     .catch((error) => {
-        //         // Handle Errors here.
-        //         const errorCode = error.code;
-        //         const errorMessage = error.message;
-        //     });
-        // return from(promise);
            const promise = signInWithEmailAndPassword(
                this.firebaseAuth,
                email,
                password,
            )/*.then(() => {})*/;
-           return from(promise);
+           return from(promise)
     }
 
     async logout() {
