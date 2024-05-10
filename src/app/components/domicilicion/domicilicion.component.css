@@ -222,7 +222,7 @@ select.list-dt:focus {
 
 /*Color number of the step and the connector before it*/
 #progressbar li.active:before, #progressbar li.active:after {
-    background: linear-gradient(to left, #ad841f, #f2f0a1);;
+    background: linear-gradient(to left, #ad841f, #f2f0a1);
 }
 
 /*Imaged Radio Buttons*/

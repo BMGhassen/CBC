@@ -7,7 +7,7 @@
                 <p class="white">Prière de remplir tous les champs pour passer à l'étape suivante</p>
                 <div class="row">
                     <div class="col-md-12 mx-0">
-                        <form id="msform" #DomiForm = "ngForm">
+                        <form id="msform" [formGroup]="domiciliationForm" ngSubmit="submitForm()">
                             <!-- progressbar -->
                             <ul id="progressbar">
                                 <li  [ngClass]="{ 'active white': FieldsetNumber >= 1 }" id="pack"><strong class="white">Pack</strong></li>
@@ -21,21 +21,24 @@
                                 <div class="form-card">
                                     <h2 class="fs-title">Configurez votre pack</h2>
                                     <div class="row">
-                                        <select class="list-dt" id="service" name="service" ngModel required>
-                                            <option selected>Choisissez votre service</option>
+                                        <select class="form-select w-100" id="service" name="service" required>
+                                            <option value="" disabled selected hidden>Choisissez votre service</option>
                                             <option>Domiciliation</option>
                                         </select>
                                     </div>
-                                    <div>
-                                        <select class="list-dt" name="pack" (change)="onPackChange($event)" ngModel required>
+                                    <div style="margin-top: 1rem;">
+                                        <select class="form-select w-100" formControlName="pack" (change)="onPackChange($event)" required>
                                             <option value="" disabled selected hidden>Choose your Pack</option>
                                             <option value="Trimestriel">Trimestriel</option>  
                                             <option value="Semestriel">Semestriel</option>  
                                             <option value="Annuel">Annuel</option>  
                                             <option value="Bi-Annuel">Bi-Annuel</option>   
                                         </select>
+                                        <div *ngIf="domiciliationForm?.get('pack')?.hasError('required')">
+                                            <small class="text-danger">Please select a pack.</small>
+                                          </div>
                                     </div>
-                                    <div>
+                                    <div style="margin-top: 1rem;">
                                         <label for="montant">Montant:</label>
                                         <output type="text" id="montant" name="montant"></output>
                                     </div>
@@ -47,7 +50,7 @@
                             'opacity': FieldsetNumber === 2 ? '1' : '0'}">
                                 <div class="form-card">
                                     <h2 class="fs-title">Details D'entreprise</h2>
-                                    <select class=" list-dt" id="fj" name="Forme_Juridique" ngModel required>
+                                    <select class="form-select" id="fj" formControlName="Forme_Juridique" required>
                                         <option value="" disabled selected hidden>Forme Juridique</option>
                                         <option value="Association">Association</option>
                                         <option value="SA">SA</option>
@@ -55,8 +58,24 @@
                                         <option value="SUARL">SUARL</option>
                                         <option value="Personne Physique">Personne Physique</option>
                                     </select> 
-                                    <input name="Raison_Sociale" placeholder="Raison Sociale" class="" type="text" ngModel required/>
-                                    <input name="Matricule_Fiscale" placeholder="Matricule Fiscale" class="" type="text" ngModel required/>
+                                    <div *ngIf="domiciliationForm.get('Forme_Juridique')?.hasError('required')">
+                                        <small class="text-danger">Forme Juridique is required.</small>
+                                      </div>
+                                    <div style="margin-top: 1rem;">
+                                        <input formControlName="Raison_Sociale" placeholder="Raison Sociale" class="" type="text" required/>
+                                        <div *ngIf="domiciliationForm.get('Raison_Sociale')?.hasError('required')">
+                                            <small class="text-danger">Raison Sociale is required.</small>
+                                          </div>
+                                    </div>
+                                    <div style="margin-top: 1rem;">
+                                        <input formControlName="Matricule_Fiscale" placeholder="Matricule Fiscale" class="" type="text" required/>
+                                        <div *ngIf="domiciliationForm.get('Matricule_Fiscale')?.hasError('required')">
+                                            <small class="text-danger">Matricule Fiscale is required.</small>
+                                        </div>
+                                        <div *ngIf="domiciliationForm.get('Matricule_Fiscale')?.hasError('pattern')">
+                                            <small class="text-danger">Matricule Fiscale must contain only digits.</small>
+                                        </div>
+                                    </div>
                                 </div>
                                 <button type="button"  (click)="prevFieldset()" class=" action-button" ><i class="fa-solid fa-arrow-left"></i> Précédent</button>
                                 <button type="button"  (click)="nextFieldset()"  class=" action-button">Suivant <i class="fa-solid fa-arrow-right"></i></button>
@@ -67,23 +86,56 @@
                                     <h2 class="fs-title">Créez votre compte</h2>
                                     <div class="row">
                                         <div class="col">
-                                            <input type="text" name="Nom" placeholder="Nom" ngModel/>
+                                            <input type="text" formControlName="Nom" placeholder="Nom"/>
+                                            <div *ngIf="domiciliationForm?.get('Nom')?.hasError('required') && domiciliationForm.get('Nom')?.touched" class="text-danger">
+                                                Nom is required.
+                                            </div>
                                         </div>
                                         <div class="col">
-                                            <input type="text" name="Prénom" placeholder="Prénom" ngModel/>
+                                            <input type="text" formControlName="Prénom" placeholder="Prénom"/>
+                                            <div *ngIf="domiciliationForm?.get('Prénom')?.hasError('required') && domiciliationForm.get('Prénom')?.touched" class="text-danger">
+                                                Prénom is required.
+                                              </div>
                                         </div>
                                     <div class="row">
                                         <div class="col">
-                                            <input type="number" name="Cin" placeholder="CIN" length="8" pattern="\d{8}" ngModel required/>
+                                            <input type="number" formControlName="Cin" placeholder="CIN" length="8" pattern="\d{8}" required/>
+                                            <div *ngIf="domiciliationForm?.get('Cin')?.hasError('required') && domiciliationForm.get('Cin')?.touched" class="text-danger">
+                                                Cin is required.
+                                              </div>
+                                              <div *ngIf="domiciliationForm?.get('Cin')?.hasError('pattern') && domiciliationForm.get('Cin')?.touched" class="text-danger">
+                                                Cin must be 8 digits.
+                                              </div>
                                         </div>
                                         <div class="col">
-                                            <input type="date" name="Date" placeholder="Délivrée le" ngModel required/>
+                                            <input type="date" formControlName="Date" ngModel required/>
+                                            <div *ngIf="domiciliationForm?.get('Date')?.hasError('required') && domiciliationForm.get('Date')?.touched" class="text-danger">
+                                                Date is required.
+                                              </div>
                                         </div>
                                     </div>
-                                        <input type="text" name="Adresse" placeholder="Adresse" ngModel required/>
-                                        <input type="email" name="email" placeholder="Email Id" ngModel required/>
-                                        <input type="password" name="mdp" placeholder="Mot de passe" ngModel required/>
-                                        <input type="password" name="mdp" placeholder="Confirmez mot de passe" ngModel required/>
+                                        <input type="text" formControlName="Adresse" placeholder="Adresse" required/>
+                                        <div *ngIf="domiciliationForm?.get('Adresse')?.hasError('required') && domiciliationForm.get('Adresse')?.touched" class="text-danger">
+                                            Adresse is required.
+                                        </div>
+                                        <input type="email" formControlName="email" placeholder="Email Id" required/>
+                                        <div *ngIf="domiciliationForm?.get('email')?.hasError('required') && domiciliationForm.get('email')?.touched" class="text-danger">
+                                            Email is required.
+                                        </div>
+                                        <div *ngIf="domiciliationForm?.get('email')?.hasError('email') && domiciliationForm.get('email')?.touched" class="text-danger">
+                                            Invalid email format.
+                                        </div>
+                                        <input type="password" formControlName="mdp" placeholder="Mot de passe" required/>
+                                        <div *ngIf="domiciliationForm?.get('mdp')?.hasError('required') && domiciliationForm.get('mdp')?.touched" class="text-danger">
+                                            Mot de passe is required.
+                                        </div>
+                                        <input type="password" formControlName="mdp" placeholder="Confirmez mot de passe" required/>
+                                        <div *ngIf="domiciliationForm?.get('mdpConfirmation')?.hasError('required') && domiciliationForm.get('mdpConfirmation')?.touched" class="text-danger">
+                                            Confirmation du mot de passe is required.
+                                        </div>
+                                        <div *ngIf="domiciliationForm?.get('mdpConfirmation')?.hasError('required') && domiciliationForm.get('mdpConfirmation')?.touched" class="text-danger">
+                                            Confirmation du mot de passe is required.
+                                        </div>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="yes" id="terms" required>
