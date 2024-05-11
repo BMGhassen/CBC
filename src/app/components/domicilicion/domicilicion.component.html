@@ -93,7 +93,7 @@
                                         </div>
                                     <div class="row">
                                         <div class="col">
-                                            <input type="number" formControlName="Cin" placeholder="CIN" length="8" pattern="\d{8}" required/>
+                                            <input type="number" formControlName="Cin" placeholder="CIN"/>
                                             <div *ngIf="domiciliationForm?.get('Cin')?.hasError('required') && nextset" class="text-danger">
                                                 Cin est obligatoire
                                               </div>
