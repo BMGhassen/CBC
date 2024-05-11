@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgForm } from '@angular/forms';
 import { Firestore, collection, addDoc, FirestoreModule } from '@angular/fire/firestore';
 
 @Component({

@@ -14,4 +14,15 @@ export class HomeComponent {
       constructor(){
         console.log('localStorage accessToken:', localStorage.getItem('accessToken'));
       }
+
+      //BlogsArray = [{title:Blogs1,Content:hello,button:Click},{},{}]
+
+      /**
+       * GetBlogs(){
+       * 
+       * GetRequest
+       * 
+       * this.BlogsArray = response.blogs
+       * }
+       */
 }

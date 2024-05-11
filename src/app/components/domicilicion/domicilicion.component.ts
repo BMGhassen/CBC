@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Firestore, FirestoreModule, doc, getFirestore, setDoc } from '@angular/fire/firestore';
 import { addDoc, collection, getDoc } from 'firebase/firestore';
 import { Component, OnInit, inject, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule, NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule, NgForm, AbstractControl, ValidatorFn } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../auth.service';
 import { Location } from '@angular/common';
@@ -20,6 +20,7 @@ export class DomicilicionComponent {
   static isAccessTokenSet() {
     throw new Error('Method not implemented.');
   }
+
   domiciliationForm: FormGroup = this.fb.group({
       Nom: ['', Validators.required],
       Prénom: ['', Validators.required],
@@ -28,18 +29,34 @@ export class DomicilicionComponent {
       Adresse: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       mdp: ['', Validators.required],
+      service: ['', Validators.required],
       mdpConfirmation: ['', Validators.required],
       terms: [false, Validators.requiredTrue],
       pack: ['', Validators.required], // Required field
       Raison_Sociale: ['', Validators.required], // Required field
       Forme_Juridique: ['', Validators.required], // Required field
-      Matricule_Fiscale: ['', [Validators.required, Validators.pattern(/^\d+$/)]], // Required field with pattern for digits only
-    }, { validators: this.passwordsMatchValidator });
+      Matricule_Fiscale: ['', [Validators.required, Validators.pattern(/^\d{7}[a..z][abpnd][mncp]\d{3}$/i)]]
+    }, 
+    { validators: this.passwordsMatchValidator });
 
+    //  matriculeFiscaleValidator(): ValidatorFn {
+    //   return (control: AbstractControl): { [key: string]: any } | null => {
+    //     const matriculeFiscalePattern = /^\d{7}[abpnd][mncp]\d{3}$/i;
+    
+    //     if (control.value && !matriculeFiscalePattern.test(control.value)) {
+    //       return { 'invalidMatriculeFiscale': true };
+    //     }
+    
+    //     return null;
+    //   };
+    //  }
+    //  get matriculeFiscale() {
+    //   return this.domiciliationForm.get('Matricule_Fiscale');
+    // }
   firestore: Firestore = inject(Firestore); 
   authService = inject(AuthService);
   router = inject(Router);
-
+  nextset=false;
   FieldsetNumber: number;
 
   user: any;
@@ -71,46 +88,39 @@ export class DomicilicionComponent {
     return null;
   }
 
-
-  
   private validateCurrentFieldset(): boolean {
     // Check validity of current fieldset based on FieldsetNumber
     switch (this.FieldsetNumber) {
       case 1:
-         if(this.domiciliationForm.get('pack')?.valid)
-          {return true;}
+        // Check for required fields in fieldset 1
+        return this.domiciliationForm.get('pack')?.valid ?? false;
+  
       case 2:
-        if(this.domiciliationForm.get('Raison_Sociale')?.valid &&
-        this.domiciliationForm.get('Forme_Juridique')?.valid &&
-        this.domiciliationForm.get('Matricule_Fiscale')?.valid)
-        {return true;}
+        // Check for required fields in fieldset 2
+        return (this.domiciliationForm.get('Forme_Juridique')?.valid ?? false) &&
+                (this.domiciliationForm.get('Raison_Sociale')?.valid ?? false) &&
+                (this.domiciliationForm.get('Matricule_Fiscale')?.valid ?? false)
+  
       case 3:
-        if(this.domiciliationForm.get('Nom')?.valid &&
-           this.domiciliationForm.get('Prénom')?.valid &&
-           this.domiciliationForm.get('Cin')?.valid &&
-           this.domiciliationForm.get('Date')?.valid &&
-           this.domiciliationForm.get('Adresse')?.valid &&
-           this.domiciliationForm.get('email')?.valid &&
-           this.domiciliationForm.get('mdp')?.valid &&
-           this.domiciliationForm.get('mdpConfirmation')?.valid &&
-           this.domiciliationForm.get('terms')?.valid)
-           {return true}
+        // Check for all fields in fieldset 3 (all have validators)
+        return this.domiciliationForm.valid;
+  
       default:
         return true; // No validation for other fieldsets
     }
   }
 
-
   nextFieldset(): void {
-    console.log("next :" + this.FieldsetNumber, this.isloggedIn)
+    
+    console.log("next :" + this.FieldsetNumber)
     if (this.FieldsetNumber < 4 && this.validateCurrentFieldset()) {
+      this.nextset = false;
       if (this.FieldsetNumber == 2 && this.isloggedIn == true) {
         this.FieldsetNumber = 4;
       } else {
         this.FieldsetNumber++;
-      }
-
-    }
+      } 
+    }else {this.nextset = true;}
   }
 
   prevFieldset(): void {
@@ -118,6 +128,7 @@ export class DomicilicionComponent {
 
     if (this.FieldsetNumber >= 2) {
       this.FieldsetNumber--;
+      this.nextset = true
     }
   }
 
@@ -150,7 +161,21 @@ export class DomicilicionComponent {
 
     const ClientCollection = collection(this.firestore, 'Clients');
     if (this.user) {
-      
+      // console.log(this.domiciliationForm.value.service,
+      // this.domiciliationForm.value.pack,
+      // this.domiciliationForm.value.Forme_Juridique,
+      // this.domiciliationForm.value.Raison_Sociale,
+      // this.domiciliationForm.value.Matricule_Fiscale,
+      // this.domiciliationForm.value.Nom,
+      // this.domiciliationForm.value.Prénom,
+      // this.domiciliationForm.value.Cin,
+      // this.domiciliationForm.value.Date,
+      // this.domiciliationForm.value.Adresse,
+      // this.domiciliationForm.value.email,
+      // this.domiciliationForm.value.mdp,
+      // this.packAmount,
+      // this.user);
+      console.log('Service : '+this.domiciliationForm.value.service);
       // addDoc(ClientCollection, {
         setDoc (doc(getFirestore(), "Clients", this.domiciliationForm.value.Cin.toString()),{
         'service': this.domiciliationForm.value.service,

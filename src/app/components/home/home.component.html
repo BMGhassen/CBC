@@ -24,7 +24,9 @@
   
   <section class="packs" data-scroll-index='0'>
     <div class="row justify-content-center">
-      <div class="card" style="width: 25rem;">
+      
+      <div *ngFor="let item of [1,2,3]"
+         class="card" style="width: 25rem;">
         <div class="card-body">
           <h5 class="card-title white">Cairus Standard</h5>
           <ul class="card-text white">
@@ -41,40 +43,9 @@
           <button class="btn btn-grad" [routerLink]="['/domiciliation']">Commander</button>
         </div>
       </div>
-      <div class="card" style="width: 25rem;">
-        <div class="card-body">
-          <h5 class="card-title white">Cairus Plus</h5>
-            <ul class="card-text white">
-              <li><i class="fa-solid fa-check" style="color: #63E6BE;"></i> Domiciliation</li>
-              <li><i class="fa-solid fa-check" style="color: #63E6BE;"></i> Réception, tri et numérisation des courriers</li>
-              <li><i class="fa-solid fa-check" style="color: #63E6BE;"></i> Conseil d'expert en domiciliation et création d'entreprise</li>
-              <li><i class="fa-solid fa-check" style="color: #63E6BE;"></i> Notification de récéption par mail</li>
-              <li><i class="fa-solid fa-check" style="color: #63E6BE;"></i> Support client: mail, téléphone, whatsapp 24/7</li>
-              <li><i class="fa-solid fa-check" style="color: #63E6BE;"></i> Espace personnel Digital: suivi dossier, téléchargement des documents courriers scannées</li>
-              <li><i class="fa-solid fa-check" style="color: #63E6BE;"></i> Réexpedition du courrier à l'adresse de votre choix 1 fois/semaine</li>
-              <li><i class="fa-solid fa-check" style="color: #63E6BE;"></i> Accées à la salle de réunion 4h/mois</li>
-              <li><i class="fa-solid fa-x" style="color: #f22645;"></i> Assistance comptable</li>
-            </ul>
-          <button [routerLink]="['/domiciliation']" class="btn btn-grad">Commander</button>
-        </div>
-      </div>
-      <div class="card" style="width: 25rem;">
-        <div class="card-body">
-          <h5 class="card-title white" style="position: center;">Cairus Gold</h5>
-          <ul class="card-text white">
-            <li><i class="fa-solid fa-check" style="color: #63E6BE;"></i> Domiciliation</li>
-            <li><i class="fa-solid fa-check" style="color: #63E6BE;"></i> Réception, tri et numérisation des courriers</li>
-            <li><i class="fa-solid fa-check" style="color: #63E6BE;"></i> Conseil d'expert en domiciliation et création d'entreprise</li>
-            <li><i class="fa-solid fa-check" style="color: #63E6BE;"></i> Notification de récéption par mail</li>
-            <li><i class="fa-solid fa-check" style="color: #63E6BE;"></i> Support client: mail, téléphone, whatsapp 24/7</li>
-            <li><i class="fa-solid fa-check" style="color: #63E6BE;"></i> Espace personnel Digital: suivi dossier, téléchargement des documents courriers scannées</li>
-            <li><i class="fa-solid fa-check" style="color: #63E6BE;"></i> Réexpedition du courrier à l'adresse de votre choix 1 fois/semaine</li>
-            <li><i class="fa-solid fa-check" style="color: #63E6BE;"></i> Accées à la salle de réunion 4h/mois</li>
-            <li><i class="fa-solid fa-check" style="color: #63E6BE;"></i> Assistance comptable</li>
-          </ul>
-          <button [routerLink]="['/domiciliation']" class="btn btn-grad">Commander</button>
-        </div>
-      </div>
+      
+     
+
     </div>
   </section>
   

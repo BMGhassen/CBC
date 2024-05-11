@@ -13,5 +13,14 @@ import { ContactAdminComponent } from './components/contact-admin/contact-admin.
     {path: 'domiciliation', component: DomicilicionComponent},
     {path: 'profile', component: ProfileComponent},
     {path: 'contact', component: ContactAdminComponent}
+
+    //{path: 'adminDashboard', component: AdminDashboardComponent}
+    // Inside adminDashboard component 
+    /**
+     * Get admin Information
+     * Store token
+     * display infos
+     */
+
 ];
 export default routeConfig; 

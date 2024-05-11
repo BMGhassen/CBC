@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import {  collection, getFirestore } from "firebase/firestore";
 import {  query, where , getDocs} from '@angular/fire/firestore';
 import { AuthService } from '../../auth.service';
-import { of } from 'rxjs';
+import { BehaviorSubject, catchError, debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +15,10 @@ import { of } from 'rxjs';
 })
 
 export class HeaderComponent implements OnInit{
-  nompr = '';  
+  nompr = '';
+  userId= '***';
+  private usernameSubject = new BehaviorSubject<string>(this.nompr);
+  username$ = this.usernameSubject.asObservable();
   constructor(private authService: AuthService, private router: Router) { } 
   //localStorage.getItem('user_uid');
   async logout() {
@@ -24,37 +27,36 @@ export class HeaderComponent implements OnInit{
   }
 
    isAccessTokenSet(): boolean {
-     this.DisplayUsername();
     return localStorage.getItem('accessToken') !== null;
   }
+
   async DisplayUsername():Promise<void> {
+    const accessToken = localStorage.getItem('accessToken');
     const db=getFirestore();
     const clientRef = collection( db, "Clients");
-    if(localStorage.getItem('accessToken') !== null){
+    if(accessToken){
       const q1 = query(clientRef, where("owner", "==", localStorage.getItem('user_uid')));
 
       const nompr1 = await getDocs(q1);
       nompr1.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
       this.nompr = doc.data()['Prénom'] +" "+ doc.data()['Nom'] ;
+      this.usernameSubject.next(this.nompr);
       }); 
     }
       
       }
    async ngOnInit():Promise<void> {
-    // const db=getFirestore();
-    // const clientRef = collection( db, "Clients");
-    // if(this.isAccessTokenSet()){
-    //   const q1 = query(clientRef, where("owner", "==", localStorage.getItem('user_uid')));
+    this.username$
+      .pipe(
+        debounceTime(500), // Adjust debounce time as needed
+        distinctUntilChanged(),
+        switchMap(() => this.DisplayUsername())
+      )
+      .subscribe();
 
-    //   const nompr1 = await getDocs(q1);
-    //   nompr1.forEach((doc) => {
-    //   // doc.data() is never undefined for query doc snapshots
-    //   console.log(doc.id, " => ", doc.data()['Nom']);
-    //   this.nompr = doc.data()['Prénom'] +" "+ doc.data()['Nom'] ;
-    //   }); 
-    // }
-      
+    // Call DisplayUsername initially if needed
+    await this.DisplayUsername();
       }
       // location.reload();
     }

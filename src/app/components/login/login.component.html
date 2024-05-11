@@ -4,32 +4,50 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                    
-                    <form  *ngIf="hasForm()" [formGroup]="form" (ngSubmit)="onSubmit()" action="">
-                        @if (errorMessage){
-                            <div>{{ errorMessage }}</div>
-                        }
-                        <div class="row">
-                            <div class="col">
-                                <label for="email" class="col-sm-2 form-label white">Email</label>
-                                <input type="email" id="email" class="form-input w-100" formControlName="email"  placeholder="Votre adresse e-mail" required>
-                            </div>
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <div *ngIf="login" class="alert alert-success" role="alert">
+                            Login avec succés
                         </div>
                         <div class="row">
-                            <div class="col">
-                                <label for="password" class="col-sm-2 form-label white">Password</label>
-                                <input type="password" id="password" class="form-input w-100" formControlName="password"  placeholder="Votre mot de passe" required>
+                          <div class="col">
+                            <label for="email" class="col-sm-2 form-label white">Email</label>
+                            <input type="email" id="email" class="form-input w-100" formControlName="email" placeholder="Votre adresse e-mail" required>
+                            <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+                              {{ errorMessage }}
                             </div>
+                                <div *ngIf="noemail " class="alert alert-danger" role="alert">
+                                    Veuillez saisir un Email
+                                </div> 
+                                <div *ngIf="noform" class="alert alert-danger" role="alert">
+                                    Forme d'Email invalide
+                                </div>
+                                
+                                
+                                
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <label for="password" class="col-sm-2 form-label white">Password</label>
+                            <input type="password" id="password" class="form-input w-100" formControlName="password"
+                                   placeholder="Votre mot de passe" required>
+                                   <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+                                    {{ errorMessage }}
+                                  </div>
+                                <div *ngIf="nopwd" class="alert alert-danger" role="alert">
+                                    Veuillez saisir un mot de passe
+                                </div>
+                          </div>
                         </div>
                         <div class="row justify-content-center">
-                            <div class="col-md-4">
-                                <button class="btn-grad w-100" type="submit" name="submitbtn">Se Connecter</button>
-                            </div>
-                            <div class="col-md-4">
-                                <button class="btn-grad w-100" type="button" name="insbtn" [routerLink]="['/signup']">S'inscrire</button>
-                            </div>
+                          <div class="col-md-4">
+                            <button class="btn-grad w-100" type="submit" name="submitbtn">Se Connecter</button>
+                          </div>
+                          <div class="col-md-4">
+                            <button class="btn-grad w-100" type="button" name="insbtn" [routerLink]="['/signup']">S'inscrire</button>
+                          </div>
                         </div>
-                    </form>
+                      </form>
                 </div>
             </div>
         </div> 

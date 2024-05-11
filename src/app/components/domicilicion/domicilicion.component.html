@@ -21,7 +21,7 @@
                                 <div class="form-card">
                                     <h2 class="fs-title">Configurez votre pack</h2>
                                     <div class="row">
-                                        <select class="form-select w-100" id="service" name="service" required>
+                                        <select class="form-select w-100" id="service" formControlName="service" required>
                                             <option value="" disabled selected hidden>Choisissez votre service</option>
                                             <option>Domiciliation</option>
                                         </select>
@@ -34,8 +34,8 @@
                                             <option value="Annuel">Annuel</option>  
                                             <option value="Bi-Annuel">Bi-Annuel</option>   
                                         </select>
-                                        <div *ngIf="domiciliationForm?.get('pack')?.hasError('required')">
-                                            <small class="text-danger">Please select a pack.</small>
+                                        <div *ngIf="domiciliationForm?.get('pack')?.hasError('required') && nextset">
+                                            <small class="text-danger">Veuillez selectionner un pack</small>
                                           </div>
                                     </div>
                                     <div style="margin-top: 1rem;">
@@ -58,22 +58,22 @@
                                         <option value="SUARL">SUARL</option>
                                         <option value="Personne Physique">Personne Physique</option>
                                     </select> 
-                                    <div *ngIf="domiciliationForm.get('Forme_Juridique')?.hasError('required')">
-                                        <small class="text-danger">Forme Juridique is required.</small>
+                                    <div *ngIf="domiciliationForm.get('Forme_Juridique')?.hasError('required') && nextset">
+                                        <small class="text-danger">Veuillez spécifier la forme juridique de votre entreprise</small>
                                       </div>
                                     <div style="margin-top: 1rem;">
                                         <input formControlName="Raison_Sociale" placeholder="Raison Sociale" class="" type="text" required/>
-                                        <div *ngIf="domiciliationForm.get('Raison_Sociale')?.hasError('required')">
-                                            <small class="text-danger">Raison Sociale is required.</small>
+                                        <div *ngIf="domiciliationForm.get('Raison_Sociale')?.hasError('required') && nextset">
+                                            <small class="text-danger">Veuillez taper la raison sociale</small>
                                           </div>
                                     </div>
                                     <div style="margin-top: 1rem;">
                                         <input formControlName="Matricule_Fiscale" placeholder="Matricule Fiscale" class="" type="text" required/>
-                                        <div *ngIf="domiciliationForm.get('Matricule_Fiscale')?.hasError('required')">
-                                            <small class="text-danger">Matricule Fiscale is required.</small>
+                                        <div *ngIf="domiciliationForm.get('Matricule_Fiscale')?.hasError('required') && nextset">
+                                            <small class="text-danger">Veuillez taper votre matricule fiscale</small>
                                         </div>
-                                        <div *ngIf="domiciliationForm.get('Matricule_Fiscale')?.hasError('pattern')">
-                                            <small class="text-danger">Matricule Fiscale must contain only digits.</small>
+                                        <div *ngIf="domiciliationForm.get('Matricule_Fiscale')?.hasError('pattern') && nextset">
+                                            <small class="text-danger">Format Incorrect</small>
                                         </div>
                                     </div>
                                 </div>
@@ -87,54 +87,54 @@
                                     <div class="row">
                                         <div class="col">
                                             <input type="text" formControlName="Nom" placeholder="Nom"/>
-                                            <div *ngIf="domiciliationForm?.get('Nom')?.hasError('required') && domiciliationForm.get('Nom')?.touched" class="text-danger">
-                                                Nom is required.
+                                            <div *ngIf="domiciliationForm?.get('Nom')?.hasError('required') && nextset" class="text-danger">
+                                                Nom est obligatoire
                                             </div>
                                         </div>
                                         <div class="col">
                                             <input type="text" formControlName="Prénom" placeholder="Prénom"/>
-                                            <div *ngIf="domiciliationForm?.get('Prénom')?.hasError('required') && domiciliationForm.get('Prénom')?.touched" class="text-danger">
-                                                Prénom is required.
+                                            <div *ngIf="domiciliationForm?.get('Prénom')?.hasError('required') && nextset" class="text-danger">
+                                                Prénom est obligatoire
                                               </div>
                                         </div>
                                     <div class="row">
                                         <div class="col">
                                             <input type="number" formControlName="Cin" placeholder="CIN" length="8" pattern="\d{8}" required/>
-                                            <div *ngIf="domiciliationForm?.get('Cin')?.hasError('required') && domiciliationForm.get('Cin')?.touched" class="text-danger">
-                                                Cin is required.
+                                            <div *ngIf="domiciliationForm?.get('Cin')?.hasError('required') && nextset" class="text-danger">
+                                                Cin est obligatoire
                                               </div>
-                                              <div *ngIf="domiciliationForm?.get('Cin')?.hasError('pattern') && domiciliationForm.get('Cin')?.touched" class="text-danger">
-                                                Cin must be 8 digits.
+                                              <div *ngIf="domiciliationForm?.get('Cin')?.hasError('pattern') && nextset" class="text-danger">
+                                                Cin doit avoir strictement 8 chiffres
                                               </div>
                                         </div>
                                         <div class="col">
-                                            <input type="date" formControlName="Date" ngModel required/>
-                                            <div *ngIf="domiciliationForm?.get('Date')?.hasError('required') && domiciliationForm.get('Date')?.touched" class="text-danger">
-                                                Date is required.
+                                            <input type="date" formControlName="Date" required/>
+                                            <div *ngIf="domiciliationForm?.get('Date')?.hasError('required') && nextset" class="text-danger">
+                                                Date est obligatoire
                                               </div>
                                         </div>
                                     </div>
                                         <input type="text" formControlName="Adresse" placeholder="Adresse" required/>
-                                        <div *ngIf="domiciliationForm?.get('Adresse')?.hasError('required') && domiciliationForm.get('Adresse')?.touched" class="text-danger">
-                                            Adresse is required.
+                                        <div *ngIf="domiciliationForm?.get('Adresse')?.hasError('required') && nextset" class="text-danger">
+                                            Adresse est obligatoire
                                         </div>
                                         <input type="email" formControlName="email" placeholder="Email Id" required/>
-                                        <div *ngIf="domiciliationForm?.get('email')?.hasError('required') && domiciliationForm.get('email')?.touched" class="text-danger">
-                                            Email is required.
+                                        <div *ngIf="domiciliationForm?.get('email')?.hasError('required') && nextset" class="text-danger">
+                                            Email est obligatoire
                                         </div>
-                                        <div *ngIf="domiciliationForm?.get('email')?.hasError('email') && domiciliationForm.get('email')?.touched" class="text-danger">
-                                            Invalid email format.
+                                        <div *ngIf="domiciliationForm?.get('email')?.hasError('email') && nextset" class="text-danger">
+                                            Format incorrect
                                         </div>
                                         <input type="password" formControlName="mdp" placeholder="Mot de passe" required/>
-                                        <div *ngIf="domiciliationForm?.get('mdp')?.hasError('required') && domiciliationForm.get('mdp')?.touched" class="text-danger">
-                                            Mot de passe is required.
+                                        <div *ngIf="domiciliationForm?.get('mdp')?.hasError('required') && nextset" class="text-danger">
+                                            Mot de passe est obligatoire
                                         </div>
                                         <input type="password" formControlName="mdp" placeholder="Confirmez mot de passe" required/>
-                                        <div *ngIf="domiciliationForm?.get('mdpConfirmation')?.hasError('required') && domiciliationForm.get('mdpConfirmation')?.touched" class="text-danger">
-                                            Confirmation du mot de passe is required.
+                                        <div *ngIf="domiciliationForm?.get('mdpConfirmation')?.hasError('required') && nextset" class="text-danger">
+                                            Confirmation du mot de passe est obligatoire
                                         </div>
-                                        <div *ngIf="domiciliationForm?.get('mdpConfirmation')?.hasError('required') && domiciliationForm.get('mdpConfirmation')?.touched" class="text-danger">
-                                            Confirmation du mot de passe is required.
+                                        <div *ngIf="domiciliationForm?.get('mdpConfirmation')?.hasError('required') && nextset" class="text-danger">
+                                            Mot de passe incorrect
                                         </div>
                                     </div>
                                     <div class="form-check">
