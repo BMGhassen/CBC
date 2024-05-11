@@ -20,12 +20,6 @@
                         'opacity': FieldsetNumber === 1 ? '1' : '0' }">
                                 <div class="form-card">
                                     <h2 class="fs-title">Configurez votre pack</h2>
-                                    <div class="row">
-                                        <select class="form-select w-100" id="service" formControlName="service" required>
-                                            <option value="" disabled selected hidden>Choisissez votre service</option>
-                                            <option>Domiciliation</option>
-                                        </select>
-                                    </div>
                                     <div style="margin-top: 1rem;">
                                         <select class="form-select w-100" formControlName="pack" (change)="onPackChange($event)" required>
                                             <option value="" disabled selected hidden>Choose your Pack</option>
@@ -108,17 +102,20 @@
                                               </div>
                                         </div>
                                         <div class="col">
-                                            <input type="date" formControlName="Date" required/>
-                                            <div *ngIf="domiciliationForm?.get('Date')?.hasError('required') && nextset" class="text-danger">
-                                                Date est obligatoire
+                                            <input type="number" formControlName="Tel" placeholder="Numéro de téléphone"/>
+                                            <div *ngIf="domiciliationForm?.get('Tel')?.hasError('required') && nextset" class="text-danger">
+                                                Numéro de téléphone est obligatoire
                                               </div>
+                                              <div *ngIf="domiciliationForm?.get('Tel')?.hasError('pattern') && nextset" class="text-danger">
+                                                Numéro de téléphone doit avoir strictement 8 chiffres
+                                            </div>
                                         </div>
                                     </div>
                                         <input type="text" formControlName="Adresse" placeholder="Adresse" required/>
                                         <div *ngIf="domiciliationForm?.get('Adresse')?.hasError('required') && nextset" class="text-danger">
                                             Adresse est obligatoire
                                         </div>
-                                        <input type="email" formControlName="email" placeholder="Email Id" required/>
+                                        <input type="email" formControlName="email" placeholder="Email" required/>
                                         <div *ngIf="domiciliationForm?.get('email')?.hasError('required') && nextset" class="text-danger">
                                             Email est obligatoire
                                         </div>
@@ -129,17 +126,6 @@
                                         <div *ngIf="domiciliationForm?.get('mdp')?.hasError('required') && nextset" class="text-danger">
                                             Mot de passe est obligatoire
                                         </div>
-                                        <input type="password" formControlName="mdp" placeholder="Confirmez mot de passe" required/>
-                                        <div *ngIf="domiciliationForm?.get('mdpConfirmation')?.hasError('required') && nextset" class="text-danger">
-                                            Confirmation du mot de passe est obligatoire
-                                        </div>
-                                        <div *ngIf="domiciliationForm?.get('mdpConfirmation')?.hasError('required') && nextset" class="text-danger">
-                                            Mot de passe incorrect
-                                        </div>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="yes" id="terms" required>
-                                        <label class="form-check-label" for="terms">Je suis d'accord avec<a href="#">les termes et conditions</a></label>
                                     </div>
                                 </div>
                                 <button type="button"  (click)="prevFieldset()" class=" action-button"><i class="fa-solid fa-arrow-left"></i> Précédent</button>

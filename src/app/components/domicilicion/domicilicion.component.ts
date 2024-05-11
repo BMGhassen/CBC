@@ -24,20 +24,17 @@ export class DomicilicionComponent {
   domiciliationForm: FormGroup = this.fb.group({
       Nom: ['', Validators.required],
       Prénom: ['', Validators.required],
-      Cin: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
-      Date: ['', Validators.required],
+      Cin: ['', [Validators.required, Validators.pattern(/^[0-1]\d{7}$/)]],
+      Tel: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
       Adresse: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       mdp: ['', Validators.required],
-      service: ['', Validators.required],
-      mdpConfirmation: ['', Validators.required],
       terms: [false, Validators.requiredTrue],
       pack: ['', Validators.required], // Required field
       Raison_Sociale: ['', Validators.required], // Required field
       Forme_Juridique: ['', Validators.required], // Required field
-      Matricule_Fiscale: ['', [Validators.required, Validators.pattern(/^\d{7}[a..z][abpnd][mncp]\d{3}$/i)]]
-    }, 
-    { validators: this.passwordsMatchValidator });
+      Matricule_Fiscale: ['', [Validators.required, Validators.pattern(/^\d{7}[a-z][abpnd][mncp]\d{3}$/i)]]
+    })
 
     //  matriculeFiscaleValidator(): ValidatorFn {
     //   return (control: AbstractControl): { [key: string]: any } | null => {
@@ -66,7 +63,7 @@ export class DomicilicionComponent {
   
     this.packAmount = 0;
     this.FieldsetNumber = 1;
-    this.user = localStorage.getItem('uid');
+    this.user = localStorage.getItem('user_uid');
 
     if (!this.user) {
       this.isloggedIn = false;
@@ -112,13 +109,14 @@ export class DomicilicionComponent {
 
   nextFieldset(): void {
     
-    console.log("next :" + this.FieldsetNumber)
+    console.log(this.isloggedIn);
     if (this.FieldsetNumber < 4 && this.validateCurrentFieldset()) {
       this.nextset = false;
-      if (this.FieldsetNumber == 2 && this.isloggedIn == true) {
+      if (this.FieldsetNumber == 2  && this.isloggedIn == true) {
         this.FieldsetNumber = 4;
       } else {
         this.FieldsetNumber++;
+        console.log("next :" + this.FieldsetNumber)
       } 
     }else {this.nextset = true;}
   }
@@ -178,7 +176,6 @@ export class DomicilicionComponent {
       console.log('Service : '+this.domiciliationForm.value.service);
       // addDoc(ClientCollection, {
         setDoc (doc(getFirestore(), "Clients", this.domiciliationForm.value.Cin.toString()),{
-        'service': this.domiciliationForm.value.service,
         'pack': this.domiciliationForm.value.pack,
         'Forme_Juridique': this.domiciliationForm.value.Forme_Juridique,
         'Raison_Sociale': this.domiciliationForm.value.Raison_Sociale,
@@ -186,7 +183,7 @@ export class DomicilicionComponent {
         'Nom': this.domiciliationForm.value.Nom,
         'Prénom': this.domiciliationForm.value.Prénom,
         'Cin': this.domiciliationForm.value.Cin,
-        'Date': this.domiciliationForm.value.Date,
+        'Tel': this.domiciliationForm.value.Tel,
         'Adresse': this.domiciliationForm.value.Adresse,
         'email': this.domiciliationForm.value.email,
         'mdp': this.domiciliationForm.value.mdp,
@@ -200,7 +197,6 @@ export class DomicilicionComponent {
 
   resetForm(): void {
     this.domiciliationForm.reset({
-      'service': '',
       'pack': '',
       'Forme_Juridique': '',
       'Raison_Sociale': '',
@@ -208,7 +204,7 @@ export class DomicilicionComponent {
       'Nom': '',
       'Prénom': '',
       'Cin': '',
-      'Date': '',
+      'Tel': '',
       'Adresse': '',
       'email': '',
       'mdp': '',
