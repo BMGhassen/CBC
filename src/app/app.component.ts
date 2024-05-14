@@ -23,7 +23,7 @@ import { Msgadmin2Component } from './components/msgadmin2/msgadmin2.component';
     FooterComponent, 
     HeaderComponent, 
     ProfileComponent,
-    DomicilicionComponent,],
+    DomicilicionComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
