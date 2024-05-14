@@ -10,6 +10,7 @@
                 <li class="nav-item"> <a class="nav-link" [routerLink]="['/']">Home</a> </li>
                 <li class="nav-item"> <a class="nav-link" [routerLink]="['/contact']">Contact</a> </li>
                 <li class="nav-item" *ngIf="!isAccessTokenSet()"> <a class="nav-link" [routerLink]="['/login']">Login</a> </li>
+                <li class="nav-item"><a class="nav-link" [routerLink]="['/admin']">admin</a></li>
                 <li class="nav-item" *ngIf="isAccessTokenSet()"  (click)="logout()"> <a class="nav-link" [routerLink]="['/']">Logout</a> </li>
                 <li class="nav-item" *ngIf="isAccessTokenSet()"> <a class="nav-link" [routerLink]="['/profile']"><i class="fa-solid fa-user"></i> {{nompr}} </a> </li>
             </ul>

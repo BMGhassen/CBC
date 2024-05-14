@@ -1,0 +1,31 @@
+.gradient-custom {
+    /* fallback for old browsers */
+    background: linear-gradient(to left, #002740, #005670);
+    }
+    
+    .mask-custom {
+    background: rgba(24, 24, 16, .2);
+    border-radius: 2em;
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 255, 255, 0.05);
+    background-clip: padding-box;
+    box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+    }
+    .form-control{
+        width: 100%;
+        height: 5px;
+  min-height: 50px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 16px;
+  resize: vertical; /* Allow vertical resizing */
+  outline: none;
+  border-color: #999;
+    }
+
+.fw-bold.mb-0 {
+  color: #f2f0a1;
+  text-decoration: none;
+}

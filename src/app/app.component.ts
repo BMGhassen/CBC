@@ -10,6 +10,8 @@ import { DomicilicionComponent } from './components/domicilicion/domicilicion.co
 import { user } from '@angular/fire/auth';
 import { AuthService } from './auth.service';
 import { ProfileComponent } from './components/profile/profile.component';
+import { Msgadmin1Component } from './components/msgadmin1/msgadmin1.component';
+import { Msgadmin2Component } from './components/msgadmin2/msgadmin2.component';
 
 @Component({
   selector: 'app-root',
@@ -30,7 +32,7 @@ export class AppComponent implements OnInit{
   authService = inject(AuthService)
   
   ngOnInit(): void{
-  //     this.authService.user$.subscribe(user =>{
+    //     this.authService.user$.subscribe(user =>{
   //       if(user) {
   //         this.authService.currentUserSig.set({
   //           email: user.email!,
