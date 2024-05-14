@@ -21,7 +21,7 @@
                                 <div class="form-card">
                                     <h2 class="fs-title">Configurez votre pack</h2>
                                     <div style="margin-top: 1rem;">
-                                        <select class="form-select w-100" formControlName="pack" (change)="onPackChange($event)" required>
+                                        <select class="form-select w-100" formControlName="pack" (change)="getMontant()" required>
                                             <option value="" disabled selected hidden>Choose your Pack</option>
                                             <option value="Trimestriel">Trimestriel</option>  
                                             <option value="Semestriel">Semestriel</option>  
@@ -33,8 +33,8 @@
                                           </div>
                                     </div>
                                     <div style="margin-top: 1rem;">
-                                        <label for="montant">Montant:</label>
-                                        <output type="text" id="montant" name="montant"></output>
+                                        <label for="montant">Montant:  </label>
+                                        <output type="text" id="montant" name="montant"> {{price}} DT</output>
                                     </div>
                                     
                                 </div>
@@ -93,7 +93,7 @@
                                         </div>
                                     <div class="row">
                                         <div class="col">
-                                            <input type="number" formControlName="Cin" placeholder="CIN"/>
+                                            <input type="text" formControlName="Cin" placeholder="CIN" inputmode="numeric"/>
                                             <div *ngIf="domiciliationForm?.get('Cin')?.hasError('required') && nextset" class="text-danger">
                                                 Cin est obligatoire
                                               </div>

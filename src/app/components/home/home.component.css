@@ -1,5 +1,5 @@
 .badge{
-    background: linear-gradient(to left, #ad841f, #f2f0a1);
+    background-image: linear-gradient(to left, #ad841f, #f2f0a1) ;
     position: absolute;
     right: 5px;
 }

@@ -1,12 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Firestore, FirestoreModule, doc, getFirestore, setDoc } from '@angular/fire/firestore';
-import { addDoc, collection, getDoc } from 'firebase/firestore';
-import { Component, OnInit, inject, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule, NgForm, AbstractControl, ValidatorFn } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Firestore, FirestoreModule, doc, getFirestore, setDoc, where } from '@angular/fire/firestore';
+import { collection } from 'firebase/firestore';
+import { Component, Input, OnInit, inject } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../auth.service';
 import { Location } from '@angular/common';
+import { HomeComponent } from '../home/home.component';
+import { myCustomConstant } from '../../../gVar';
+import {  getDocs,query, getCountFromServer } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-domicilicion',
@@ -15,16 +17,50 @@ import { Location } from '@angular/common';
   templateUrl: './domicilicion.component.html',
   styleUrls: ['./domicilicion.component.css'],
 })
-export class DomicilicionComponent {
+export class DomicilicionComponent implements OnInit {
+  constructor(private location: Location, private fb: FormBuilder, private route: ActivatedRoute) {
+    this.packAmount = 0;
+    this.FieldsetNumber = 1;
+    this.user = localStorage.getItem('user_uid');
+
+    if (!this.user) {
+      this.isloggedIn = false;
+    } else {
+      this.isloggedIn = true;
+    }
+  }
+
+  price=0;
+  price1 = 0;
+  ngOnInit() {
+    this.getBlogArray1();
+  }
+  
   [x: string]: any;
   static isAccessTokenSet() {
     throw new Error('Method not implemented.');
   }
-
+  async getBlogArray1():Promise<void> {
+  
+    const db=getFirestore();
+    
+    const bundleRef = collection( db, "bundles");
+   
+    
+      const q1 = query(bundleRef, where("title", "==",myCustomConstant.myCustomProperty));
+     
+      const nompr1 = await getDocs(q1);
+      console.log("AAAAAAAAAAAAAA   "+myCustomConstant.myCustomProperty);
+      nompr1.forEach((doc) => {
+     
+      this.price1 = doc.data()['prix'] ;
+      }); 
+    
+}
   domiciliationForm: FormGroup = this.fb.group({
       Nom: ['', Validators.required],
       Prénom: ['', Validators.required],
-      Cin: ['', [Validators.required, Validators.pattern(/^[0-1]\d{7}$/)]],
+      Cin: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
       Tel: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
       Adresse: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -36,20 +72,7 @@ export class DomicilicionComponent {
       Matricule_Fiscale: ['', [Validators.required, Validators.pattern(/^\d{7}[a-z][abpnd][mncp]\d{3}$/i)]]
     })
 
-    //  matriculeFiscaleValidator(): ValidatorFn {
-    //   return (control: AbstractControl): { [key: string]: any } | null => {
-    //     const matriculeFiscalePattern = /^\d{7}[abpnd][mncp]\d{3}$/i;
-    
-    //     if (control.value && !matriculeFiscalePattern.test(control.value)) {
-    //       return { 'invalidMatriculeFiscale': true };
-    //     }
-    
-    //     return null;
-    //   };
-    //  }
-    //  get matriculeFiscale() {
-    //   return this.domiciliationForm.get('Matricule_Fiscale');
-    // }
+   
   firestore: Firestore = inject(Firestore); 
   authService = inject(AuthService);
   router = inject(Router);
@@ -59,31 +82,9 @@ export class DomicilicionComponent {
   user: any;
   isloggedIn: Boolean;
   packAmount: number;
-  constructor(private location: Location, private fb: FormBuilder) {
   
-    this.packAmount = 0;
-    this.FieldsetNumber = 1;
-    this.user = localStorage.getItem('user_uid');
 
-    if (!this.user) {
-      this.isloggedIn = false;
-    } else {
-      this.isloggedIn = true;
-    }
-
-  }
-  passwordsMatchValidator(formGroup: FormGroup) {
-    const password = formGroup.get('mdp')?.value;
-    const confirmPassword = formGroup.get('mdpConfirmation')?.value;
   
-    if (password !== confirmPassword) {
-      formGroup.get('mdpConfirmation')?.setErrors({ passwordsNotMatch: true });
-    } else {
-      formGroup.get('mdpConfirmation')?.setErrors(null);
-    }
-  
-    return null;
-  }
 
   private validateCurrentFieldset(): boolean {
     // Check validity of current fieldset based on FieldsetNumber
@@ -131,15 +132,31 @@ export class DomicilicionComponent {
   }
 
 
-  getMontant(pack: string) {
-    console.log("pack : " + pack);
-    if (pack === 'basic') {
-      return 100;
-    } else if (pack === 'premium') {
-      return 200;
-    } else {
-      return 0; // Or set a default value if no pack is selected
+  getMontant():number {
+  
+    var prixprix=0;
+    switch (this.domiciliationForm.value.pack) {
+     
+      
+      case "Trimestriel" :
+        prixprix = this.price1*3;
+        break;
+      case "Semestriel" :
+          prixprix = this.price1*6;
+          break;
+      case "Annuel" :
+        prixprix = this.price1*12;
+        break;
+      case "Bi-Annuel" :
+        prixprix = this.price1*24;
+        break;
+       default :
+       prixprix = 0;
+       
     }
+    this.price=prixprix;
+    console.log(this.price);
+     return prixprix;
   }
   async saveData(): Promise<void> {
 
@@ -156,23 +173,9 @@ export class DomicilicionComponent {
       localStorage.setItem('user_uid', userUid);
       this.user = userUid;
     }
-
+    
     const ClientCollection = collection(this.firestore, 'Clients');
     if (this.user) {
-      // console.log(this.domiciliationForm.value.service,
-      // this.domiciliationForm.value.pack,
-      // this.domiciliationForm.value.Forme_Juridique,
-      // this.domiciliationForm.value.Raison_Sociale,
-      // this.domiciliationForm.value.Matricule_Fiscale,
-      // this.domiciliationForm.value.Nom,
-      // this.domiciliationForm.value.Prénom,
-      // this.domiciliationForm.value.Cin,
-      // this.domiciliationForm.value.Date,
-      // this.domiciliationForm.value.Adresse,
-      // this.domiciliationForm.value.email,
-      // this.domiciliationForm.value.mdp,
-      // this.packAmount,
-      // this.user);
       console.log('Service : '+this.domiciliationForm.value.service);
       // addDoc(ClientCollection, {
         setDoc (doc(getFirestore(), "Clients", this.domiciliationForm.value.Cin.toString()),{
@@ -187,7 +190,7 @@ export class DomicilicionComponent {
         'Adresse': this.domiciliationForm.value.Adresse,
         'email': this.domiciliationForm.value.email,
         'mdp': this.domiciliationForm.value.mdp,
-        'montant': this.packAmount,
+        'montant': this.price,
         'owner': this.user
       });
       console.log("hedhy t'executi 2 " + this.user)
@@ -216,8 +219,5 @@ export class DomicilicionComponent {
     this.saveData();
     // this.resetForm();
   }
-  onPackChange(event: any) {
-    console.log("Selected pack:", event.target.value);
-    this.packAmount = this.getMontant(event.target.value)
-  }
+ 
 }

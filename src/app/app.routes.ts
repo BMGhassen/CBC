@@ -12,7 +12,8 @@ import { ContactAdminComponent } from './components/contact-admin/contact-admin.
     {path: 'signup', component: SignupComponent},
     {path: 'domiciliation', component: DomicilicionComponent},
     {path: 'profile', component: ProfileComponent},
-    {path: 'contact', component: ContactAdminComponent}
+    {path: 'contact', component: ContactAdminComponent},
+    { path: 'domiciliation/:packName', component: DomicilicionComponent },
 
     //{path: 'adminDashboard', component: AdminDashboardComponent}
     // Inside adminDashboard component 

@@ -58,6 +58,11 @@ export class HeaderComponent implements OnInit{
     // Call DisplayUsername initially if needed
     await this.DisplayUsername();
       }
+      onChange(event: any) {
+        console.log("Selected pack:", event.target.value);
+        this.DisplayUsername();
+        
+      }
       // location.reload();
     }
 
