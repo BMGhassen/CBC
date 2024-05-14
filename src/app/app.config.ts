@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { Firestore, getFirestore, provideFirestore } from '@angular/fire/firestore';
-
+import { TranslateModule } from '@ngx-translate/core';
 const firebaseConfig = {
   apiKey: "AIzaSyBqQo-r1JjNhMiGXU9TuIIhd4QlO4dbXjc",
   authDomain: "cairusbc.firebaseapp.com",
@@ -24,6 +24,7 @@ export const appConfig: ApplicationConfig = {
       provideFirebaseApp(() => initializeApp(firebaseConfig)),
         provideAuth(()=>getAuth()),
         provideFirestore(() => getFirestore()),
+        
     ])
   ]
  };

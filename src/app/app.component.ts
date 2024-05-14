@@ -10,6 +10,8 @@ import { DomicilicionComponent } from './components/domicilicion/domicilicion.co
 import { user } from '@angular/fire/auth';
 import { AuthService } from './auth.service';
 import { ProfileComponent } from './components/profile/profile.component';
+import { Msgadmin1Component } from './components/msgadmin1/msgadmin1.component';
+import { Msgadmin2Component } from './components/msgadmin2/msgadmin2.component';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +23,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     FooterComponent, 
     HeaderComponent, 
     ProfileComponent,
-    DomicilicionComponent],
+    DomicilicionComponent,],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
