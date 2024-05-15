@@ -178,20 +178,20 @@ ul{
 }
 .line {
 	height: 2px;
-	width: 50px;
-	background: #ad841f;
+	color: #cab64b;
 	display: block;
 	margin: 20px auto 20px;
+	border-style:solid;
 }
-.line::after {
+/* .line::after {
 	content:"";
 	position: absolute;
 	left: 50%;
 	width: 150px;
 	height: 2px;
-	border-bottom: 2px dashed #ad841f;
+	border-bottom: 2px dashed #cab64b;
 	margin-left: -75px;
-}
+} */
 .sectioner-header p {
 	color:#818992;
 	font-size: 17px;
@@ -507,11 +507,14 @@ input {
 	border-radius: 7px;
 }
 .footer-copy {
+	padding: 10px 10px 0px 10px;
+	height: 40px;
 	background: #ffffff;
-	color: #242424;
+	color: #005670;
+	bottom: 0;
 	font-size: 13px;
 	text-align: center;
-	padding:15px 0px;
+	/* padding:15px 0px; */
 }
 .footer-copy p {
 	margin-bottom:0px;

@@ -18,8 +18,18 @@ import {  getDocs,query, getCountFromServer } from '@angular/fire/firestore';
   styleUrls: ['./domicilicion.component.css'],
 })
 export class DomicilicionComponent implements OnInit {
+  firestore: Firestore = inject(Firestore); 
+  authService = inject(AuthService);
+  router = inject(Router);
+  nextset=false;
+  FieldsetNumber: number;
+  price=0;
+  price1 = 0;
+  user: any;
+  isloggedIn: Boolean;
+  offre='';
+  tt='';
   constructor(private location: Location, private fb: FormBuilder, private route: ActivatedRoute) {
-    this.packAmount = 0;
     this.FieldsetNumber = 1;
     this.user = localStorage.getItem('user_uid');
 
@@ -30,8 +40,7 @@ export class DomicilicionComponent implements OnInit {
     }
   }
 
-  price=0;
-  price1 = 0;
+  
   ngOnInit() {
     this.getBlogArray1();
   }
@@ -45,15 +54,25 @@ export class DomicilicionComponent implements OnInit {
     const db=getFirestore();
     
     const bundleRef = collection( db, "bundles");
-   
-    
-      const q1 = query(bundleRef, where("title", "==",myCustomConstant.myCustomProperty));
+    // console.log(myCustomConstant.myCustomProperty!='original value');
+    if (myCustomConstant.myCustomProperty!='original value')
+      {
+        localStorage.setItem(this.tt, myCustomConstant.myCustomProperty);
+      }
+      
+       const t1=localStorage.getItem(this.tt);
+
+      const q1 = query(bundleRef, where("title", "==",t1));
      
       const nompr1 = await getDocs(q1);
-      console.log("AAAAAAAAAAAAAA   "+myCustomConstant.myCustomProperty);
+      
+      // console.log("A"+t1);
       nompr1.forEach((doc) => {
      
       this.price1 = doc.data()['prix'] ;
+      this.offre = t1!;
+
+      console.log(this.offre);
       }); 
     
 }
@@ -73,19 +92,7 @@ export class DomicilicionComponent implements OnInit {
     })
 
    
-  firestore: Firestore = inject(Firestore); 
-  authService = inject(AuthService);
-  router = inject(Router);
-  nextset=false;
-  FieldsetNumber: number;
-
-  user: any;
-  isloggedIn: Boolean;
-  packAmount: number;
   
-
-  
-
   private validateCurrentFieldset(): boolean {
     // Check validity of current fieldset based on FieldsetNumber
     switch (this.FieldsetNumber) {
@@ -191,7 +198,8 @@ export class DomicilicionComponent implements OnInit {
         'email': this.domiciliationForm.value.email,
         'mdp': this.domiciliationForm.value.mdp,
         'montant': this.price,
-        'owner': this.user
+        'owner': this.user,
+        'offre':this.offre,
       });
       console.log("hedhy t'executi 2 " + this.user)
     }
@@ -212,6 +220,7 @@ export class DomicilicionComponent implements OnInit {
       'email': '',
       'mdp': '',
       'montant': '',
+      'offre':'this.offre',
     })
   }
 

@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { getFirestore, collection, where, getDocs, query } from '@angular/fire/firestore';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import firebase from '@angular/fire';
 import { initializeApp } from "firebase/app";
+import { ContactAdminComponent } from '../contact-admin/contact-admin.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ContactAdminComponent, RouterOutlet],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
@@ -20,6 +21,7 @@ export class ProfileComponent implements OnInit{
   pack= null;
   service = null;
   adresse = null;
+  tel = null;
   async ngOnInit():Promise<void> {
     const db=getFirestore();
     const clientRef = collection( db, "Clients");
@@ -34,7 +36,8 @@ export class ProfileComponent implements OnInit{
      this.rs = doc.data()['Raison_Sociale'];
      this.pack = doc.data()['pack'];
      this.service = doc.data()['service'];
-     this.adresse = doc.data()['Adresse']
+     this.adresse = doc.data()['Adresse'];
+     this.tel = doc.data()['Tel']
     });
   
   }

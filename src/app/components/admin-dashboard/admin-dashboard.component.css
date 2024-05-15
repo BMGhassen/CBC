@@ -276,6 +276,7 @@
     max-width: 1200px; 
     margin: auto; 
     background-color: #ffffff; 
+    background: linear-gradient(to left, #002740, #005670);
     border-radius: 30px; 
     box-shadow: 3px 3px 10px rgb(188, 188, 188); 
     padding: 0px 20px 20px 20px; 
@@ -283,7 +284,7 @@
   .report-header { 
     height: 80px; 
     width: 100%; 
-    display: flex; 
+    display: flex;
     align-items: center; 
     justify-content: space-between; 
     padding: 20px 20px 10px 20px; 
@@ -293,14 +294,14 @@
   .recent-Articles { 
     font-size: 30px; 
     font-weight: 600; 
-    color: #5500cb; 
+    color: #ffffff; 
   } 
     
   .view { 
     height: 35px; 
     width: 90px; 
     border-radius: 8px; 
-    background-color: #5500cb; 
+    background:linear-gradient(to left, #ad841f, #f2f0a1); 
     color: white; 
     font-size: 15px; 
     border: none; 
@@ -309,6 +310,7 @@
     
   .report-body { 
     max-width: 1160px; 
+    background-color: #ededed;
     overflow-x: auto; 
     padding: 20px; 
   } 
@@ -508,4 +510,3 @@
       width: 180px; 
     } 
   }
-  

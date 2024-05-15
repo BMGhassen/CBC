@@ -1,0 +1,28 @@
+<div class="report-container"> 
+    <div class="report-header"> 
+        <h1 class="recent-Articles">Liste des clients</h1>  
+    </div> 
+
+    <div class="report-body"> 
+        <table class="table table-striped">
+            <thead style="background: linear-gradient(to left, #ad841f, #f2f0a1); ">
+              <tr>
+                <th scope="col">Nom & Prénom</th>
+                <th scope="col">Offre</th>
+                <th scope="col">Raison Sociale</th>
+                <th scope="col">Email</th>
+                <th scope="col">Matricule Fiscale</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of ClientArray; index as i">
+                <td>{{ item['Prénom'] }} {{ item['Nom'] }}</td>
+                <td>{{ item['offre'] }}</td>
+                <td>{{ item['Raison_Sociale'] }}</td>
+                <td>{{ item['email'] }}</td>
+                <td>{{ item['Matricule_Fiscale'] }}</td>
+              </tr>
+            </tbody>
+          </table> 
+    </div>
+</div> 
