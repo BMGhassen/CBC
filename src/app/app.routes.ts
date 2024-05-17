@@ -9,7 +9,7 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
 import { Msgadmin1Component } from './components/msgadmin1/msgadmin1.component';
 import { isSetAccessorDeclaration } from 'typescript';
 import { Msgadmin2Component } from './components/msgadmin2/msgadmin2.component';
-import { ListeclientsComponent } from './components/listeclients/listeclients.component';
+
 
  const routeConfig: Routes = [
     {path: '', component: HomeComponent, title: 'Home Page'},
@@ -20,8 +20,7 @@ import { ListeclientsComponent } from './components/listeclients/listeclients.co
     {path: 'contact', component: ContactAdminComponent},
     {path: 'admin', component: AdminDashboardComponent},
     {path:'msgadmin1', component:Msgadmin1Component},
-    {path:'msgadmin2', component:Msgadmin2Component},
-    {path:'listeC', component:ListeclientsComponent}
+    {path:'msgadmin2', component:Msgadmin2Component}
    ];
     //{path: 'adminDashboard', component: AdminDashboardComponent}
     // Inside adminDashboard component 

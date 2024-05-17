@@ -1,72 +1,105 @@
-
-    <div class="main-container"> 
-         <div class="navcontainer"> 
-            <nav class="nav-admin"> 
-                <div class="nav-upper-options"> 
-                    <div class="nav-option option1"> 
-                      <i class="fa-solid fa-user fa-2xl" style="color: #ffffff;"></i>
-                      <h3 class="x"> Profile</h3> 
-                    </div> 
-  
-                    <div class="option2 nav-option"> 
-                      <i class="fa-solid fa-list-check fa-2xl" style="color: #ffffff;"></i>     
-                        <h3 class="x"> Outils de gestion</h3> 
-                        <i class="fa-solid fa-chevron-down" style="color: #ffffff;" ></i>
-                    </div> 
-                    
-                      
-                    <div class="nav-option option3">
-                        <i class="fa-solid fa-message fa-2xl" style="color: #ffffff;"></i>
-                        <h3 class="x"> Messagerie</h3> 
-                        <i class="fa-solid fa-chevron-down" style="color: #ffffff;" id="msg"></i>  
-                    </div> 
-      
-                    <a class="nav-option" (click)=hideShow(3)> 
-                        <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i> 
-                        <h3 class="x"> Liste Clients</h3>
-                   </a>
-                   <a class="nav-option" (click)=hideShow(3)> 
-                    <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i> 
-                    <h3 class="x"> Liste Comptables</h3>
-               </a> 
-                    <div class="nav-option option5" style="color: #ffffff;"> 
-                      <i class="fa-solid fa-file-signature fa-2xl"></i>
-                        <h3 class="x"> Génération du contrat</h3>
-                    </div> 
-  
-                </div> 
-            </nav> 
-        </div>  
-
-
-
-
-        <div class="main"> 
-            <div class="report-container" [hidden]="client"> 
-                <div class="report-header"> 
-                    <h1 class="recent-Articles">Liste des clients</h1>  
-                </div>
-                <div class="report-body"> 
-                    <table class="table table-striped">
-                        <thead style="background: linear-gradient(to left, #ad841f, #f2f0a1); ">
-                          <tr>
-                            <th scope="col">Nom & Prénom</th>
-                            <th scope="col">Offre</th>
-                            <th scope="col">Raison Sociale</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Matricule Fiscale</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of ClientArray; index as i">
-                            <td>{{ item['Prénom'] }} {{ item['Nom'] }}</td>
-                            <td>{{ item['offre'] }}</td>
-                            <td>{{ item['Raison_Sociale'] }}</td>
-                            <td>{{ item['email'] }}</td>
-                            <td>{{ item['Matricule_Fiscale'] }}</td>
-                          </tr>
-                        </tbody>
-                      </table> 
-                </div>
-            </div>
-        </div> 
+<div class="main-container">
+  <div class="navcontainer">
+    <nav class="nav-admin">
+      <div class="nav-upper-options">
+        <div class="nav-option option1">
+          <i class="fa-solid fa-user fa-2xl" style="color: #ffffff;"></i>
+          <h3 class="x"> Profile</h3>
+        </div>
+        <div class="nav-option option2">
+          <i class="fa-solid fa-list-check fa-2xl" style="color: #ffffff;"></i>
+          <h3 class="x"> Outils de gestion</h3>
+          <i class="fa-solid fa-chevron-down" style="color: #ffffff;"></i>
+        </div>
+        <div class="nav-option" (click)=hideShow(2)>
+          <i class="fa-solid fa-message fa-2xl" style="color: #ffffff;"></i>
+          <h3 class="x"> Messagerie</h3>
+          <i class="fa-solid fa-chevron-down" style="color: #ffffff;" id="msg"></i>
+        </div>
+        <a class="nav-option" (click)=hideShow(3)>
+          <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i>
+          <h3 class="x"> Liste Clients</h3>
+        </a>
+        <a class="nav-option" (click)=hideShow(4)>
+          <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i>
+          <h3 class="x"> Liste Comptables</h3>
+        </a>
+        <div class="nav-option option5" style="color: #ffffff;">
+          <i class="fa-solid fa-file-signature fa-2xl"></i>
+          <h3 class="x"> Génération du contrat</h3>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="main">
+    <div class="report-container" [hidden]="client">
+      <div class="report-header">
+        <h1 class="recent-Articles">Liste des clients</h1>
+      </div>
+      <div class="report-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Nom & Prénom</th>
+              <th scope="col">Offre</th>
+              <th scope="col">Raison Sociale</th>
+              <th scope="col">Email</th>
+              <th scope="col">Matricule Fiscale</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of ClientArray; index as i">
+              <td>{{ item['Prénom'] }} {{ item['Nom'] }}</td>
+              <td>{{ item['offre'] }}</td>
+              <td>{{ item['Raison_Sociale'] }}</td>
+              <td>{{ item['email'] }}</td>
+              <td>{{ item['Matricule_Fiscale'] }}</td>
+            </tr>
+          </tbody> 
+        </table> 
+      </div>
+    </div>
+    <div class="report-container" [hidden]="comptable">
+      <div class="report-header">
+        <h1 class="recent-Articles">Liste des Comptables</h1>
+        <button class="btn-grad plus" type="button"><i class="fa-solid fa-plus fa-xl" style="color: #005670;"></i></button>
+      </div>
+      <div class="report-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">Nom & Prénom</th>
+              <th scope="col">Email</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item1 of CompArray; index as j">
+              <td>{{ item1['id'] }}</td>
+              <td>{{ item1['prnom'] }} {{ item1['nom'] }}</td>
+              <td>{{ item1['email'] }}</td>
+              <td><button type="button" class="btn" style="color: red">Supprimer</button></td>
+            </tr>
+          </tbody> 
+        </table> 
+      </div>
+    </div>
+    <div class="row justify-content-center" [hidden]="msg">
+        <div class="card" *ngFor="let item2 of MsgArray; index as k" style="width: 18rem;">
+          <div class="card-header">
+            <h6 style="color:#005670">{{item2['name']}}</h6>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item white"><p style="font-style: italic; color:#cab64b">Email:</p> {{item2['email']}}</li>
+            <li class="list-group-item white"><p style="font-style: italic; color:#cab64b">Sujet:</p> {{item2['subject']}}</li>
+            <li class="list-group-item white"><p style="font-style: italic; color:#cab64b">Message:</p> {{item2['message']}}</li>
+            <li class="list-group-item" style="right: 0%;">
+              <a href="#" class="card-link" style="color:#cab64b; ">Répondre</a>
+              <a href="#" class="card-link" style="color:rgb(236, 130, 130);">Supprimer</a>
+            </li>
+          </ul>
+        </div>
+    </div>  
+  </div>
+</div>

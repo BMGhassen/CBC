@@ -29,7 +29,20 @@ export class HeaderComponent implements OnInit{
    isAccessTokenSet(): boolean {
     return localStorage.getItem('accessToken') !== null;
   }
-
+  async checkAdminOwner(): Promise<boolean> {
+    var ison=false;
+    const accessToken = localStorage.getItem('accessToken');
+    const db = getFirestore();
+      const adminRef = collection(db, "Admin");
+      const q = query(adminRef, where("owner", "==",localStorage.getItem('user_uid') ));
+      const snapshot = await getDocs(q);
+      snapshot.forEach((doc) => {
+            ison=true;
+      });
+      // console.log(snapshot);
+      // Check if any documents exist in the snapshot
+      return !snapshot.empty;
+  }
   async DisplayUsername():Promise<void> {
     const accessToken = localStorage.getItem('accessToken');
     const db=getFirestore();
@@ -42,11 +55,23 @@ export class HeaderComponent implements OnInit{
       // doc.data() is never undefined for query doc snapshots
       this.nompr = doc.data()['Prénom'] +" "+ doc.data()['Nom'] ;
       this.usernameSubject.next(this.nompr);
-      }); 
+      });
+      const isAdmin = await this.checkAdminOwner();
+      this.isadmin1 = isAdmin; 
     }
-      
+    // const isAdmin = await this.checkAdminOwner();
+    // this.isadmin1 = isAdmin;
       }
+      isadmin1:Boolean | undefined;
    async ngOnInit():Promise<void> {
+    console.log('***')
+    await this.DisplayUsername();
+    // if (await this.checkAdminOwner()){
+    //  this.isadmin1=true;
+     
+    // }
+    
+    console.log(this.isadmin1);
     this.username$
       .pipe(
         debounceTime(500), // Adjust debounce time as needed

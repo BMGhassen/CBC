@@ -6,6 +6,7 @@ import { AngularFirestore, AngularFirestoreCollection, DocumentData } from '@ang
 import { getFirestore, collection, where, getDocs,query, getCountFromServer } from '@angular/fire/firestore';
 import { myCustomConstant } from '../../../gVar';
 import { OffresComponent } from '../offres/offres.component';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -14,9 +15,12 @@ import { OffresComponent } from '../offres/offres.component';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
+ 
+  ngOnInit(): void {
 
-
+ }
+  
 }
 
 

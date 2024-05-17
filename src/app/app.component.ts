@@ -12,6 +12,7 @@ import { AuthService } from './auth.service';
 import { ProfileComponent } from './components/profile/profile.component';
 import { Msgadmin1Component } from './components/msgadmin1/msgadmin1.component';
 import { Msgadmin2Component } from './components/msgadmin2/msgadmin2.component';
+import { collection, getDocs, getFirestore, query, where } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +32,9 @@ export class AppComponent implements OnInit{
   title = 'Cairus';
   authService = inject(AuthService)
   
-  ngOnInit(): void{
+
+   ngOnInit(): void{}
+  //   this.fetchData();
     //     this.authService.user$.subscribe(user =>{
   //       if(user) {
   //         this.authService.currentUserSig.set({
@@ -45,5 +48,5 @@ export class AppComponent implements OnInit{
         //     console.log(this.authService.currentUserSig());
 
   // });
-  }
+  
 }

@@ -1,4 +1,4 @@
 export const myCustomConstant = {
     myCustomProperty: 'original value',
-    x1 : 0,x2 : 15
+    x1 : 'original value',x2 : 15
   };

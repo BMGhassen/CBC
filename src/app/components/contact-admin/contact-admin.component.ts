@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Firestore, collection, addDoc, FirestoreModule } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, FirestoreModule, getFirestore, doc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-contact-admin',
@@ -28,6 +28,8 @@ export class ContactAdminComponent  {
 
   constructor(private formBuilder: FormBuilder, private firestore: Firestore) {}
 
+  
+  
   async onSubmit(event: Event) {
     if (this.form.valid) {
       // Form is valid, handle submission (e.g., show success alert, send data to Firestore) // Assuming you want to show a success message

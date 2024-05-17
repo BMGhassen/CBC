@@ -7,6 +7,7 @@ import { AuthService } from '../../auth.service';
 import { FormsModule } from '@angular/forms';
 import { Location } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
+import { collection, getDocs, getFirestore, query, where } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ import { HeaderComponent } from '../header/header.component';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent{
   isLoginInProgress: boolean | undefined;
   errorMessage: string | null = null; 
   form = this.fb.nonNullable.group({ 
@@ -39,8 +40,7 @@ export class LoginComponent {
   // fb = inject(FormBuilder);
   // http = inject(HttpClient);
   //  authService = inject(AuthService);
-
-
+  data: any[] = [];
   
   validateEmail(email: string): boolean {
     if (!email) {
@@ -104,8 +104,7 @@ export class LoginComponent {
       if(!mdp ) 
         {
           this.nopwd=true
-        }
-
+        }  
   }
 
   handleAuthError(err: any): void {

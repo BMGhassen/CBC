@@ -12,65 +12,62 @@ import { Msgadmin1Component } from '../msgadmin1/msgadmin1.component';
     imports: [CommonModule, RouterOutlet, RouterModule, Msgadmin1Component]
 })
 export class AdminDashboardComponent implements OnInit{
-    // gencontrat=false;
-    // cl=false;
-    // serv=false;
-    // clmsg=false;
-    // vismsg=false;
-    // contrat=false;
-    // factures=false;
-    
-    prenom = null;
-    nom = null;
-    email = null;
-    rs = null;
-    pack= null;
-    service = null;
-    adresse = null;
-    tel = null;
-    mf = null;
+    MsgArray : DocumentData[]= new Array();
     ClientArray : DocumentData[]= new Array();
+    CompArray: DocumentData[]= new Array();
     async ngOnInit():Promise<void> {
       const db=getFirestore();
       const clientRef = collection( db, "Clients");
-      const snapshot = await getCountFromServer(clientRef);
-     const q1 = query(clientRef);
-     const nompr = await getDocs(q1);
-      nompr.forEach((doc) => {
-       // doc.data() is never undefined for query doc snapshots
-       this.prenom = doc.data()['Prénom'] ;
-       this.nom = doc.data()['Nom'];
-       this.email = doc.data()['email'];
-       this.rs = doc.data()['Raison_Sociale'];
-       this.pack = doc.data()['pack'];
-       this.service = doc.data()['service'];
-       this.adresse = doc.data()['Adresse'];
-       this.tel = doc.data()['Tel'];
-       this.mf = doc.data()['Matricule_Fiscale']
-       this.ClientArray.push(doc.data());
+      const CompRef = collection(db,"comptables");
+      const MsgRef = collection(db, "contact");
+      const q1 = query(clientRef);
+      const c1 = await getDocs(q1);
+      c1.forEach((doc) => {
+        this.ClientArray.push(doc.data());
       });
     console.log(this.ClientArray);
+      const q2 = query(CompRef);
+      const c2 = await getDocs(q2);
+      c2.forEach((doc) => {
+        this.CompArray.push(doc.data());
+      });
+      console.log(this.CompArray);
+      this.sortComptableData();
+      const q3 = query(MsgRef);
+      const c3 = await getDocs(q3);
+      c3.forEach((doc) => {
+        this.MsgArray.push(doc.data());
+      });
+      console.log(this.MsgArray);
     }
 
   info = false;
-  courriers = true;
-  contrat = true;
+  msg = true;
+  comptable = true;
   client = true;
   hideShow(x: number): void {
-    this.info = true;
-    this.courriers = true;
-    this.contrat = true;
+     this.client = true;
+     this.comptable = true;
+     this.msg = true;
+    // this.contrat = true;
     if (x == 1)
       { this.info = false;}
     else if(x == 2)
-      {this.courriers =false;}
+      {this.msg =false;}
     else if(x == 3)
       {this.client = false;}
     else if (x == 4)
-      {}
+      {this.comptable = false;}
     else if (x == 5)
       {}
     else if(x == 6)
       {}
+  }
+  sortComptableData(): void {
+    this.CompArray.sort((a, b) => {
+      const idA = parseInt(a['id'], 10); // Parse id to integer (base 10)
+      const idB = parseInt(b['id'], 10);
+      return idA - idB; // Ascending order by id
+    });
   }
 }

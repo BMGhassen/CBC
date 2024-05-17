@@ -18,7 +18,24 @@
     --one-use-color: #3f0097; 
     --two-use-color: #5500cb; 
   } 
- 
+  .card{
+    margin: auto;
+    margin-bottom: 10px;
+    border-color:#cab64b ;
+  }
+  .card-header{
+    padding:2px;
+    background: linear-gradient(to left, #ad841f, #f2f0a1);
+  }
+  .plus{
+    width: 50px;
+		height: 50px;
+		text-align: center;
+  }
+  li{
+    padding:2px;
+    background: linear-gradient(to left, #002740, #005670);
+  }
   body { 
     background-color: var(--background-color4); 
     max-width: 100%; 
@@ -147,7 +164,7 @@
     text-size-adjust:  3px;
     min-height: 100%; 
     width: 250px; 
-    background:linear-gradient(to left, #002740, #005670); ; 
+    background:linear-gradient(to left, #002740, #005670);  
     position: fixed; 
     top: 50px; 
     left: 00; 

@@ -183,7 +183,6 @@ export class DomicilicionComponent implements OnInit {
     
     const ClientCollection = collection(this.firestore, 'Clients');
     if (this.user) {
-      console.log('Service : '+this.domiciliationForm.value.service);
       // addDoc(ClientCollection, {
         setDoc (doc(getFirestore(), "Clients", this.domiciliationForm.value.Cin.toString()),{
         'pack': this.domiciliationForm.value.pack,
