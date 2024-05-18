@@ -1,17 +1,37 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { getFirestore, collection, where, getDocs, query, DocumentData, getCountFromServer } from '@angular/fire/firestore';
+import { Component, OnInit, inject } from '@angular/core';
+import { getFirestore, collection, where, getDocs, query, DocumentData, getCountFromServer, setDoc, doc, Firestore, addDoc, FirestoreModule } from '@angular/fire/firestore';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { Msgadmin1Component } from '../msgadmin1/msgadmin1.component';
-
+import { ComptableComponent } from '../comptable/comptable.component';
+import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../../auth.service';
 @Component({
     selector: 'app-admin-dashboard',
     standalone: true,
     templateUrl: './admin-dashboard.component.html',
     styleUrl: './admin-dashboard.component.css',
-    imports: [CommonModule, RouterOutlet, RouterModule, Msgadmin1Component]
+    imports: [CommonModule, RouterOutlet,FirestoreModule, RouterModule, Msgadmin1Component,ComptableComponent,FormsModule,ReactiveFormsModule]
 })
 export class AdminDashboardComponent implements OnInit{
+  firestore: Firestore = inject(Firestore); 
+  authService = inject(AuthService);
+  exist:boolean=false;
+  constructor(private fb: FormBuilder) {
+
+  }
+
+  
+  adminForm : FormGroup = this.fb.group({
+    name: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    tel:['',[Validators.required,Validators.pattern(/^\d{8}$/)]],
+    cin:['', [Validators.required, Validators.pattern(/^\d{8}$/)]]
+
+})
+
+  
+
     MsgArray : DocumentData[]= new Array();
     ClientArray : DocumentData[]= new Array();
     CompArray: DocumentData[]= new Array();
@@ -69,5 +89,37 @@ export class AdminDashboardComponent implements OnInit{
       const idB = parseInt(b['id'], 10);
       return idA - idB; // Ascending order by id
     });
+  }
+  async saveData(): Promise<void> {
+
+    if (!this.exist ) {
+      const response = await this.authService.register(
+        this.adminForm.value.email,
+        this.adminForm.value.name,
+        this.adminForm.value.tel,
+        this.adminForm.value.cin,
+      ).toPromise();
+  
+      const accessToken = response?.user?.accessToken;
+      const userUid = response?.user?.uid;
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('user_uid', userUid);
+      
+    }
+    
+    const comptablesRef = collection(this.firestore, 'comptables');
+    const newComptable = {
+      Nom: this.adminForm.value.name,
+      Tel: this.adminForm.value.tel,
+      email: this.adminForm.value.email
+    };
+    await addDoc(comptablesRef, newComptable); // Add new comptable document
+    console.log("New comptable data saved successfully!");
+  } catch (error:any) {
+    console.error("Error saving data:", error);
+    // Handle registration or data saving errors (e.g., display error message)
+  }
+  submitForm(): void {
+    this.saveData();
   }
 }

@@ -18,10 +18,11 @@ export class ProfileComponent implements OnInit{
   nom = null;
   email = null;
   rs = null;
-  pack= null;
-  service = null;
   adresse = null;
   tel = null;
+  cin=null;
+  offre=null;
+  fj=null;
   async ngOnInit():Promise<void> {
     const db=getFirestore();
     const clientRef = collection( db, "Clients");
@@ -34,20 +35,23 @@ export class ProfileComponent implements OnInit{
      this.nom = doc.data()['Nom'];
      this.email = doc.data()['email'];
      this.rs = doc.data()['Raison_Sociale'];
-     this.pack = doc.data()['pack'];
-     this.service = doc.data()['service'];
      this.adresse = doc.data()['Adresse'];
-     this.tel = doc.data()['Tel']
+     this.tel = doc.data()['Tel'],
+     this.cin=doc.data()['Cin'],
+     this.offre=doc.data()['offre'],
+     this.fj=doc.data()['Forme_Juridique']
     });
   
   }
   info = false;
   courriers = true;
   contrat = true;
+  expert=false;
   hideShow(x: number): void {
     this.info = true;
     this.courriers = true;
     this.contrat = true;
+    this.expert=true;
     if (x == 1)
       { this.info = false;}
     else if(x == 2)
@@ -55,7 +59,7 @@ export class ProfileComponent implements OnInit{
     else if(x == 3)
       {this.contrat =false;}
     else if (x == 4)
-      {}
+      {this.expert=false;}
     else if (x == 5)
       {}
     else if(x == 6)

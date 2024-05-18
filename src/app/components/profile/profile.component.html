@@ -1,61 +1,103 @@
-
-<div class="container bootstrap snippets bootdey">
-    <div class="row">
-        <div class="profile-nav col-md-3">
-                <div class="panel">
-                    <div class="user-heading round">
-                        <a href="#">
-                            <img src="assets/images/155864-OV9V61-628.jpg" alt="">
-                        </a>
-                        <h1>{{prenom}} {{nom}}</h1>
-                        <p>{{email}}</p>
-                    </div>
-                    <nav class="nav navbar flex-column">
-                        <li class="nav-item"><a class="nav-link" (click)=hideShow(1)>Informations Personnelle</a></li>
-                        <li class="nav-item"><a class="nav-link" (click)=hideShow(2)>Mes Courriers</a></li>
-                        <li class="nav-item"><a class="nav-link" (click)=hideShow(3)>Mon Contrat</a></li>
-                        <li class="nav-item"><a class="nav-link" (click)=hideShow(4)>Conférence en ligne</a></li>
-                        <li class="nav-item"><a class="nav-link" (click)=hideShow(5)>Assistance comptable</a></li>
-                        <li class="nav-item"><a class="nav-link" (click)=hideShow(6)>Secrétariat</a></li>
-                    </nav>
-                </div>
+<div class="main-container">
+  <div class="row">
+    <div class="col-md-2" style="background:#ad841f" >
+      <div class="navcontainer" style="background: linear-gradient(to left, #ad841f, #f2f0a1); ">
+        <nav class="nav-admin">
+          <div class="nav-upper-options">
+            <div class="user-heading round">
+              <a href="#">
+                <img src="assets/images/155864-OV9V61-628.jpg" alt="" class="user-image">
+              </a>
+              <h1 class="nom" style="color: #000000;">{{prenom}} {{nom}}</h1>
+              <p class="email" style="color: #000000;">{{email}}</p>
+            </div>
+            <div class="nav-option option2" (click)=hideShow(1)>
+              <i class="fa-solid fa-circle-info fa-2xl" style="color: #000000;margin-left: 1%"></i>
+              <h3 class="x" style="color: #000000;"> Profil & Entreprise</h3>
+            </div>
+            <div class="nav-option" (click)=hideShow(2)>
+              <i class="fa-solid fa-envelopes-bulk fa-2xl" style="color: #000000;"></i>
+              <h3 class="x" style="color: #000000;"> Mes courriers</h3>
+            </div>
+            <a class="nav-option" (click)=hideShow(3)>
+              <i class="fa-solid fa-file-signature fa-2xl" style="color: #000000;"></i>
+              <h3 class="x" style="color: #000000;"> Mon contrat </h3>
+            </a>
+            <a class="nav-option" (click)=hideShow(4)>
+              <i class="fa-solid fa-receipt fa-2xl" style="color: #000000;margin-left: 2%"></i>
+              <h3 class="x" style="color: #000000;"> Assistance comptable</h3>
+            </a>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="col-md-10"  >
+      <div class="row">
+        <div class="col">
+          <div class="report-container" [hidden]="info" id="Informations-personnelles">
+        <div class="report-header">
+          <h1 style="font-weight: bold;color:black">Informations Personnelles</h1>
         </div>
-        <div class="profile-info col-md-9">
-            <div class="panel">
-                <div class="panel-body bio-graph-info" [hidden]="info" id="informations-personnelle">
-                    <h1>Informations Personelles</h1>
-                    <div class="row">
-                        <div class="bio-row">
-                            <p><span>Prénom:</span> {{prenom}}</p>
-                        </div>
-                        <div class="bio-row">
-                            <p><span>Nom:</span>{{nom}}</p>
-                        </div>
-                        <div class="bio-row">
-                            <p><span>Raison Sociale:</span>{{rs}}</p>
-                        </div>
-                        <div class="bio-row">
-                            <p><span>Adresse:</span>{{adresse}}</p>
-                        </div>
-                        <div class="bio-row">
-                            <p><span>Occupation </span>: UI Designer</p>
-                        </div>
-                        <div class="bio-row">
-                            <p><span>Email: </span>{{email}}</p>
-                        </div>
-                        <div class="bio-row">
-                            <p><span>Mobile </span>: {{tel}}</p>
-                        </div>
-                </div>
-                <div id="mes-courriers" [hidden]="courriers">
-                    <p>courriers</p>
-                </div>
-            </div>
-            <div>
-                <div class="row" [hidden]="contrat">
+        <br>
+        <div class="report-body">
+            <div class="row"> 
 
-                </div>
+              <div class="bio-row">
+                <p><span class="y">Prénom :</span> {{prenom}}</p>
+              </div>
+
+              <div class="bio-row">
+                <p><span class="y">Nom :</span>{{nom}}</p>
+              </div>
+
+              <div class="bio-row">
+                <p><span class="y">CIN:</span> {{cin}}</p>
+              </div>
+
+              <div class="bio-row">
+                <p><span class="y">Adresse :</span>{{adresse}}</p>
+              </div>
+    
+              <div class="bio-row">
+                <p><span class="y">Email : </span>{{email}}</p>
+              </div>
+    
+              <div class="bio-row">
+                <p><span class="y">Mobile : </span> {{tel}}</p>
+              </div> 
+
             </div>
+        </div>
+        
+    </div>
+        </div> 
+      </div>
+      <br><br>
+    <div class="report-container" [hidden]="info" id="Informations-personnelles">
+      <div class="row">
+        <div class="col">
+          <div class="report-header" >
+            <h1 style="font-weight: bold;color:black" >Informations commerciales</h1>
+          </div>
+          <br>
+          <div class="report-body">
+            <div class="row">
+              <div class="bio-row">
+                <p><span class="y">Forme-juridique :</span> &#160; &#160; {{fj}}</p>
+              </div>
+              <div class="bio-row">
+                <p><span class="y">Raison-sociale :</span> &#160; &#160;{{rs}}</p>
+              </div>
+              <div class="bio-row">
+                <p><span class="y">Offre:</span> &#160; &#160; {{offre}}</p>
+              </div>
+            </div>
+          </div>
+          </div>
         </div>
     </div>
-</div>
+    </div>
+
+  </div>
+ </div>
+  

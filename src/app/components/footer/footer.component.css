@@ -1,0 +1,45 @@
+.img {
+    width: 180px;
+    height: 150px;
+    margin-left: 240px;
+    margin-top: 0.001cm;
+  }
+  
+  .line {
+    border: 1px solid #ad841f; 
+    height: 0px; 
+    margin-top: 0;
+  }
+  
+  
+  
+  a {
+    text-decoration: none;
+  }
+  
+  .info {
+    margin-bottom: 13px; 
+    margin: 1cm;
+    
+  }
+  
+  
+  .follow-icons {
+    align-self: flex-end; 
+    margin-top: 15px;
+  }
+  
+  .follow-icons .a {
+    margin-left: 10px; 
+  } 
+  
+  .ali {
+     background: linear-gradient(to left, #002740, #005670) ;
+  }
+  .gradient-text {
+  /* Other text styles */
+  background-image: linear-gradient(to left, #ad841f, #f2f0a1);
+  background-clip: text;
+  -webkit-background-clip: text; /* Safari compatibility */
+  color: transparent; /* Make the text itself transparent */
+}
