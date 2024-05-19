@@ -1,0 +1,26 @@
+h3 {
+    font-size: 20px;  /* adjust font size as needed */
+    color: #333;        /* adjust color as needed */
+    font-style: italic;
+    text-decoration:underline;
+    text-align: center;
+  }
+h5{
+    font-size: 15px;
+    font-style:italic;
+    text-align: left;
+    text-decoration: underline;
+}
+p{
+    font-size: 12px;
+    text-align: left;
+}
+#contrat{
+    /* width: 580px;
+    height: 830px; */
+    /* padding: 50px; */
+    margin-top: 20px;
+    margin-right: 40px;
+    margin-left: 30px;
+    margin-bottom: 20px;
+}

@@ -5,11 +5,12 @@ import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import firebase from '@angular/fire';
 import { initializeApp } from "firebase/app";
 import { ContactAdminComponent } from '../contact-admin/contact-admin.component';
+import { ContratComponent } from '../contrat/contrat.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, RouterModule, ContactAdminComponent, RouterOutlet],
+  imports: [CommonModule, RouterModule, ContactAdminComponent, RouterOutlet, ContratComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
