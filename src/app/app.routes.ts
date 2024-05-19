@@ -9,6 +9,7 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
 import { Msgadmin1Component } from './components/msgadmin1/msgadmin1.component';
 import { isSetAccessorDeclaration } from 'typescript';
 import { Msgadmin2Component } from './components/msgadmin2/msgadmin2.component';
+import { ContratComponent } from './components/contrat/contrat.component';
 
 
  const routeConfig: Routes = [
@@ -20,7 +21,8 @@ import { Msgadmin2Component } from './components/msgadmin2/msgadmin2.component';
     {path: 'contact', component: ContactAdminComponent},
     {path: 'admin', component: AdminDashboardComponent},
     {path:'msgadmin1', component:Msgadmin1Component},
-    {path:'msgadmin2', component:Msgadmin2Component}
+    {path:'msgadmin2', component:Msgadmin2Component},
+    {path:'contrat', component:ContratComponent}
    ];
     //{path: 'adminDashboard', component: AdminDashboardComponent}
     // Inside adminDashboard component 

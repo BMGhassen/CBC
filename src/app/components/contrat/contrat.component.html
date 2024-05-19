@@ -1,0 +1,66 @@
+
+<div id="contrat" #contrat>
+    <h3>Contrat de domiciliation commerciale</h3>
+    <p>&nbsp;</p>
+<p>Entre les soussign&eacute;s,</p>
+<p>Mme Bassma Yaakoubi, demeurant &agrave; (adresse personnelle)</p>
+<p>Dirigeant de la soci&eacute;t&eacute;&nbsp; SUARL, 
+    au si&egrave;ge sociale situ&eacute; &agrave; 08 avenue de l'université manar 1, 2092 Tunis, Tunisie, immatricul&eacute;e </p>
+<p>Le domiciliataire,</p>
+<p>D&rsquo;une part,</p>
+<p>Monsieur {{prenom}} {{nom}}, demeurant &agrave; {{adresse}}</p>
+<p>Dirigeant de la soci&eacute;t&eacute;&nbsp; &hellip; {{fj}}, immatriculé sous l'identifiant unique n&deg;{{mf}}</p>
+<p>Le domicili&eacute;,</p>
+<p>D&rsquo;autre part,</p>
+<p>Il a &eacute;t&eacute; conclu ce qui suit&nbsp;:</p>
+<p>&nbsp;</p>
+<h5>Article 1 - Objet</h5>
+<p>Le pr&eacute;sent contrat a pour objet la domiciliation du si&egrave;ge social de l&apos;entreprise domicili&eacute;e conform&eacute;ment 
+   <br> aux dispositions des articles R 123-167 &agrave; R 123-171 du Code de commerce relatifs &agrave; la domiciliation des entreprises.</p>
+<p>&nbsp;</p>
+<h5>Article 2 - Prestations</h5>
+<p>Le domiciliataire met &agrave; la disposition du domicili&eacute;&nbsp;:</p>
+<p *ngIf="standard">
+    Domiciliation, Réception, tri et numérisation des courriers, Conseil d'expert en domiciliation et création d'entreprise, 
+ Notification de récéption par mail, Support client: mail, téléphone, whatsapp 24/7, Espace personnel Digital: suivi dossier, téléchargement des documents courriers scannées
+</p>
+<p *ngIf="plus">
+    Domiciliation, Réception, tri et numérisation des courriers, Conseil d'expert en domiciliation et création d'entreprise, 
+ Notification de récéption par mail, Support client: mail, téléphone, whatsapp 24/7, Espace personnel Digital: suivi dossier, téléchargement des documents courriers scannées,
+ Réexpedition du courrier à l'adresse de votre choix 1 fois/semaine, Accées à la salle de réunion 4h/mois
+</p>
+<p *ngIf="gold">
+    Domiciliation, Réception, tri et numérisation des courriers, Conseil d'expert en domiciliation et création d'entreprise, 
+ Notification de récéption par mail, Support client: mail, téléphone, whatsapp 24/7, Espace personnel Digital: suivi dossier, téléchargement des documents courriers scannées,
+ Réexpedition du courrier à l'adresse de votre choix 1 fois/semaine, Accées à la salle de réunion 4h/mois,Assistance comptable
+</p>
+<p>&nbsp;</p>
+<h5>Article 3 - Obligations du domiciliataire et du domicili&eacute;</h5>
+<p>Le domiciliataire s&apos;engage &agrave; :</p>
+<p>&nbsp;- &ecirc;tre immatricul&eacute; au Registre du Commerce et des soci&eacute;t&eacute;s ou au R&eacute;pertoire des M&eacute;tiers ;</p>
+<p *ngIf="gold || plus">- mettre &agrave; la disposition du domicili&eacute; des locaux pour permettre d&rsquo;y tenir une r&eacute;union r&eacute;guli&egrave;re 
+    des organes charg&eacute;s de la direction, de l&apos;administration ou de la surveillance de l&apos;entreprise et l&apos;installation des services n&eacute;cessaires &agrave; la tenue, &agrave; la conservation et &agrave; la consultation des livres, registres et documents prescrits par les lois et r&egrave;glements et permettre la confidentialit&eacute; de l&rsquo;entreprise ;</p>
+<p *ngIf="gold">- fournir des services d'un expert comptable</p>
+<p>- informer le greffe du tribunal, &agrave; l&apos;expiration du contrat ou, en cas de r&eacute;siliation de celui-ci, de la cessation de la domiciliation de l&apos;entreprise dans ses locaux.</p>
+<p>&nbsp;</p>
+<h5>Article 4 - Obligations du domicili&eacute;</h5>
+<p>Le domicili&eacute; s&apos;engage &agrave; utiliser effectivement et exclusivement les locaux pour son si&egrave;ge sociale et &agrave; d&eacute;clarer au domiciliataire toute modification de son activit&eacute;, de sa forme juridique, de son objet et de l&apos;identit&eacute; des personnes ayant le pouvoir de l&apos;engager.</p>
+<p>&nbsp;</p>
+<h5>Article 5 - Dur&eacute;e</h5>
+<p>Le pr&eacute;sent contrat est consenti pour une dur&eacute;e de .......... mois &agrave; compter du .............. :</p>
+<p>Il se renouvellera par tacite reconduction pour une dur&eacute;e de .......... mois, sauf r&eacute;siliation notifi&eacute;e par l&apos;une des parties par lettre recommand&eacute;e avec demande d&apos;avis de r&eacute;ception 3 mois avant le terme fix&eacute;.</p>
+<h5>Article 6 - Redevance</h5>
+<p>Le pr&eacute;sent contrat est consenti moyennant une redevance  de {{montant}} Dinars TTC payable d&apos;avance.</p>
+<p>&nbsp;</p> 
+
+<h5>Article 7 - Attribution de juridiction</h5>
+<p>Tout litige survenant entre les parties relatif &agrave; l&apos;ex&eacute;cution du pr&eacute;sent contrat sera imp&eacute;rativement port&eacute; devant le tribunal de commerce de Tunis</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Fait &agrave; ........, le ............</p>
+<p>&nbsp;</p>
+<p>Signature des parties</p>
+<p>&nbsp;</p> 
+<p>&nbsp;</p>
+<button id="unwanted" data-html2canvas-ignore="true" (click)="generatePDF()">Ouvrir version PDF</button>
+</div>
