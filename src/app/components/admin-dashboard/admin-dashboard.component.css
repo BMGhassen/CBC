@@ -527,3 +527,66 @@
       width: 180px; 
     } 
   }
+  #name  {
+    width:400px;
+  }
+  #mail{
+    width:400px;
+  }
+  #tel{
+    width:400px;
+  }
+  .ajouter {
+    width : 110px;
+    background-color: #4CAF50; /* Green, primary color */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer; /* Indicate interactivity */
+    display: inline-flex; /* Enables horizontal centering of text and icon */
+    align-items: center; /* Vertically centers text and icon */
+    transition: 0.3s;
+    
+  }
+  .ajouter:hover{
+    background-color: #3e8e41;
+  }
+  .annuler{
+    width : 110px;
+    background-color: #f0f0f0; /* Light gray background */
+    color: #333; /* Dark gray text */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex; /* Enables horizontal centering of text and icon */
+    align-items: center;
+    transition: 0.3s;
+   
+  }
+  .tel{
+    margin-left: 790px;
+    
+  }
+  .mail{
+    margin-left:790px;
+    
+  }
+  .name {
+    margin-left:790px ;
+    
+  }
+  .annuler:hover{
+    background-color: #e0e0e0;
+  }
+  
+  .row.justify-content-center {
+    margin: 0 auto; /* Centers horizontally */
+  }
+  .row {
+    /* Existing styles */
+    justify-content: center;  /* Already present */
+    align-items: center;      /* New style to center vertically */
+  }
+  

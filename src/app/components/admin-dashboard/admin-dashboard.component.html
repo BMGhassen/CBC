@@ -62,7 +62,7 @@
     <div class="report-container" [hidden]="comptable">
       <div class="report-header">
         <h1 class="recent-Articles">Liste des Comptables</h1>
-        <button class="btn-grad plus" type="button"><i class="fa-solid fa-plus fa-xl" style="color: #005670;"></i></button>
+        <button class="btn-grad plus" type="button"><i class="fa-solid fa-plus fa-xl" style="color: #005670;" ></i></button>
       </div>
       <div class="report-body">
         <table class="table table-striped">
@@ -82,9 +82,50 @@
               <td><button type="button" class="btn" style="color: red">Supprimer</button></td>
             </tr>
           </tbody> 
-        </table> 
+        </table>
+        
       </div>
-    </div>
+      <div class="row justify-content-center align-items-center">
+        <form>
+          <div class="row">
+            <p style="color: black;" class="name" style="font-weight: bold;color: #ffffff;">Nom & Prénom </p>
+            <input type="text" id="name" placeholder="&nbsp; &nbsp; Nom & Prénom">
+            <div *ngIf="adminForm?.get('name')?.hasError('required') ">
+              <small class="text-danger">Veuillez saisir un Nom & Prénom</small>
+            </div>
+          </div>
+          
+          <br> <br>
+          <div class="row">
+            <p style="color: black;" class="mail" style="font-weight: bold;color: #ffffff;">Email </p>
+            <input type="email" id="mail" placeholder="&nbsp; &nbsp; Email">
+            <div *ngIf="adminForm?.get('mail')?.hasError('required') ">
+              <small class="text-danger">Veuillez saisir un Email</small>
+            </div>
+            <div *ngIf="adminForm?.get('name')?.hasError('pattern') ">
+              <small class="text-danger">Forme incorrecte</small>
+            </div>
+          </div>
+          <br> <br>
+          <div class="row">
+            <p style="color: black;" class="tel" style="font-weight: bold;color: #ffffff;">Téléphone</p>
+            <input type="number" id="tel" placeholder="&nbsp; &nbsp; Numéro de téléphone">
+            <div *ngIf="adminForm?.get('name')?.hasError('required') ">
+              <small class="text-danger">Veuillez saisir un numéro de téléphone</small>
+            </div>
+            <div *ngIf="adminForm?.get('name')?.hasError('pattern') ">
+              <small class="text-danger">Numéro de téléphone doit avoir strictement 8 chiffres</small>
+            </div>
+          </div>
+          <br><br>
+          <div class="row">
+            <button class="ajouter" type="submit" name="submitbtn">Ajouter</button>
+            &#160;
+            <button class="annuler" type="reset" name="submitbtn">Annuler</button>
+          </div>
+        </form>
+      </div>
+      
     <div class="row justify-content-center" [hidden]="msg">
         <div class="card" *ngFor="let item2 of MsgArray; index as k" style="width: 18rem;">
           <div class="card-header">
