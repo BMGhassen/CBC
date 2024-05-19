@@ -23,8 +23,8 @@ import { ComptableComponent } from './components/comptable/comptable.component';
     {path: 'admin', component: AdminDashboardComponent},
     {path:'msgadmin1', component:Msgadmin1Component},
     {path:'msgadmin2', component:Msgadmin2Component},
-    {path:'contrat', component:ContratComponent}
-    {path:'Component', component:ComptableComponent}
+    {path:'contrat', component:ContratComponent},
+    {path:'Comptable', component:ComptableComponent}
    ];
     //{path: 'adminDashboard', component: AdminDashboardComponent}
     // Inside adminDashboard component 

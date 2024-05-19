@@ -97,7 +97,6 @@ export class AdminDashboardComponent implements OnInit{
         this.adminForm.value.email,
         this.adminForm.value.name,
         this.adminForm.value.tel,
-        this.adminForm.value.cin,
       ).toPromise();
   
       const accessToken = response?.user?.accessToken;

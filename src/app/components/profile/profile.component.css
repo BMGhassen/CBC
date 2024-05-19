@@ -16,6 +16,12 @@ body {
     margin-top:30px;   
 }
 
+.scrollable-div {
+    width: 100%; /* Adjust width as needed */
+    overflow-y: auto;
+  }
+  
+
 .profile-nav .user-heading {
     background: linear-gradient(to left, #002740, #005670);
     color: #fff;
@@ -495,3 +501,7 @@ ul.summary-list > li:last-child  {
     margin-left: 17px;
   }
   
+
+.container{
+    width: 210mm;
+}
