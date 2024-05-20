@@ -30,6 +30,7 @@ import { DataSharingService } from './DataSharingService';
   styleUrl: './app.component.css',
   providers:[DataSharingService]
 })
+
 export class AppComponent implements OnInit{
   title = 'Cairus';
   authService = inject(AuthService)

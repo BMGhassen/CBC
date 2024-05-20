@@ -26,6 +26,7 @@
     "bootstrap": "^5.3.3",
     "cli-spinners": "^2.9.2",
     "color-convert": "^2.0.1",
+    "firebase-admin": "^12.1.0",
     "html2canvas": "^1.4.1",
     "is-plain-object": "^5.0.0",
     "jquery": "^3.7.1",

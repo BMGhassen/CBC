@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { Location } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
 import { collection, getDocs, getFirestore, query, where } from '@angular/fire/firestore';
+import { timer } from 'rxjs';
 
 
 @Component({
@@ -20,6 +21,7 @@ import { collection, getDocs, getFirestore, query, where } from '@angular/fire/f
 export class LoginComponent{
   isLoginInProgress: boolean | undefined;
   errorMessage: string | null = null; 
+  admin=false;
   form = this.fb.nonNullable.group({ 
     email: ['', Validators.required],
     password: ['', Validators.required],
@@ -133,8 +135,39 @@ export class LoginComponent{
     }
 
   }
-  
 
+  isLoggedIn(): boolean {
+    const hasAccessToken = localStorage.getItem('accessToken') !== null;
+    
+    timer(1000);
+    if (hasAccessToken) {
+      return true;
+    } else {     
+      return false;
+    }
+  }
+  async checkAdminOwner(): Promise<boolean> {
+    var ison=false;
+    const accessToken = localStorage.getItem('accessToken');
+    const db = getFirestore();
+    const adminRef = collection(db, "Admin");
+    const q = query(adminRef, where("owner", "==",localStorage.getItem('user_uid') ));
+    const snapshot = await getDocs(q);
+    snapshot.forEach((doc) => {
+          ison=true;
+    });
+    return !snapshot.empty;
+}
+  
+  async navigateToProfile() {
+    this.admin=await this.checkAdminOwner();
+    if (this.admin) {
+      console.log('rrr');
+      this.router.navigate(['/admin']);
+    } else if (this.isLoggedIn()) {
+      this.router.navigate(['/']); // Assuming this is the user profile route
+    }
+  }
   hasForm(): boolean {
     return this.form !== null;
   }

@@ -26,4 +26,18 @@ export class MessagerieComponent implements OnInit{
         this.MsgArray.push(doc.data());
       });
   }
+  copyEmail(email: string) {
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = email;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+    console.log('Email copied to clipboard:', email);
+  }
 }

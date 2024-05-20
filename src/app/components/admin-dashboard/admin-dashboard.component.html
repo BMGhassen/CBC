@@ -2,9 +2,12 @@
   <div class="navcontainer">
     <nav class="nav-admin">
       <div class="nav-upper-options">
-        <div class="nav-option option1">
-          <i class="fa-solid fa-user fa-2xl" style="color: #ffffff;"></i>
-          <h3 class="x"> Profile</h3>
+        <div class="user-heading round">
+          <a href="#">
+            <img src="assets/images/admin.webp" alt="" class="user-image">
+          </a>
+          <p class="nom" style="color: white;font-size: large;" >{{prenom}} {{nom}}</p>
+                
         </div>
         
         <div class="nav-option" (click)=hideShow(2)>
@@ -79,7 +82,7 @@
               <td>{{ item1['mail'] }}</td>
               <td>{{ item1['tel'] }}</td>
               <td>{{ item1['cin'] }}</td>
-              <td><button (click)="deleteComptable(item1)" type="button" class="btn" style="color: red">Supprimer</button></td>
+              <td><button (click)="deleteComptable(item1,item1['cin'])" type="button" class="btn" style="color: red">Supprimer</button></td>
             </tr>
           </tbody> 
         </table>

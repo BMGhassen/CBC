@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject, ɵɵqueryRefresh } from '@angular/core';
-import { getFirestore, collection, where, getDocs, query, DocumentData, getCountFromServer, setDoc, doc, Firestore, addDoc, FirestoreModule, deleteDoc } from '@angular/fire/firestore';
+import { getFirestore, collection, where, getDocs, query, DocumentData,getCountFromServer, setDoc, doc, Firestore, addDoc, FirestoreModule, deleteDoc, getDoc } from '@angular/fire/firestore';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { Msgadmin1Component } from '../msgadmin1/msgadmin1.component';
 import { ComptableComponent } from '../comptable/comptable.component';
@@ -14,7 +14,7 @@ import { MessagerieComponent } from '../messagerie/messagerie.component';
     styleUrl: './admin-dashboard.component.css',
     imports: [CommonModule, RouterOutlet,FirestoreModule, RouterModule, 
               Msgadmin1Component,ComptableComponent,FormsModule, 
-              ReactiveFormsModule, MessagerieComponent]
+              ReactiveFormsModule, MessagerieComponent,]
 })
 export class AdminDashboardComponent implements OnInit{
   firestore: Firestore = inject(Firestore); 
@@ -25,7 +25,9 @@ export class AdminDashboardComponent implements OnInit{
   alertcin=false;
   submit=false;
   emailexist=false;
-  constructor(private fb: FormBuilder) {}
+  prenom = null;
+  nom = null;
+  constructor(private fb: FormBuilder,) {}
  
 
 
@@ -46,8 +48,15 @@ export class AdminDashboardComponent implements OnInit{
 
     async ngOnInit():Promise<void> {
       const db=getFirestore();
+      const admin=collection(db,'Admin');
       const clientRef = collection( db, "Clients");
       const CompRef = collection(db,"comptables");
+      const a1=query(admin);
+      const a2=await getDocs(a1);
+      a2.forEach((doc)=>{
+        this.nom=doc.data()['nom'];
+        this.prenom=doc.data()['prenom'];
+      })
       const q1 = query(clientRef);
       const c1 = await getDocs(q1);
       c1.forEach((doc) => {
@@ -168,8 +177,6 @@ export class AdminDashboardComponent implements OnInit{
     return snapshot.size > 0;
   }
 
-
-
     
 toggleComptableForm() {
   this.isVisible=true;
@@ -183,19 +190,23 @@ buttonsubmit (){
   
   this.submit=true;
 }
-async deleteComptable(comptable: DocumentData) {
-  const firestore = getFirestore();
-  const comptableRef = doc(firestore, 'comptables', comptable['cin']);
+async deleteComptable(comptable: DocumentData, id: string) {
+    const db=getFirestore();
+    try {
+      await deleteDoc(doc(db, 'comptables/' + id));
+      console.log('Comptable with ID', id, 'exists, proceeding with deletion...');
 
-  await deleteDoc(comptableRef);
-  console.log('Comptable deleted:', comptable);
-
-  // Remove the deleted comptable from CompArray
-  const index = this.CompArray.findIndex(item => item['cin'] === comptable['cin']);
-  if (index > -1) {
-    this.CompArray.splice(index, 1);
-  }
+        const index = this.CompArray.findIndex(item => item['cin'] === comptable['cin']);
+        if (index > -1) {
+          this.CompArray.splice(index, 1);
+        }
+      
+    } catch (error) {
+      console.error("Error deleting comptable:", error);
+    }
 }
+
+
 
 
 
