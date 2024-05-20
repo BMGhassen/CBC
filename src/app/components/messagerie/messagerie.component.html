@@ -9,9 +9,8 @@
             <li class="list-group-item white"><p style="font-style: italic; color:#cab64b">Sujet:</p> {{item2['subject']}}</li>
             <li class="list-group-item white"><p style="font-style: italic; color:#cab64b">Message:</p> {{item2['message']}}</li>
             <li class="list-group-item" style="right: 0%;">
-                <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" class="card-link" style="color:#cab64b; ">
-                    Répondre</a>
-                <a href="" class="card-link" style="color:rgb(236, 130, 130);">Supprimer</a>
+                <a href="#" class="card-link" style="color:#cab64b; ">Répondre</a>
+                <a type="button" (click)="deleteMessage(item2)" class="card-link" style="color:rgb(236, 130, 130);">Supprimer</a>
             </li>
             </ul>
         </div>

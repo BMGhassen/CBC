@@ -97,6 +97,20 @@
           </div>
         </div>
     </div>
+    <div class="report-container" [hidden]="courriers">
+      <div class="row">
+        <div class="col">
+          <div class="report-header" >
+              <h1>Mes courriers</h1>
+            </div>
+          <div class="report-body">
+              <div class="container">  
+                  <app-courriers></app-courriers>
+              </div>
+          </div>
+        </div>
+      </div>
+  </div>
     <div class="report-container" [hidden]="contrat">
         <div class="row">
           <div class="col">

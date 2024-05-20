@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject, ɵɵqueryRefresh } from '@angular/core';
+
 import { getFirestore, collection, where, getDocs, query, DocumentData,getCountFromServer, setDoc, doc, Firestore, addDoc, FirestoreModule, deleteDoc, getDoc } from '@angular/fire/firestore';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { Msgadmin1Component } from '../msgadmin1/msgadmin1.component';
@@ -190,21 +191,20 @@ buttonsubmit (){
   
   this.submit=true;
 }
-async deleteComptable(comptable: DocumentData, id: string) {
-    const db=getFirestore();
-    try {
-      await deleteDoc(doc(db, 'comptables/' + id));
-      console.log('Comptable with ID', id, 'exists, proceeding with deletion...');
 
-        const index = this.CompArray.findIndex(item => item['cin'] === comptable['cin']);
-        if (index > -1) {
-          this.CompArray.splice(index, 1);
-        }
+async deleteComptable(comptable: DocumentData) {
+  const db=getFirestore();
+      const CompRef = collection(db,"comptables");
+      const q1 = query(CompRef, where("cin", "==", comptable['cin']));
+      const c1 = await getDocs(q1);
       
-    } catch (error) {
-      console.error("Error deleting comptable:", error);
-    }
-}
+      c1.forEach((doc1) => {
+        const id=doc1.id;
+         deleteDoc(doc(db,"comptables",id));
+      });
+  
+  // await deleteDoc("comptabeles",q1);
+  console.log('Comptable deleted:', comptable);
 
 
 
