@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col-md-3" *ngFor="let item2 of MsgArray; index as k">
+        <div class="card"  style="width: 18rem;">
+            <div class="card-header">
+            <h6 style="color:#005670">{{item2['name']}}</h6>
+            </div>
+            <ul class="list-group list-group-flush">
+            <li class="list-group-item white"><p style="font-style: italic; color:#cab64b">Email:</p> {{item2['email']}}</li>
+            <li class="list-group-item white"><p style="font-style: italic; color:#cab64b">Sujet:</p> {{item2['subject']}}</li>
+            <li class="list-group-item white"><p style="font-style: italic; color:#cab64b">Message:</p> {{item2['message']}}</li>
+            <li class="list-group-item" style="right: 0%;">
+                <a href="#" class="card-link" style="color:#cab64b; ">Répondre</a>
+                <a href="#" class="card-link" style="color:rgb(236, 130, 130);">Supprimer</a>
+            </li>
+            </ul>
+        </div>
+    </div>
+</div>

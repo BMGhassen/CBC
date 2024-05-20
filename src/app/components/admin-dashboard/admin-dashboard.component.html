@@ -6,15 +6,11 @@
           <i class="fa-solid fa-user fa-2xl" style="color: #ffffff;"></i>
           <h3 class="x"> Profile</h3>
         </div>
-        <div class="nav-option option2">
-          <i class="fa-solid fa-list-check fa-2xl" style="color: #ffffff;"></i>
-          <h3 class="x"> Outils de gestion</h3>
-          <i class="fa-solid fa-chevron-down" style="color: #ffffff;"></i>
-        </div>
+        
         <div class="nav-option" (click)=hideShow(2)>
           <i class="fa-solid fa-message fa-2xl" style="color: #ffffff;"></i>
           <h3 class="x"> Messagerie</h3>
-          <i class="fa-solid fa-chevron-down" style="color: #ffffff;" id="msg"></i>
+          
         </div>
         <a class="nav-option" (click)=hideShow(3)>
           <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i>
@@ -24,10 +20,7 @@
           <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i>
           <h3 class="x"> Liste Comptables</h3>
         </a>
-        <div class="nav-option option5" style="color: #ffffff;">
-          <i class="fa-solid fa-file-signature fa-2xl"></i>
-          <h3 class="x"> Génération du contrat</h3>
-        </div>
+
       </div>
     </nav>
   </div>
@@ -59,88 +52,122 @@
         </table> 
       </div>
     </div>
+    <div [hidden]="msg">
+      <app-messagerie></app-messagerie>
+    </div>
     <div class="report-container" [hidden]="comptable">
       <div class="report-header">
         <h1 class="recent-Articles">Liste des Comptables</h1>
-        <button class="btn-grad plus" type="button"><i class="fa-solid fa-plus fa-xl" style="color: #005670;" ></i></button>
+        <button (click)="toggleComptableForm()" class="btn-grad plus" type="button"><i class="fa-solid fa-plus fa-xl" style="color: #005670;" ></i></button>
       </div>
       <div class="report-body">
         <table class="table table-striped">
           <thead>
             <tr>
-              <th scope="col">id</th>
+              
               <th scope="col">Nom & Prénom</th>
               <th scope="col">Email</th>
+              <th scope="col">Téléphone</th>
+              <th scope="col">CIN</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item1 of CompArray; index as j">
-              <td>{{ item1['id'] }}</td>
-              <td>{{ item1['prnom'] }} {{ item1['nom'] }}</td>
-              <td>{{ item1['email'] }}</td>
-              <td><button type="button" class="btn" style="color: red">Supprimer</button></td>
+              
+              <td>{{ item1['Nom & Prénom'] }} </td>
+              <td>{{ item1['mail'] }}</td>
+              <td>{{ item1['tel'] }}</td>
+              <td>{{ item1['cin'] }}</td>
+              <td><button (click)="deleteComptable(item1)" type="button" class="btn" style="color: red">Supprimer</button></td>
             </tr>
           </tbody> 
         </table>
         
       </div>
-      <div class="row justify-content-center align-items-center">
-        <form>
-          <div class="row">
-            <p style="color: black;" class="name" style="font-weight: bold;color: #ffffff;">Nom & Prénom </p>
-            <input type="text" id="name" placeholder="&nbsp; &nbsp; Nom & Prénom">
-            <div *ngIf="adminForm?.get('name')?.hasError('required') ">
-              <small class="text-danger">Veuillez saisir un Nom & Prénom</small>
+      <br> 
+      <div class="row justify-content-center align-items-center" *ngIf="isVisible">
+        <div class="container">
+          <form [formGroup]="adminForm">
+            <div class="row justify-content-center">
+              <div class="col-md-6">
+                <label for="name" style="font-weight: bold;color: #ffffff; display: block;">Nom & Prénom</label>
+                <input type="text" id="name" formControlName="name" id="name" placeholder="&nbsp; &nbsp; Nom & Prénom">
+                <br>
+                <div *ngIf="adminForm?.get('name')?.hasError('required') && submit " class="alert alert-danger alert-centered" role="alert" style="width:400px ; text-align: 30px;padding-left: 10px;">
+                  <small class="text-danger" >Veuillez saisir un Nom & Prénom</small>
+                </div>
+                <div *ngIf="adminForm?.get('name')?.hasError('pattern') &&  submit " class="alert alert-danger alert-centered" role="alert" style="width:400px ; text-align: 30px;padding-left: 10px;">
+                  <small class="text-danger">Nom & Prénom contient seulement des lettres </small>
+                </div>
+              </div>
+            
+                <br> 
+              <div class="col-md-6">
+                <label for="cin" style="font-weight: bold;color: #ffffff;display: block;">CIN</label>
+                <input type="text" formControlName="cin" id="cin" placeholder="&nbsp; &nbsp; CIN">
+                <br>
+                <div *ngIf="adminForm?.get('cin')?.hasError('required') && submit " class="alert alert-danger alert-centered" role="alert" style="width:400px ; text-align: 30px;padding-left: 10px;">
+                  <small class="text-danger">Veuillez saisir un CIN</small>
+                </div>
+                <div *ngIf="adminForm?.get('cin')?.hasError('pattern') &&  submit " class="alert alert-danger alert-centered" role="alert" style="width:400px ; padding-left: 10px;">
+                  <small class="text-danger" >CIN doit avoir strictement 8 chiffres</small>
+                </div>
+                <div *ngIf="alertcin" class="alert alert-danger alert-centered" role="alert">
+                  <small class="text-danger">Comptable déja existe avec cette CIN</small>
+                </div>
+              </div>
             </div>
-          </div>
-          
-          <br> <br>
-          <div class="row">
-            <p style="color: black;" class="mail" style="font-weight: bold;color: #ffffff;">Email </p>
-            <input type="email" id="mail" placeholder="&nbsp; &nbsp; Email">
-            <div *ngIf="adminForm?.get('mail')?.hasError('required') ">
-              <small class="text-danger">Veuillez saisir un Email</small>
+            <br> 
+            <div class="row">
+              <div class="col-md-6">
+                <label for="mail" style="font-weight: bold;color: #ffffff;display: block;">Email</label>
+                <input type="email" formControlName="mail" id="mail" placeholder="&nbsp; &nbsp; Email">
+                <br>
+                <div *ngIf="adminForm?.get('mail')?.hasError('required') && submit  " class="alert alert-danger alert-centered" role="alert" style="width:400px ; text-align: 30px;padding-left: 10px;">
+                  <small class="text-danger">Veuillez saisir un Email</small>
+                </div>
+                <div *ngIf="adminForm?.get('mail')?.hasError('pattern') && submit " class="alert alert-danger alert-centered" role="alert" style="width:400px ; text-align: 30px;padding-left: 10px;">
+                  <small class="text-danger">Forme incorrecte</small>
+                </div>
+                <div *ngIf="alertmail" class="alert alert-danger" role="alert" style="width:400px ; text-align: 30px;padding-left: 10px;">
+                  <small class="text-danger">Comptable déja existe avec cet Email</small>
+                </div>
+              </div>
+              <br> 
+              <div class="col-md-6">
+                <label for="tel" style="font-weight: bold;color: #ffffff;display: block;">Numéro de téléphone</label>
+                <input type="number" formControlName="tel" id="tel" placeholder="&nbsp; &nbsp; Numéro de téléphone">
+                <br>
+                <div *ngIf="adminForm?.get('tel')?.hasError('required') && submit " class="alert alert-danger alert-centered" role="alert" style="width:400px ; text-align: 30px;padding-left: 10px;">
+                  <small class="text-danger" >Veuillez saisir un numéro de téléphone</small>
+                </div>
+                <div *ngIf="adminForm?.get('tel')?.hasError('pattern') &&  submit " class="alert alert-danger alert-centered" role="alert" style="width:400px ; text-align: 30px;padding-left: 10px;">
+                  <small class="text-danger">Numéro de téléphone doit avoir uniquement 8 chiffres</small>
+                </div>
+              </div>
             </div>
-            <div *ngIf="adminForm?.get('name')?.hasError('pattern') ">
-              <small class="text-danger">Forme incorrecte</small>
+            <br>
+            <div class="row">
+              <div class="col-md-4.5">
+                <label for="mdp" style="font-weight: bold;color: #ffffff;display: block;" >Mot de passe</label>
+                <input type="password" formControlName="mdp" id="mdp" placeholder="&nbsp; &nbsp; Mot de passe">
+                <br>               
+                <div *ngIf="adminForm?.get('mdp')?.hasError('required') && submit " class="alert alert-danger alert-centered" role="alert" style="width:400px ; text-align: 30px;padding-left: 10px;">
+                  <small class="text-danger">Veuillez saisir un mot de passe</small>
+                </div>
+              </div>
             </div>
-          </div>
-          <br> <br>
-          <div class="row">
-            <p style="color: black;" class="tel" style="font-weight: bold;color: #ffffff;">Téléphone</p>
-            <input type="number" id="tel" placeholder="&nbsp; &nbsp; Numéro de téléphone">
-            <div *ngIf="adminForm?.get('name')?.hasError('required') ">
-              <small class="text-danger">Veuillez saisir un numéro de téléphone</small>
+            <br>
+           
+            <div class="row">
+              <button class="ajouter" type="submit" name="submitbtn" (click)="submitForm()" (click)="buttonsubmit()">Ajouter</button>
+              &#160;
+              <button class="annuler" type="reset" name="submitbtn" (click)="annuler()">Annuler</button>
             </div>
-            <div *ngIf="adminForm?.get('name')?.hasError('pattern') ">
-              <small class="text-danger">Numéro de téléphone doit avoir strictement 8 chiffres</small>
-            </div>
-          </div>
-          <br><br>
-          <div class="row">
-            <button class="ajouter" type="submit" name="submitbtn">Ajouter</button>
-            &#160;
-            <button class="annuler" type="reset" name="submitbtn">Annuler</button>
-          </div>
-        </form>
-      </div>
-      
-    <div class="row justify-content-center" [hidden]="msg">
-        <div class="card" *ngFor="let item2 of MsgArray; index as k" style="width: 18rem;">
-          <div class="card-header">
-            <h6 style="color:#005670">{{item2['name']}}</h6>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item white"><p style="font-style: italic; color:#cab64b">Email:</p> {{item2['email']}}</li>
-            <li class="list-group-item white"><p style="font-style: italic; color:#cab64b">Sujet:</p> {{item2['subject']}}</li>
-            <li class="list-group-item white"><p style="font-style: italic; color:#cab64b">Message:</p> {{item2['message']}}</li>
-            <li class="list-group-item" style="right: 0%;">
-              <a href="#" class="card-link" style="color:#cab64b; ">Répondre</a>
-              <a href="#" class="card-link" style="color:rgb(236, 130, 130);">Supprimer</a>
-            </li>
-          </ul>
+            
+          </form>
         </div>
-    </div>  
+      </div> 
   </div>
 </div>

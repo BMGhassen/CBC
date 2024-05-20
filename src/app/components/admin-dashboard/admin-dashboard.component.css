@@ -18,24 +18,13 @@
     --one-use-color: #3f0097; 
     --two-use-color: #5500cb; 
   } 
-  .card{
-    margin: auto;
-    margin-bottom: 10px;
-    border-color:#cab64b ;
-  }
-  .card-header{
-    padding:2px;
-    background: linear-gradient(to left, #ad841f, #f2f0a1);
-  }
+  
   .plus{
     width: 50px;
 		height: 50px;
 		text-align: center;
   }
-  li{
-    padding:2px;
-    background: linear-gradient(to left, #002740, #005670);
-  }
+  
   body { 
     background-color: var(--background-color4); 
     max-width: 100%; 
@@ -529,12 +518,28 @@
   }
   #name  {
     width:400px;
+    text-align: 30px;
+    padding-left: 10px;
   }
   #mail{
     width:400px;
+    text-align: 30px;
+    padding-left: 10px;
   }
   #tel{
     width:400px;
+    text-align: 30px;
+    padding-left: 10px;
+  }
+  #cin{
+    width: 400px;
+    text-align: 30px;
+    padding-left: 10px;
+  }
+  #mdp{
+    width: 400px;
+    text-align: 30px;
+    padding-left: 10px;
   }
   .ajouter {
     width : 110px;
@@ -565,18 +570,7 @@
     transition: 0.3s;
    
   }
-  .tel{
-    margin-left: 790px;
-    
-  }
-  .mail{
-    margin-left:790px;
-    
-  }
-  .name {
-    margin-left:790px ;
-    
-  }
+  
   .annuler:hover{
     background-color: #e0e0e0;
   }
@@ -590,3 +584,7 @@
     align-items: center;      /* New style to center vertically */
   }
   
+  .btn-grad:hover{
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  }
+ 

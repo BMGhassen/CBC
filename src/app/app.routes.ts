@@ -11,7 +11,7 @@ import { isSetAccessorDeclaration } from 'typescript';
 import { Msgadmin2Component } from './components/msgadmin2/msgadmin2.component';
 import { ContratComponent } from './components/contrat/contrat.component';
 import { ComptableComponent } from './components/comptable/comptable.component';
-
+import { MessagerieComponent } from './components/messagerie/messagerie.component';
 
  const routeConfig: Routes = [
     {path: '', component: HomeComponent, title: 'Home Page'},
@@ -24,7 +24,8 @@ import { ComptableComponent } from './components/comptable/comptable.component';
     {path:'msgadmin1', component:Msgadmin1Component},
     {path:'msgadmin2', component:Msgadmin2Component},
     {path:'contrat', component:ContratComponent},
-    {path:'Comptable', component:ComptableComponent}
+    {path:'Comptable', component:ComptableComponent},
+    {path:'messagerie', component: MessagerieComponent}
    ];
     //{path: 'adminDashboard', component: AdminDashboardComponent}
     // Inside adminDashboard component 

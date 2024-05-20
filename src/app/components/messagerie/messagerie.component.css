@@ -1,0 +1,13 @@
+.card{
+    margin: auto;
+    margin-bottom: 10px;
+    border-color:#cab64b ;
+  }
+  .card-header{
+    padding:2px;
+    background: linear-gradient(to left, #ad841f, #f2f0a1);
+  }
+  li{
+    padding:2px;
+    background: linear-gradient(to left, #002740, #005670);
+  }
