@@ -206,8 +206,10 @@ async deleteComptable(comptable: DocumentData) {
   // await deleteDoc("comptabeles",q1);
   console.log('Comptable deleted:', comptable);
 
+  const index = this.CompArray.findIndex(item => item['message'] === comptable['message']);
+  if (index > -1) {
+    this.CompArray.splice(index, 1);
+  }
 
-
-
-
+}
 }
