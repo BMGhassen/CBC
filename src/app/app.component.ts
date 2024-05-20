@@ -13,6 +13,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { Msgadmin1Component } from './components/msgadmin1/msgadmin1.component';
 import { Msgadmin2Component } from './components/msgadmin2/msgadmin2.component';
 import { collection, getDocs, getFirestore, query, where } from '@angular/fire/firestore';
+import { DataSharingService } from './DataSharingService';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +27,8 @@ import { collection, getDocs, getFirestore, query, where } from '@angular/fire/f
     ProfileComponent,
     DomicilicionComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  providers:[DataSharingService]
 })
 export class AppComponent implements OnInit{
   title = 'Cairus';

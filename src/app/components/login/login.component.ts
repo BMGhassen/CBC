@@ -9,6 +9,7 @@ import { Location } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
 import { collection, getDocs, getFirestore, query, where } from '@angular/fire/firestore';
 
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -28,7 +29,7 @@ export class LoginComponent{
     private fb: FormBuilder,
     private http: HttpClient,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
@@ -54,9 +55,8 @@ export class LoginComponent{
   nopwd=false;
   login=false;
 
-  
-  
   onSubmit(): void {
+    
     console.log('Form submitted');
     const rawform = this.form.getRawValue();
     const email = rawform.email.trim();
@@ -66,12 +66,13 @@ export class LoginComponent{
       .login(email,rawform.password.trim())
       .subscribe({
         next: (response) => {
-          
+          console.log(response!.user!.uid);
           const accessToken = response!.user!.accessToken;
           const user_uid = response!.user!.uid;
           localStorage.setItem('accessToken', accessToken);
           localStorage.setItem('user_uid', user_uid);
           this.router.navigateByUrl('/');
+          window.location.reload();
           this.isLoginInProgress = false;
         },
         error: (err:any) => {

@@ -118,14 +118,14 @@ export class DomicilicionComponent implements OnInit {
   nextFieldset(): void {
     
     console.log(this.isloggedIn);
-    if (this.FieldsetNumber < 4 && this.validateCurrentFieldset()) {
+    if (this.FieldsetNumber <= 4 && this.validateCurrentFieldset()) {
       this.nextset = false;
-      if (this.FieldsetNumber == 2  && this.isloggedIn == true) {
-        this.FieldsetNumber = 4;
-      } else {
+      // if (this.FieldsetNumber == 2  && this.isloggedIn == true) {
+      //   this.FieldsetNumber = 4;
+      // } else {
         this.FieldsetNumber++;
         console.log("next :" + this.FieldsetNumber)
-      } 
+      // } 
     }else {this.nextset = true;}
   }
 
@@ -226,6 +226,7 @@ export class DomicilicionComponent implements OnInit {
   submitForm(): void {
     this.saveData();
     // this.resetForm();
+    this.FieldsetNumber = 4;  
   }
  
 }
