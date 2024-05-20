@@ -2,7 +2,7 @@ import { Injectable, inject, signal } from "@angular/core";
 import { getAuth , Auth, browserLocalPersistence, browserSessionPersistence, createUserWithEmailAndPassword, setPersistence, signInWithEmailAndPassword, updateProfile, user } from "@angular/fire/auth";
 import { Observable, from } from "rxjs";
 import { UserInterface } from "./user.interface";
-
+import { deleteDoc, doc, getFirestore } from "@angular/fire/firestore";
 @Injectable({
     providedIn: 'root',
 })
@@ -11,6 +11,7 @@ export class AuthService {
     firebaseAuth = inject(Auth);
     user$ = user(this.firebaseAuth)
     currentUserSig = signal<UserInterface | null | undefined>(undefined)
+    
 
     register(email: string, username: string, password: string): Observable<any> {
         const promise = createUserWithEmailAndPassword(
@@ -46,4 +47,5 @@ export class AuthService {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('user_uid');
       }
+      
 }

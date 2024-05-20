@@ -18,35 +18,40 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 export class HeaderComponent implements OnInit{
   nompr = '';
   userId= '***';
+  admin=false;
+  isLoggedIn = false; 
   private usernameSubject = new BehaviorSubject<string>(this.nompr);
   username$ = this.usernameSubject.asObservable();
   
-  constructor(private authService: AuthService, private router: Router) {
-
-  } 
+  constructor(private authService: AuthService, private router: Router) {} 
   //localStorage.getItem('user_uid');
   async logout() {
     await this.authService.logout();
      // Redirect to login page
   }
 
+  refreshPage() {
+    window.location.reload();
+  }
+
    isAccessTokenSet(): boolean {
     return localStorage.getItem('accessToken') !== null;
   }
+
   async checkAdminOwner(): Promise<boolean> {
-    var ison=false;
-    const accessToken = localStorage.getItem('accessToken');
-    const db = getFirestore();
+      var ison=false;
+      const accessToken = localStorage.getItem('accessToken');
+      const db = getFirestore();
       const adminRef = collection(db, "Admin");
       const q = query(adminRef, where("owner", "==",localStorage.getItem('user_uid') ));
       const snapshot = await getDocs(q);
       snapshot.forEach((doc) => {
             ison=true;
       });
-      // console.log(snapshot);
-      // Check if any documents exist in the snapshot
+      this.admin=!snapshot.empty;
       return !snapshot.empty;
   }
+
   async DisplayUsername():Promise<void> {
 
     console.log('header'+localStorage.getItem('user_uid'));
@@ -68,6 +73,8 @@ export class HeaderComponent implements OnInit{
     // const isAdmin = await this.checkAdminOwner();
     // this.isadmin1 = isAdmin;
       }
+
+      
       isadmin1:Boolean | undefined;
    async ngOnInit():Promise<void> {
     console.log('***')

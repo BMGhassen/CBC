@@ -1,7 +1,7 @@
-<div class="container" style="margin: 70px">
+<div  class="container" style="margin: 70px">
 <section class="title" style="margin: 50px;">
     <div class="sectioner-header text-center">
-        <h3 class="" style="color: #005670;">Choisissez un parmis ces Offres pour s'inscrire</h3>
+        <h3 class=""  style="color: #005670;">Choisissez un parmis ces Offres pour s'inscrire</h3>
         <span class="line"></span>
     </div>
 </section>
@@ -57,10 +57,20 @@
               </li>
                 
             </ul>
-            <button class="btn btn-grad" (click)="navigateToPackDetails(blog.title)"  >Commander</button>
+            <button class="btn btn-grad"  (click)="navigateToPackDetails(blog.title)"  (click)="isLoggedIn()" (click)="checkAdminOwner">Commander</button>
           </div>
+          
         </div>
+        
       </div> 
+    </div>
+    <br>
+    <div class="row justify-content-center">
+      <div class="col">
+          <div *ngIf="loggedin " class="alert alert-danger alert-centered" role="alert">
+          <div  class="text-danger" style="text-align: center;font-size: large;">Erreur</div>
+        </div>
+      </div>
     </div>
 </section>
 </div>
