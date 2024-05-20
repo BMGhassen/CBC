@@ -35,6 +35,8 @@ export class AuthService {
                email,
                password,
            )/*.then(() => {})*/;
+           localStorage.getItem('accessToken');
+           localStorage.getItem('user_uid')
            return from(promise)
     }
 

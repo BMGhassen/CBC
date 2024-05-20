@@ -1,32 +1,32 @@
 <div class="main-container">
   <div class="row">
-    <div class="col-md-2" style="background:#ad841f" >
-      <div class="navcontainer" style="background: linear-gradient(to left, #ad841f, #f2f0a1); ">
+    <div class="col-md-2" >
+      <div class="navcontainer">
         <nav class="nav-admin">
           <div class="nav-upper-options">
             <div class="user-heading round">
               <a href="#">
                 <img src="assets/images/155864-OV9V61-628.jpg" alt="" class="user-image">
               </a>
-              <h1 class="nom" style="color: #000000;">{{prenom}} {{nom}}</h1>
-              <p class="email" style="color: #000000;">{{email}}</p>
+              <h1 class="nom" >{{prenom}} {{nom}}</h1>
+              <p class="email">{{email}}</p>
             </div>
-            <div class="nav-option option2" (click)=hideShow(1)>
-              <i class="fa-solid fa-circle-info fa-2xl" style="color: #000000;margin-left: 1%"></i>
-              <h3 class="x" style="color: #000000;"> Profil & Entreprise</h3>
+            <div class="nav-option" (click)=hideShow(1)>
+              <i class="fa-solid fa-circle-info fa-2xl white" ></i>
+              <h3 class="x"> Profil & Entreprise</h3>
             </div>
             <div class="nav-option" (click)=hideShow(2)>
-              <i class="fa-solid fa-envelopes-bulk fa-2xl" style="color: #000000;"></i>
-              <h3 class="x" style="color: #000000;"> Mes courriers</h3>
+              <i class="fa-solid fa-envelopes-bulk fa-2xl white" ></i>
+              <h3 class="x"> Mes courriers</h3>
             </div>
             
             <a class="nav-option" (click)=hideShow(3)>
-              <i class="fa-solid fa-file-signature fa-2xl" style="color: #000000;"></i>
-              <h3 class="x" style="color: #000000;"> Mon contrat </h3>
+              <i class="fa-solid fa-file-signature fa-2xl white"></i>
+              <h3 class="x" > Mon contrat </h3>
             </a>
             <a class="nav-option" (click)=hideShow(4)>
-              <i class="fa-solid fa-receipt fa-2xl" style="color: #000000;margin-left: 2%"></i>
-              <h3 class="x" style="color: #000000;"> Assistance comptable</h3>
+              <i class="fa-solid fa-receipt fa-2xl white"></i>
+              <h3 class="x"> Assistance comptable</h3>
             </a>
           </div>
         </nav>
@@ -97,11 +97,24 @@
           </div>
         </div>
     </div>
-    <div class="container" [hidden]="contrat">  
-        <app-contrat></app-contrat>
+    <div class="report-container" [hidden]="contrat">
+        <div class="row">
+          <div class="col">
+            <div class="report-header" >
+                <p style="font-weight: bold; text-decoration: underline; font-size: 15px;">
+                    Veuillez lire ce contrat attentivement, le télécharger et l'imprimer.
+                    Ensuite, contactez l'administration afin d'organizer un rendez-vous pour le signer.
+                  </p>
+              </div>
+            <div class="report-body">
+                <div class="container">  
+                    <app-contrat></app-contrat>
+                </div>
+            </div>
+          </div>
+        </div>
     </div>
     </div>
-
   </div>
- </div>
+</div>
   

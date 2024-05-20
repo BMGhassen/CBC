@@ -4,12 +4,13 @@ import { CommonModule } from '@angular/common';
 import {  collection, getFirestore } from "firebase/firestore";
 import {  query, where , getDocs} from '@angular/fire/firestore';
 import { AuthService } from '../../auth.service';
-import { BehaviorSubject, catchError, debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterModule ],
+  imports: [CommonModule, RouterModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
@@ -19,7 +20,10 @@ export class HeaderComponent implements OnInit{
   userId= '***';
   private usernameSubject = new BehaviorSubject<string>(this.nompr);
   username$ = this.usernameSubject.asObservable();
-  constructor(private authService: AuthService, private router: Router) { } 
+  
+  constructor(private authService: AuthService, private router: Router) {
+
+  } 
   //localStorage.getItem('user_uid');
   async logout() {
     await this.authService.logout();
@@ -44,6 +48,8 @@ export class HeaderComponent implements OnInit{
       return !snapshot.empty;
   }
   async DisplayUsername():Promise<void> {
+
+    console.log('header'+localStorage.getItem('user_uid'));
     const accessToken = localStorage.getItem('accessToken');
     const db=getFirestore();
     const clientRef = collection( db, "Clients");

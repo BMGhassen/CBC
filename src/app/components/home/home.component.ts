@@ -7,7 +7,7 @@ import { getFirestore, collection, where, getDocs,query, getCountFromServer } fr
 import { myCustomConstant } from '../../../gVar';
 import { OffresComponent } from '../offres/offres.component';
 import { BehaviorSubject } from 'rxjs';
-
+import { DataSharingService } from '../../DataSharingService';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -15,6 +15,7 @@ import { BehaviorSubject } from 'rxjs';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
+
 export class HomeComponent implements OnInit{
  
   ngOnInit(): void {
