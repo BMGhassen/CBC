@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject, ɵɵqueryRefresh } from '@angular/core';
-import { getFirestore, collection, where, getDocs, query, DocumentData, getCountFromServer, setDoc, doc, Firestore, addDoc, FirestoreModule, deleteDoc } from '@angular/fire/firestore';
+import { getFirestore, collection, where, getDocs, query, DocumentData, getCountFromServer, setDoc, doc,
+   Firestore, addDoc, FirestoreModule } from '@angular/fire/firestore';
+   import {deleteDoc} from "firebase/firestore"
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { Msgadmin1Component } from '../msgadmin1/msgadmin1.component';
 import { ComptableComponent } from '../comptable/comptable.component';
@@ -184,10 +186,17 @@ buttonsubmit (){
   this.submit=true;
 }
 async deleteComptable(comptable: DocumentData) {
-  const firestore = getFirestore();
-  const comptableRef = doc(firestore, 'comptables', comptable['cin']);
-
-  await deleteDoc(comptableRef);
+  const db=getFirestore();
+      const CompRef = collection(db,"comptables");
+      const q1 = query(CompRef, where("cin", "==", comptable['cin']));
+      const c1 = await getDocs(q1);
+      
+      c1.forEach((doc1) => {
+        const id=doc1.id;
+         deleteDoc(doc(db,"comptables",id));
+      });
+  
+  // await deleteDoc("comptabeles",q1);
   console.log('Comptable deleted:', comptable);
 
   // Remove the deleted comptable from CompArray

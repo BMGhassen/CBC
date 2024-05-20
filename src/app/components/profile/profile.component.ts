@@ -6,11 +6,12 @@ import firebase from '@angular/fire';
 import { initializeApp } from "firebase/app";
 import { ContactAdminComponent } from '../contact-admin/contact-admin.component';
 import { ContratComponent } from '../contrat/contrat.component';
+import { CourriersComponent } from '../courriers/courriers.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, RouterModule, ContactAdminComponent, RouterOutlet, ContratComponent],
+  imports: [CommonModule, RouterModule, ContactAdminComponent, RouterOutlet, ContratComponent, CourriersComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })

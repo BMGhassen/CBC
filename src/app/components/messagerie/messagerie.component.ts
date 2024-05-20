@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject, ɵɵqueryRefresh } from '@angular/core';
-import { getFirestore, collection, where, getDocs, query, DocumentData, getCountFromServer, setDoc, doc, Firestore, addDoc, FirestoreModule } from '@angular/fire/firestore';
+import { getFirestore, collection, where, getDocs, query, DocumentData, getCountFromServer, setDoc, doc, Firestore, addDoc, FirestoreModule, deleteDoc } from '@angular/fire/firestore';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { Msgadmin1Component } from '../msgadmin1/msgadmin1.component';
 import { ComptableComponent } from '../comptable/comptable.component';
@@ -25,5 +25,25 @@ export class MessagerieComponent implements OnInit{
       c3.forEach((doc) => {
         this.MsgArray.push(doc.data());
       });
+  }
+  async deleteMessage(msg: DocumentData) {
+        const db=getFirestore();
+        const MsgRef = collection(db,"contact");
+        const q = query(MsgRef, where("message", "==", msg['message']));
+        const c = await getDocs(q);
+        
+        c.forEach((doc1) => {
+          const id=doc1.id;
+           deleteDoc(doc(db,"comptables",id));
+        });
+    
+    // await deleteDoc("comptabeles",q1);
+    console.log('Comptable deleted:', msg);
+  
+    // Remove the deleted comptable from CompArray
+    const index = this.MsgArray.findIndex(item => item['message'] === msg['message']);
+    if (index > -1) {
+      this.MsgArray.splice(index, 1);
+    }
   }
 }

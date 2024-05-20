@@ -12,7 +12,7 @@ import { Msgadmin2Component } from './components/msgadmin2/msgadmin2.component';
 import { ContratComponent } from './components/contrat/contrat.component';
 import { ComptableComponent } from './components/comptable/comptable.component';
 import { MessagerieComponent } from './components/messagerie/messagerie.component';
-
+import { CourriersComponent } from './components/courriers/courriers.component';
  const routeConfig: Routes = [
     {path: '', component: HomeComponent, title: 'Home Page'},
     {path: 'login', component: LoginComponent},
@@ -25,7 +25,8 @@ import { MessagerieComponent } from './components/messagerie/messagerie.componen
     {path:'msgadmin2', component:Msgadmin2Component},
     {path:'contrat', component:ContratComponent},
     {path:'Comptable', component:ComptableComponent},
-    {path:'messagerie', component: MessagerieComponent}
+    {path:'messagerie', component: MessagerieComponent},
+    {path:'courriers', component: CourriersComponent}
    ];
     //{path: 'adminDashboard', component: AdminDashboardComponent}
     // Inside adminDashboard component 
