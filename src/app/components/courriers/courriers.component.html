@@ -1,3 +1,6 @@
-<div>
-    {{filelist}}
+<div *ngFor="let item3 of filelist; index as j">
+   <div> 
+    <p>{{item3}}</p>
+    <button (click)="downloadFile(item3)">tel</button>
+    </div>
 </div>

@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { getStorage, ref, listAll} from "firebase/storage";
 import { getAuth } from '@angular/fire/auth';
+
+
 @Component({
   selector: 'app-courriers',
   standalone: true,
@@ -38,30 +40,77 @@ export class CourriersComponent implements OnInit {
     this.getFileList(localStorage.getItem("user_uid")!);
     
   }
+user_id=localStorage.getItem('user_uid')
 
-  async getFileList(userId: string): Promise<string[]> {
+getFileList(userId: string) {
     const storage = getStorage(); // Get the storage instance
-    const fileList: string[] = []; // Array to store downloadable PDF URLs
-    console.log('waaaaaaaa'+ `clients/${userId}`)
-    try {
-      const listResult = await listAll(ref(storage, `${userId}`)); // List files from user's folder
+    const storageRef=ref(storage);
+    const listRef = ref(storage, 'clients/'+this.user_id);
+    console.log("*************" )
+    console.log(listRef )
+    console.log("*************" )
+// Find all the prefixes and items.
+listAll(listRef)
+  .then((res) => {
+    res.prefixes.forEach((folderRef) => {
+      // All the prefixes under listRef.
+      console.log(folderRef.name)
+      // You may call listAll() recursively on them.
+    });
+    res.items.forEach((itemRef) => {
+      // All the items under listRef.
+      console.log(itemRef.name)
+      this.filelist.push(itemRef.name);
+    });
+  }).catch((error) => {
+    // Uh-oh, an error occurred!
+  });
+    // const fileList: string[] = []; // Array to store downloadable PDF URLs
+    // console.log('waaaaaaaa'+ `clients/${userId}`)
+    // try {
+    //   const listResult = await listAll(ref(storage, `${userId}`)); // List files from user's folder
       
-      for (const item of listResult.items) {
-        const filename = item.name;
-        if (filename.endsWith('.pdf')) { // Filter for PDF files
+    //   for (const item of listResult.items) {
+    //     const filename = item.name;
+    //     if (filename.endsWith('.pdf')) { // Filter for PDF files
          
-          const downloadURL = await getDownloadURL(ref(storage, `${userId}/${filename}`));
-          fileList.push(downloadURL); // Add downloadable URL to list
-        }
-      }
+    //       const downloadURL = await getDownloadURL(ref(storage, `${userId}/${filename}`));
+    //       fileList.push(downloadURL); // Add downloadable URL to list
+    //     }
+    //   }
 
-      return fileList;
+    //   return fileList;
 
-    } catch (error) {
-      console.error('Error fetching files:', error);
-      // Handle errors appropriately (e.g., return empty list)
-      return [];
-    }
+    // } catch (error) {
+    //   console.error('Error fetching files:', error);
+    //   // Handle errors appropriately (e.g., return empty list)
+    //   return [];
+    // }
+  }
+  
+  downloadFile(fn: string){
+    const storage = getStorage();
+    console.log('/clients/'+this.user_id+'/'+fn)
+getDownloadURL(ref(storage, 'clients/'+this.user_id+'/'+fn))
+  .then((url) => {
+    // `url` is the download URL for 'images/stars.jpg'
+
+    // This can be downloaded directly:
+    const xhr = new XMLHttpRequest();
+    xhr.responseType = 'blob';
+    xhr.onload = (event) => {
+      const blob = xhr.response;
+    };
+    xhr.open('GET', url);
+    xhr.send();
+
+    // Or inserted into an <img> element
+    // const img = document.getElementById('myimg');
+    // img.setAttribute('src', url);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
   }
 
 //This is the function you call (put it in ngOnInit or something of the like) to get the filenames
