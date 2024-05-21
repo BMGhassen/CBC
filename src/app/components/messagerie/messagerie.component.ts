@@ -43,23 +43,19 @@ export class MessagerieComponent implements OnInit{
   }
 
   async deleteMessage(msg: DocumentData) {
-        const db=getFirestore();
-        const MsgRef = collection(db,"contact");
-        const q = query(MsgRef, where("message", "==", msg['message']));
-        const c = await getDocs(q);
-        
-        c.forEach((doc1) => {
-          const id=doc1.id;
-           deleteDoc(doc(db,"comptables",id));
-        });
-    
-    // await deleteDoc("comptabeles",q1);
-    console.log('Comptable deleted:', msg);
+    try {
+      const db = getFirestore();
+      const msgRef = collection(db, "contact");
+      const q = query(msgRef, where("message", "==", msg['message']));
   
-    // Remove the deleted comptable from CompArray
-    const index = this.MsgArray.findIndex(item => item['message'] === msg['message']);
-    if (index > -1) {
-      this.MsgArray.splice(index, 1);
+      const snapshot = await getDocs(q);
+      snapshot.forEach((doc) => {
+        deleteDoc(doc.ref); // Delete the document directly from the snapshot
+      });
+  
+      console.log('Message deleted:', msg);
+    } catch (error) {
+      console.error('Error deleting message:', error);
     }
   }
 }

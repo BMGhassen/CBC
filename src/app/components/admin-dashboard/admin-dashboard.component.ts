@@ -74,8 +74,8 @@ export class AdminDashboardComponent implements OnInit{
       
     }
 
-  info = false;
-  msg = true;
+  
+  msg = false;
   comptable = true;
   client = true;
   hideShow(x: number): void {
@@ -84,7 +84,7 @@ export class AdminDashboardComponent implements OnInit{
      this.msg = true;
     
     if (x == 1)
-      { this.info = false;}
+      { }
     else if(x == 2)
       {this.msg =false;}
     else if(x == 3)
