@@ -29,6 +29,7 @@ export class DomicilicionComponent implements OnInit {
   isloggedIn: Boolean;
   offre='';
   tt='';
+  mdpnot=false;
   constructor(private location: Location, private fb: FormBuilder, private route: ActivatedRoute) {
     this.FieldsetNumber = 1;
     this.user = localStorage.getItem('user_uid');
@@ -84,10 +85,11 @@ export class DomicilicionComponent implements OnInit {
       Adresse: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       mdp: ['', Validators.required],
+      confirmmdp:['', Validators.required],
       terms: [false, Validators.requiredTrue],
-      pack: ['', Validators.required], // Required field
-      Raison_Sociale: ['', Validators.required], // Required field
-      Forme_Juridique: ['', Validators.required], // Required field
+      pack: ['', Validators.required], 
+      Raison_Sociale: ['', Validators.required], 
+      Forme_Juridique: ['', Validators.required], 
       Matricule_Fiscale: ['', [Validators.required, Validators.pattern(/^\d{7}[a-z][abpnd][mncp]\d{3}$/i)]]
     })
 
@@ -104,12 +106,18 @@ export class DomicilicionComponent implements OnInit {
         // Check for required fields in fieldset 2
         return (this.domiciliationForm.get('Forme_Juridique')?.valid ?? false) &&
                 (this.domiciliationForm.get('Raison_Sociale')?.valid ?? false) &&
-                (this.domiciliationForm.get('Matricule_Fiscale')?.valid ?? false)
+                (this.domiciliationForm.get('Matricule_Fiscale')?.valid ?? false) ;
   
       case 3:
-        // Check for all fields in fieldset 3 (all have validators)
-        return this.domiciliationForm.valid;
-  
+        
+        return (this.domiciliationForm.get('Nom')?.valid ?? false) && 
+               (this.domiciliationForm.get('Prénom')?.valid ?? false) &&
+               (this.domiciliationForm.get('Cin')?.valid ?? false) &&
+               (this.domiciliationForm.get('Tel')?.valid ?? false) &&
+               (this.domiciliationForm.get('Adresse')?.valid ?? false) &&
+               (this.domiciliationForm.get('email')?.valid ?? false) &&
+               (this.domiciliationForm.get('mdp')?.valid ?? false) &&
+               (this.domiciliationForm.get('confirmmdp')?.valid ?? false) ;
       default:
         return true; // No validation for other fieldsets
     }
@@ -227,6 +235,15 @@ export class DomicilicionComponent implements OnInit {
     this.saveData();
     // this.resetForm();
     this.FieldsetNumber = 4;  
+  }
+  checkPasswordMatch(): boolean {
+    const pwd = this.domiciliationForm.value.mdp;
+    const confirmpwd = this.domiciliationForm.value.confirmmdp;
+    if(!(pwd === confirmpwd))
+      {
+        this.mdpnot=true;
+      }
+    return pwd === confirmpwd;
   }
  
 }
