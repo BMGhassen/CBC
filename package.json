@@ -27,6 +27,7 @@
     "cli-spinners": "^2.9.2",
     "color-convert": "^2.0.1",
     "cors": "^2.8.5",
+    "firebase": "^10.9.0",
     "firebase-admin": "^12.1.0",
     "html2canvas": "^1.4.1",
     "is-plain-object": "^5.0.0",

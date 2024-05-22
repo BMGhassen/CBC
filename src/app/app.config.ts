@@ -13,7 +13,6 @@ import firebase from "firebase/app";
 const firebaseConfig = {
   apiKey: "AIzaSyBqQo-r1JjNhMiGXU9TuIIhd4QlO4dbXjc",
  authDomain: "cairusbc.firebaseapp.com",
- 
   projectId: "cairusbc",
   storageBucket: "cairusbc.appspot.com",
   messagingSenderId: "65055148934",
