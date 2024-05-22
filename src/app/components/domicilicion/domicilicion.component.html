@@ -126,6 +126,16 @@
                                         <div *ngIf="domiciliationForm?.get('mdp')?.hasError('required') && nextset" class="text-danger">
                                             Mot de passe est obligatoire
                                         </div>
+                                        <div *ngIf="domiciliationForm?.get('mdp')?.hasError('required') && nextset" class="text-danger">
+                                            Les mots de passe entrés ne correspondent pas
+                                        </div>
+                                        <input type="password" formControlName="confirmmdp" placeholder="Confirmer votre Mot de passe" required/>
+                                        <div *ngIf="domiciliationForm?.get('mdp')?.hasError('required') && nextset && mdpnot " class="text-danger">
+                                            Mot de passe est obligatoire
+                                        </div>
+                                        <div *ngIf="domiciliationForm?.get('mdp')?.hasError('required') && nextset && mdpnot " class="text-danger">
+                                            les mots de passe entrés ne correspondent pas
+                                        </div>
                                     </div>
                                 </div>
                                 <button type="button"  (click)="prevFieldset()" class=" action-button"><i class="fa-solid fa-arrow-left"></i> Précédent</button>
