@@ -95,7 +95,7 @@
             <div class="row justify-content-center">
               <div class="col-md-6">
                 <label for="name" style="font-weight: bold;color: #ffffff; display: block;">Nom & Prénom</label>
-                <input type="text" id="name" formControlName="name" id="name" placeholder="&nbsp; &nbsp; Nom & Prénom">
+                <input type="text" id="name" formControlName="name" placeholder="&nbsp; &nbsp; Nom & Prénom">
                 <br>
                 <div *ngIf="adminForm?.get('name')?.hasError('required') && submit " class="alert alert-danger alert-centered" role="alert" style="width:400px ; text-align: 30px;padding-left: 10px;">
                   <small class="text-danger" >Veuillez saisir un Nom & Prénom</small>

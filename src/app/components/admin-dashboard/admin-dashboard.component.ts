@@ -28,7 +28,7 @@ export class AdminDashboardComponent implements OnInit{
   emailexist=false;
   prenom = null;
   nom = null;
-  constructor(private fb: FormBuilder,) {}
+  constructor(private fb: FormBuilder,private auth: AuthService) {}
  
 
 
@@ -146,7 +146,7 @@ export class AdminDashboardComponent implements OnInit{
         'Nom & Prénom': this.adminForm.value.name,
         'tel': this.adminForm.value.tel,
         'mail': this.adminForm.value.mail,
-         'mdp': this.adminForm.value.mdp 
+        'mdp': this.adminForm.value.mdp, 
       }
       await addDoc(comptableCollection, newComptable);
       
@@ -197,7 +197,7 @@ async deleteComptable(comptable: DocumentData) {
       const CompRef = collection(db,"comptables");
       const q1 = query(CompRef, where("cin", "==", comptable['cin']));
       const c1 = await getDocs(q1);
-      
+      const snapshot = await getDocs(q1);
       c1.forEach((doc1) => {
         const id=doc1.id;
          deleteDoc(doc(db,"comptables",id));
@@ -206,7 +206,7 @@ async deleteComptable(comptable: DocumentData) {
   // await deleteDoc("comptabeles",q1);
   console.log('Comptable deleted:', comptable);
 
-  const index = this.CompArray.findIndex(item => item['message'] === comptable['message']);
+  const index = this.CompArray.findIndex(item => item['cin'] === comptable['cin']);
   if (index > -1) {
     this.CompArray.splice(index, 1);
   }

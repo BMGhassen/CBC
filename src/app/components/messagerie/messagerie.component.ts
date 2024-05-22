@@ -57,5 +57,9 @@ export class MessagerieComponent implements OnInit{
     } catch (error) {
       console.error('Error deleting message:', error);
     }
+    const index = this.MsgArray.findIndex(item => item['message'] === msg['message']);
+  if (index > -1) {
+    this.MsgArray.splice(index, 1);
+  }
   }
 }
