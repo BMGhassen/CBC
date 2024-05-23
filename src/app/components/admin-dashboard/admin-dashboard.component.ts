@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject, ɵɵqueryRefresh } from '@angular/core';
-
+import { Component, Inject, OnInit, inject, ɵɵqueryRefresh } from '@angular/core';
 import { getFirestore, collection, where, getDocs, query, DocumentData,getCountFromServer, setDoc, doc, Firestore, addDoc, FirestoreModule, deleteDoc, getDoc } from '@angular/fire/firestore';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { Msgadmin1Component } from '../msgadmin1/msgadmin1.component';
@@ -8,6 +7,11 @@ import { ComptableComponent } from '../comptable/comptable.component';
 import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../auth.service';
 import { MessagerieComponent } from '../messagerie/messagerie.component';
+import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/compat/storage';
+import firebase from 'firebase/app';
+import 'firebase/storage';
+import { getStorage, ref, uploadBytes } from 'firebase/storage';
+
 @Component({
     selector: 'app-admin-dashboard',
     standalone: true,
@@ -15,9 +19,13 @@ import { MessagerieComponent } from '../messagerie/messagerie.component';
     styleUrl: './admin-dashboard.component.css',
     imports: [CommonModule, RouterOutlet,FirestoreModule, RouterModule, 
               Msgadmin1Component,ComptableComponent,FormsModule, 
-              ReactiveFormsModule, MessagerieComponent,]
+              ReactiveFormsModule, MessagerieComponent,AngularFireStorageModule]
 })
 export class AdminDashboardComponent implements OnInit{
+  [x: string]: any;
+  storageRef: any; // Reference to Firebase Storage
+  file: File | null = null;
+  uploadTask: any; // Upload task reference
   firestore: Firestore = inject(Firestore); 
   authService = inject(AuthService);
   exist=false;
@@ -29,7 +37,25 @@ export class AdminDashboardComponent implements OnInit{
   prenom = null;
   nom = null;
   constructor(private fb: FormBuilder,private auth: AuthService) {}
- 
+
+  async uploadFile(userId: string, event:any) {
+    const file = event.target.files[0];
+    const storage = getStorage(); // Get the storage instance
+    const storageRef = ref(storage, 'clients/'+userId+'/'+file.name);
+    console.log(file.name);
+    try {
+        // Upload the file
+        // await uploadString(ghostFile, '')
+        await uploadBytes(storageRef, file);
+        console.log('File uploaded successfully:', file.name);
+        // You may want to do something after successful upload
+    } catch (error) {
+        console.error('Error uploading file:', error);
+        // Handle upload error
+    }
+}
+
+
 
 
   adminForm : FormGroup = this.fb.group({

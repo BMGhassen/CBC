@@ -10,6 +10,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import "firebase/compat/storage";
 import firebase from "firebase/app";
 
+
+
 const firebaseConfig = {
   apiKey: "AIzaSyBqQo-r1JjNhMiGXU9TuIIhd4QlO4dbXjc",
  authDomain: "cairusbc.firebaseapp.com",

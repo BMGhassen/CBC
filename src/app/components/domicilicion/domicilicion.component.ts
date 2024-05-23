@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Firestore, FirestoreModule, doc, getFirestore, setDoc, where } from '@angular/fire/firestore';
 import { collection } from 'firebase/firestore';
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, Inject, Input, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../auth.service';
@@ -9,7 +9,8 @@ import { Location } from '@angular/common';
 import { HomeComponent } from '../home/home.component';
 import { myCustomConstant } from '../../../gVar';
 import {  getDocs,query, getCountFromServer } from '@angular/fire/firestore';
-import { AbstractControl } from '@angular/forms';
+import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { getStorage, ref, uploadString } from 'firebase/storage';
 
 @Component({
   selector: 'app-domicilicion',
@@ -22,6 +23,7 @@ export class DomicilicionComponent implements OnInit {
   firestore: Firestore = inject(Firestore); 
   authService = inject(AuthService);
   router = inject(Router);
+  // angularFireStorage= inject(AngularFireStorage);
   nextset=false;
   FieldsetNumber: number;
   price=0;
@@ -235,13 +237,75 @@ export class DomicilicionComponent implements OnInit {
       'offre':'this.offre',
     })
   }
+  async createFolderForClient(ownerUid: string) {
+    // Get a reference to the Firebase Storage service
+    const storage = getStorage();
+
+    // Construct the path for the folder
+    const folderPath = 'clients/'+ownerUid+'/';
+    console.log(folderPath)
+    // Create a reference to the folder
+    const folderRef = ref(storage, folderPath);
+    const ghostFile = ref(folderRef, '.ghostfile')
+        
+    try {
+        // Upload a dummy file to create the folder
+        await uploadString(ghostFile, '')
+
+        console.log('Folder created successfully');
+
+        return true; // Return true to indicate success
+    } catch (error) {
+        console.error('Error creating folder:', error);
+        throw error; // Re-throw the error for handling in the component
+    }
+}
+
+  // async createFolderForClient(ownerUid: string) {
+  //   const storageRef = this.angularFireStorage.ref(`clients/${ownerUid}`);
   
+  //   // Check if folder already exists (optional)
+  //   // try {
+  //   //   await storageRef.listAll().toPromise();
+  //   //   console.log('Folder already exists');
+  //   // } catch (error) {
+  //   //   if (error.code === 'storage/object-not-found') {
+  //   //     console.log('Creating folder...');
+  //   //   } else {
+  //   //     console.error('Error checking folder:', error);
+  //   //     throw error;
+  //   //   }
+  //   // }
+  
+  //   // Create the folder (folder creation is implicit when uploading a file)
+  //   try {
+  //     await storageRef.put(null); // Uploading an empty file creates the folder
+  //     console.log('Folder created successfully');
+  //   } catch (error) {
+  //     console.error('Error creating folder:', error);
+  //     throw error; // Re-throw the error for handling in the component
+  //   }
+  
+  //   // Save your data to Firestore with ownerUid
+  //   // ... your Firestore logic to save data with ownerUid
+  
+  //   return true; // Or handle success/failure differently
+  // }
+
   async submitForm(): Promise<void> {
     await this.saveData();
+    const ownerUid = this.user; // Replace with the actual ownerUid
+    try {
+      await this.createFolderForClient(ownerUid);
+      console.log('Folder created successfully');
+    } catch (error) {
+      console.error('Error creating folder:', error);
+      // Handle error gracefully (e.g., display error message to user)
+    }
     if(this.success == true){
     this.FieldsetNumber = 4;
     }// this.resetForm();
-    this.success = true;  
+    
   }
   
 }

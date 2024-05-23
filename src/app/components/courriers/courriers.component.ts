@@ -24,7 +24,7 @@ export class CourriersComponent implements OnInit {
   filelist: string[] = [];
   async ngOnInit(): Promise<void> {
     
-    this.getFileList(localStorage.getItem("user_uid")!);
+    this.getFileList(this.user_id!);
     
   }
 user_id=localStorage.getItem('user_uid')

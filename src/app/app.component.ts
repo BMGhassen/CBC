@@ -14,6 +14,7 @@ import { Msgadmin1Component } from './components/msgadmin1/msgadmin1.component';
 import { Msgadmin2Component } from './components/msgadmin2/msgadmin2.component';
 import { collection, getDocs, getFirestore, query, where } from '@angular/fire/firestore';
 import { DataSharingService } from './DataSharingService';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +26,8 @@ import { DataSharingService } from './DataSharingService';
     FooterComponent, 
     HeaderComponent, 
     ProfileComponent,
-    DomicilicionComponent],
+    DomicilicionComponent,
+  AngularFireStorageModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   providers:[DataSharingService]
