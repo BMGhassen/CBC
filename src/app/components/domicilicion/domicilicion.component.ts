@@ -9,6 +9,7 @@ import { Location } from '@angular/common';
 import { HomeComponent } from '../home/home.component';
 import { myCustomConstant } from '../../../gVar';
 import {  getDocs,query, getCountFromServer } from '@angular/fire/firestore';
+import { AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-domicilicion',
@@ -85,15 +86,18 @@ export class DomicilicionComponent implements OnInit {
       Adresse: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       mdp: ['', Validators.required],
-      confirmmdp:['', Validators.required],
+      // confirmmdp:['', Validators.required],
       terms: [false, Validators.requiredTrue],
       pack: ['', Validators.required], 
       Raison_Sociale: ['', Validators.required], 
       Forme_Juridique: ['', Validators.required], 
       Matricule_Fiscale: ['', [Validators.required, Validators.pattern(/^\d{7}[a-z][abpnd][mncp]\d{3}$/i)]]
     })
-
-   
+    showPassword = false;
+    togglePasswordVisibility() {
+      this.showPassword = !this.showPassword;
+    }
+    
   
   private validateCurrentFieldset(): boolean {
     // Check validity of current fieldset based on FieldsetNumber
@@ -128,12 +132,10 @@ export class DomicilicionComponent implements OnInit {
     console.log(this.isloggedIn);
     if (this.FieldsetNumber <= 4 && this.validateCurrentFieldset()) {
       this.nextset = false;
-      // if (this.FieldsetNumber == 2  && this.isloggedIn == true) {
-      //   this.FieldsetNumber = 4;
-      // } else {
+      
         this.FieldsetNumber++;
         console.log("next :" + this.FieldsetNumber)
-      // } 
+      
     }else {this.nextset = true;}
   }
 
@@ -173,7 +175,8 @@ export class DomicilicionComponent implements OnInit {
     console.log(this.price);
      return prixprix;
   }
-  async saveData(): Promise<void> {
+  success = false;
+  async saveData(): Promise<Boolean> {
 
     if (this.isloggedIn === false && !this.user) {
       const response = await this.authService.register(
@@ -187,6 +190,7 @@ export class DomicilicionComponent implements OnInit {
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('user_uid', userUid);
       this.user = userUid;
+      
     }
     
     const ClientCollection = collection(this.firestore, 'Clients');
@@ -211,6 +215,7 @@ export class DomicilicionComponent implements OnInit {
       console.log("hedhy t'executi 2 " + this.user)
     }
     console.log("hedhy t'executi 3 " + this.user)
+    return this.success = true;
   }
 
   resetForm(): void {
@@ -230,20 +235,13 @@ export class DomicilicionComponent implements OnInit {
       'offre':'this.offre',
     })
   }
-
-  submitForm(): void {
-    this.saveData();
-    // this.resetForm();
-    this.FieldsetNumber = 4;  
+  
+  async submitForm(): Promise<void> {
+    await this.saveData();
+    if(this.success == true){
+    this.FieldsetNumber = 4;
+    }// this.resetForm();
+    this.success = true;  
   }
-  checkPasswordMatch(): boolean {
-    const pwd = this.domiciliationForm.value.mdp;
-    const confirmpwd = this.domiciliationForm.value.confirmmdp;
-    if(!(pwd === confirmpwd))
-      {
-        this.mdpnot=true;
-      }
-    return pwd === confirmpwd;
-  }
- 
+  
 }

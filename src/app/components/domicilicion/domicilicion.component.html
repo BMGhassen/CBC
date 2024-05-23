@@ -122,26 +122,30 @@
                                         <div *ngIf="domiciliationForm?.get('email')?.hasError('email') && nextset" class="text-danger">
                                             Format incorrect
                                         </div>
-                                        <input type="password" formControlName="mdp" placeholder="Mot de passe" required/>
+                                        <div class="password-container">
+                                            <input class="form-control" type="{{ showPassword ? 'text' : 'password' }}" formControlName="mdp" placeholder="Mot de passe" required/>
+                                            <i class="fa fa-eye password-icon" (click)="togglePasswordVisibility()" [ngClass]="{ 'fa-eye-slash': showPassword }"></i>
+                                        </div>
                                         <div *ngIf="domiciliationForm?.get('mdp')?.hasError('required') && nextset" class="text-danger">
                                             Mot de passe est obligatoire
                                         </div>
-                                        <div *ngIf="domiciliationForm?.get('mdp')?.hasError('required') && nextset" class="text-danger">
+                                        <!-- <div *ngIf="domiciliationForm?.get('mdp')?.hasError('required') && nextset" class="text-danger">
                                             Les mots de passe entrés ne correspondent pas
                                         </div>
                                         <input type="password" formControlName="confirmmdp" placeholder="Confirmer votre Mot de passe" required/>
-                                        <div *ngIf="domiciliationForm?.get('mdp')?.hasError('required') && nextset && mdpnot " class="text-danger">
-                                            Mot de passe est obligatoire
+                                        <div *ngIf="domiciliationForm?.get('confirmmdp')?.hasError('required') && nextset " class="text-danger">
+                                           Confirmation du Mot de passe est obligatoire
                                         </div>
-                                        <div *ngIf="domiciliationForm?.get('mdp')?.hasError('required') && nextset && mdpnot " class="text-danger">
-                                            les mots de passe entrés ne correspondent pas
-                                        </div>
+                                        <div *ngIf="domiciliationForm.get('confirmmdp')?.errors?.['passwordMismatch'] && nextset" class="text-danger">
+                                            Les mots de passe entrés ne correspondent pas.
+                                        </div> -->
+                                        
                                     </div>
                                 </div>
                                 <button type="button"  (click)="prevFieldset()" class=" action-button"><i class="fa-solid fa-arrow-left"></i> Précédent</button>
                                 <button type="button"  (click)="nextFieldset();submitForm()" class=" action-button">Submit <i class="fa-solid fa-arrow-right"></i></button>
                             </fieldset>
-                            <fieldset  [ngStyle]="{ 'display': FieldsetNumber === 4 ? 'block' : 'none', 
+                            <fieldset *ngIf="success" [ngStyle]="{ 'display': FieldsetNumber === 4 ? 'block' : 'none', 
                             'opacity': FieldsetNumber === 4 ? '1' : '0' }">
                                 <div class="form-card">
                                     <h2 class="fs-title text-center">Success !</h2>
@@ -155,6 +159,7 @@
                                     <div class="row justify-content-center">
                                         <div class="col-7 text-center">
                                             <h5>You Have Successfully Signed Up</h5>
+                                            <p>Vous trouverez votre contrat dans votre profil. </p>
                                         </div>
                                     </div>
                                 </div>
